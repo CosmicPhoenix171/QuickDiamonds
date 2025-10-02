@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -42,19 +42,26 @@
     td.nowrap{text-align:left}
 
     .chips{display:flex; flex-wrap:wrap; gap:6px; justify-content:flex-start}
-    .chip{background:var(--chip); border:1px solid var(--chip-border); padding:4px 8px; border-radius:999px; font-size:12px; color:#c6d3e6; white-space:nowrap}
-    .chip::after{
-  content:"";
-  margin-left:6px;
-  color:#9fb0c8;
-  font-size:11px;
-  opacity:0;
-  transition:opacity .2s;
-}
-.chip:hover::after{
-  content:attr(data-percent);
-  opacity:1;
-}
+    .chip{
+      background:var(--chip); border:1px solid var(--chip-border);
+      padding:4px 8px; border-radius:999px; font-size:12px; color:#c6d3e6;
+      white-space:nowrap;
+      position:relative; /* keep this */
+    }
+
+    /* swap name → % on hover/tap */
+    .chip[data-percent]:hover{ color:transparent; }
+    .chip[data-percent]:hover::before{
+      content: attr(data-percent);
+      position:absolute; left:50%; top:50%;
+      transform: translate(-50%, -50%);
+      white-space:nowrap; pointer-events:none;
+      color:#c6d3e6; font-size:inherit;
+    }
+    /* touch support */
+    .chip[data-percent]:active{ color:transparent; }
+    .chip[data-percent]:active::before{ content: attr(data-percent); }
+    }
     .class{font-weight:700; color:var(--accent)}
     .sex{white-space:nowrap; min-width:70px; text-align:center}
     .hint{color:#8ea3bb; font-size:12px; margin-top:8px}
@@ -472,20 +479,12 @@ function buildClassOptions(){
 function formatVariants(list){
   if (!list || !list.length) return '';
   return '<div class="chips">' + list.map(v => {
-    // pull "Name 12.5%" into name + percent
-    const m = v.match(/^(.*?)(\s+([\d.]+)%)$/);
+    // split "Name 12.5%" into name + percent (grabs the first % it sees)
+    const m = v.match(/^(.*?)(\s+([\d.]+)%)/);
     let name = v, percentText = '', val = null;
-    if (m) {
-      name = m[1].trim();
-      percentText = m[2].trim();     // "12.5%"
-      val = parseFloat(m[3]);        // 12.5
-    }
+    if (m) { name = m[1].trim(); percentText = m[2].trim(); val = parseFloat(m[3]); }
 
-    // rarity classes (your rules)
-    // Ultra Rare: 0.9% and down
-    // Rare: 1%–5%
-    // Uncommon: 6%–11%
-    // Common: 12% and up
+    // Ultra ≤0.9, Rare 1–5, Uncommon 6–11, Common ≥12
     let extra = '';
     if (val !== null) {
       if (val <= 0.9) extra = ' r-ultra';
@@ -494,7 +493,8 @@ function formatVariants(list){
       else if (val >= 12) extra = ' r-bronze';
     }
 
-    return `<span class="chip${extra}" data-percent="${percentText}">${name}</span>`;
+    const attr = percentText ? ` data-percent="${percentText}"` : '';
+    return `<span class="chip${extra}"${attr}>${name}</span>`;
   }).join('') + '</div>';
 }
 
