@@ -43,6 +43,18 @@
 
     .chips{display:flex; flex-wrap:wrap; gap:6px; justify-content:flex-start}
     .chip{background:var(--chip); border:1px solid var(--chip-border); padding:4px 8px; border-radius:999px; font-size:12px; color:#c6d3e6; white-space:nowrap}
+    .chip::after{
+  content:"";
+  margin-left:6px;
+  color:#9fb0c8;
+  font-size:11px;
+  opacity:0;
+  transition:opacity .2s;
+}
+.chip:hover::after{
+  content:attr(data-percent);
+  opacity:1;
+}
     .class{font-weight:700; color:var(--accent)}
     .sex{white-space:nowrap; min-width:70px; text-align:center}
     .hint{color:#8ea3bb; font-size:12px; margin-top:8px}
@@ -460,17 +472,29 @@ function buildClassOptions(){
 function formatVariants(list){
   if (!list || !list.length) return '';
   return '<div class="chips">' + list.map(v => {
-    let extra = '';
-    // Try to extract a percentage value like "0.9%" → 0.9
-    const match = v.match(/([\d.]+)%/);
-    if (match) {
-      const val = parseFloat(match[1]); // numeric %
-      if (val <= 0.1) extra = ' r-ultra';         // 0.9% and down
-      else if (val >= 0.1 && val <= 1) extra = ' r-rare'; // 1–5%
-      else if (val >= 1 && val <= 10) extra = ' r-silver'; // 6–11%
-      else if (val >= 10) extra = ' r-bronze';   // 12% and up
+    // pull "Name 12.5%" into name + percent
+    const m = v.match(/^(.*?)(\s+([\d.]+)%)$/);
+    let name = v, percentText = '', val = null;
+    if (m) {
+      name = m[1].trim();
+      percentText = m[2].trim();     // "12.5%"
+      val = parseFloat(m[3]);        // 12.5
     }
-    return `<span class="chip${extra}">${v}</span>`;
+
+    // rarity classes (your rules)
+    // Ultra Rare: 0.9% and down
+    // Rare: 1%–5%
+    // Uncommon: 6%–11%
+    // Common: 12% and up
+    let extra = '';
+    if (val !== null) {
+      if (val <= 0.9) extra = ' r-ultra';
+      else if (val >= 1 && val <= 5) extra = ' r-rare';
+      else if (val >= 6 && val <= 11) extra = ' r-silver';
+      else if (val >= 12) extra = ' r-bronze';
+    }
+
+    return `<span class="chip${extra}" data-percent="${percentText}">${name}</span>`;
   }).join('') + '</div>';
 }
 
