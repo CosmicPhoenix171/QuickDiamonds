@@ -460,13 +460,16 @@ function buildClassOptions(){
 function formatVariants(list){
   if (!list || !list.length) return '';
   return '<div class="chips">' + list.map(v => {
-    // style by rough rarity keywords if present
-    const low = v.toLowerCase();
     let extra = '';
-    if (low.includes('0.1%') || low.includes('0.05%')) extra = ' r-ultra';
-    else if (low.includes('0.2%') || low.includes('0.3%') || low.includes('0.4%') || low.includes('1%') || low.includes('2%') || low.includes('5%')) extra = ' r-rare';
-    else if (low.includes('6%') || low.includes('7%') || low.includes('8%') || low.includes('9%') || low.includes('10%') || low.includes('12%') || low.includes('15%') || low.includes('20%') || low.includes('24%')) extra = ' r-silver';
-    else if (low.includes('25%') || low.includes('30%') || low.includes('33') || low.includes('37') || low.includes('49') || low.includes('74')) extra = ' r-bronze';
+    // Try to extract a percentage value like "0.9%" → 0.9
+    const match = v.match(/([\d.]+)%/);
+    if (match) {
+      const val = parseFloat(match[1]); // numeric %
+      if (val <= 0.9) extra = ' r-ultra';         // 0.9% and down
+      else if (val >= 1 && val <= 5) extra = ' r-rare'; // 1–5%
+      else if (val >= 6 && val <= 11) extra = ' r-silver'; // 6–11%
+      else if (val >= 12) extra = ' r-bronze';   // 12% and up
+    }
     return `<span class="chip${extra}">${v}</span>`;
   }).join('') + '</div>';
 }
