@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Hunter Diamonds — Local Web App</title>
+  <title>Hunter Diamonds — Quick Reference</title>
   <style>
     :root{
       --bg:#0b0f14; --card:#121821; --muted:#7f8a9a; --text:#e7edf5; --accent:#5cc8ff; --accent-2:#9bffd6;
@@ -17,20 +17,12 @@
     h1{font-size:clamp(20px,2.2vw,28px); margin:0 0 6px}
     .sub{color:var(--muted); font-size:13px}
 
-    .layout{max-width:1200px; margin:16px auto; display:grid; grid-template-columns: 280px 1fr; gap:14px; padding:0 16px}
-    aside{background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden}
+    /* Single-column layout (sidebar removed) */
+    .layout{max-width:1200px; margin:16px auto; display:grid; grid-template-columns: 1fr; gap:14px; padding:0 16px}
+    #sidebar{display:none}
     main{min-height:60vh}
 
-    .group{border-bottom:1px solid #0f1722}
-    .group h3{margin:0; padding:10px 14px; font-size:12px; text-transform:uppercase; letter-spacing:.08em; color:#9fb0c7; background:#0f1621}
-    .map-item{display:flex; flex-direction:column; gap:2px; padding:10px 12px; cursor:pointer; border-bottom:1px solid rgba(255,255,255,.03)}
-    .map-item:last-child{border-bottom:none}
-    .map-name{font-weight:600}
-    .map-region{color:#8ea3bb; font-size:12px}
-    .map-item:hover{background:#0f1622}
-    .map-item.active{background:#0f1b2a; outline:1px solid #1f2b3b}
-
-    .controls{display:grid; grid-template-columns: 1fr 170px 170px; gap:10px; margin-bottom:12px}
+    .controls{display:grid; grid-template-columns: 220px 1fr 170px 170px; gap:10px; margin-bottom:12px}
     .controls input, .controls select{background:#0e1520; color:var(--text); border:1px solid #1d2734; border-radius:10px; padding:10px 12px; outline:none; font-size:14px}
     .controls input::placeholder{color:#708095}
 
@@ -68,42 +60,40 @@
     .legend{margin-top:8px; display:flex; flex-wrap:wrap; gap:8px; align-items:center}
     .legend strong{margin-right:6px}
 
-    @media (max-width: 980px){.layout{grid-template-columns: 1fr;}aside{position:relative}}
-    @media (max-width: 840px){.controls{grid-template-columns: 1fr 1fr}.controls select:last-child{grid-column:1/-1}thead th:nth-child(5), tbody td:nth-child(5){display:none}}
-  /* Column sizing */
+    /* Column sizing */
     thead th:nth-child(1), tbody td:nth-child(1){width:60px; text-align:center}
-    thead th:nth-child(2), tbody td:nth-child(2){min-width:180px; text-align:left}
-    thead th:nth-child(3), tbody td:nth-child(3){width:110px; text-align:center}
-    thead th:nth-child(4), tbody td:nth-child(4){width:110px; text-align:right}
+    thead th:nth-child(2), tbody td:nth-child(2){min-width:200px; text-align:left}
+    thead th:nth-child(3), tbody td:nth-child(3){width:130px; text-align:center}
+    thead th:nth-child(4), tbody td:nth-child(4){width:130px; text-align:right}
     thead th:nth-child(5), tbody td:nth-child(5){min-width:170px; text-align:left}
-    thead th:nth-child(6), tbody td:nth-child(6){min-width:140px; text-align:center}
-    thead th:nth-child(7), tbody td:nth-child(7){width:80px; text-align:center}
-    thead th:nth-child(8), tbody td:nth-child(8){min-width:260px;}
+    thead th:nth-child(6), tbody td:nth-child(6){width:90px; text-align:center}
+    thead th:nth-child(7), tbody td:nth-child(7){min-width:260px;}
+
+    @media (max-width: 980px){
+      .controls{grid-template-columns: 1fr 1fr}
+    }
   </style>
 </head>
 <body>
   <header>
-  <div class="wrap" style="display:flex; align-items:center; justify-content:space-between;">
-    <div>
-      <h1>Hunter Diamonds — Quick Reference</h1>
-      <div class="sub">Pick a map on the left. The selected map’s table appears in the center. Fully offline.</div>
+    <div class="wrap" style="display:flex; align-items:center; justify-content:space-between;">
+      <div>
+        <h1>Hunter Diamonds — Quick Reference</h1>
+        <div class="sub">Pick a map with the dropdown. Selected map’s table appears below. Fully offline.</div>
+      </div>
+      <a href="guns.html"
+         style="background:#5cc8ff; color:#0b0f14; padding:8px 16px; border-radius:8px; font-weight:600; text-decoration:none; box-shadow:0 2px 6px rgba(0,0,0,.4);">
+        🔫 Guns & Ammo
+      </a>
     </div>
-    <a href="guns.html" 
-       style="background:#5cc8ff; color:#0b0f14; padding:8px 16px; border-radius:8px; font-weight:600; text-decoration:none; box-shadow:0 2px 6px rgba(0,0,0,.4);">
-       🔫 Guns & Ammo
-    </a>
-  </div>
   </header>
 
-
   <div class="layout">
-    <aside id="sidebar">
-      <div class="group"><h3>Base Game Maps</h3><div id="base-list"></div></div>
-      <div class="group"><h3>🦌 DLC Maps (Reserves)</h3><div id="dlc-list"></div></div>
-    </aside>
+    <!-- (Sidebar removed; we build from dropdown) -->
 
     <main>
       <div class="controls">
+        <select id="mapSelect"><option value="">Select map…</option></select>
         <input id="search" type="search" placeholder="Search animals, variants, notes…"/>
         <select id="classFilter"><option value="">All Classes</option></select>
         <select id="sexFilter">
@@ -120,16 +110,11 @@
             <div class="card-title" id="panel-title">Select a map</div>
             <div class="card-sub" id="panel-sub">—</div>
           </div>
-          <div class="hint">Click a column header to sort. Last sort & filters are remembered.</div>
+          <div class="hint">Click a column header to sort. Last selection & filters are remembered.</div>
         </div>
-        <div id="panel-body"><div class="empty">Choose a map from the left to load its species table.</div></div>
+        <div id="panel-body"><div class="empty">Choose a map from the dropdown to load its species table.</div></div>
       </div>
 
-      <div class="card" style="margin-top:20px; padding:16px;">
-  <h2>Other Resources</h2>
-  <a href="guns.html">🔫 Guns & Ammo Reference</a>
-      </div>
-      
       <footer>
         <div class="legend">
           <strong>Legend:</strong>
@@ -143,316 +128,224 @@
   </div>
 
   <script>
-// ===== Species master data =====
-const SPECIES = [
-  // ——— Layton Lake District ———
-  { class:1, animal:"Mallard Duck", maxDifficulty:"9 (Legendary)", diamond:19.63, basis:"Weight-based (Body)", minWeight:"1.6 kg / 3.5 lbs", sex:"M / F", variants:["Brown 80%","Dark 10%","Grey 5%","Melanistic 1%","Albino 0.1%","Piebald 0.1%"], maps:["layton"] },
-  { class:2, animal:"Coyote", maxDifficulty:"9 (Legendary)", diamond:61.86, basis:"Weight-based (Body)", minWeight:"25 kg / 55 lbs", sex:"M / F", variants:["Brown 85%","Dark Brown 10%","Grey 3%","Melanistic 1%","Blonde 0.1%","Albino 0.1%"], maps:["layton"] },
-  { class:4, animal:"Whitetail Deer", maxDifficulty:"5 (Medium)", diamond:255.09, basis:"Organ-based (Antlers)", minWeight:"–", sex:"M", variants:["Brown 90%","Tan 5%","Grey 3%","Dark Brown 5%","Piebald 1%","Melanistic 0.2%","Albino 0.1%"], maps:["layton"] },
-  { class:4, animal:"Blacktail Deer", maxDifficulty:"5 (Medium)", diamond:182.25, basis:"Organ-based (Antlers)", minWeight:"–", sex:"M", variants:["Brown 85%","Dark Brown 10%","Tan 3%","Piebald 1%","Melanistic 0.2%","Albino 0.1%"], maps:["layton"] },
-  { class:7, animal:"Black Bear", maxDifficulty:"9 (Legendary)", diamond:22.80, basis:"Organ-based (Skull)", minWeight:"–", sex:"M / F", variants:["Brown 75%","Cinnamon 10%","Dark 10%","Grey 3%","Melanistic 1%","Albino 0.1%"], maps:["layton"] },
-  { class:8, animal:"Roosevelt Elk", maxDifficulty:"9 (Legendary)", diamond:380.84, basis:"Organ-based (Antlers)", minWeight:"–", sex:"M", variants:["Brown 80%","Light Brown 10%","Dark Brown 5%","Grey 3%","Fabled Piebald 1%","Melanistic 0.2%","Albino 0.1%"], maps:["layton"] },
-  { class:8, animal:"Moose", maxDifficulty:"9 (Legendary)", diamond:274.99, basis:"Organ-based (Antlers)", minWeight:"–", sex:"M", variants:["Brown 85%","Light Brown 10%","Dark Brown 3%","Grey 1%","Melanistic 0.2%","Albino 0.1%"], maps:["layton"] },
-
-  // ——— Hirschfelden ———
-  { class:1, animal:"Ring-Necked Pheasant", maxDifficulty:"9 (Legendary)", diamond:20.29, basis:"Weight-based (Body)", minWeight:"1.4 kg / 3.1 lbs", sex:"M / F", variants:["Albino 0.1%","Melanistic 0.2%","Leucistic 0.2%","Grey 3%","Brown 10%","Dark 20%","Common 66%"], maps:["hirsch"] },
-  { class:1, animal:"Canada Goose", maxDifficulty:"9 (Legendary)", diamond:8.50, basis:"Weight-based (Body)", minWeight:"8.5 kg / 18.7 lbs", sex:"M / F", variants:["Albino 0.1%","Melanistic 0.2%","Light Grey Leucistic 0.1%","Bald Leucistic 0.1%","Grey 0.4%","Brown Hybrid 14.2%","Gray-Brown 85%"], maps:["hirsch"] },
-  { class:2, animal:"Red Fox", maxDifficulty:"9 (Legendary)", diamond:14.05, basis:"Weight-based (Body)", minWeight:"14 kg / 31 lbs", sex:"M / F", variants:["Albino 0.1%","Melanistic 0.2%","Piebald 1%","Cross 5%","Pale 10%","Common 83%"], maps:["hirsch"] },
-  { class:2, animal:"European Rabbit", maxDifficulty:"9 (Legendary)", diamond:2.37, basis:"Weight-based (Body)", minWeight:"2.3 kg / 5 lbs", sex:"M / F", variants:["Albino 0.1%","Leucistic 0.2%","Melanistic 0.2%","Light Grey 0.4%","Light Brown 12%","Brown 12%","Dark Brown 37%","Tan 37%"], maps:["hirsch"] },
-  { class:3, animal:"Roe Deer", maxDifficulty:"5 (Medium)", diamond:81.86, basis:"Organ-based (Antlers)", minWeight:"–", sex:"M", variants:["Albino 0.1%","Melanistic 0.2%","Piebald 1%","Grey 5%","Dark Brown 10%","Brown 83%"], maps:["hirsch"] },
-  { class:4, animal:"Fallow Deer", maxDifficulty:"5 (Medium)", diamond:251.07, basis:"Organ-based (Antlers)", minWeight:"–", sex:"M", variants:["Albino 0.1%","Melanistic 0.2%","Piebald 1%","White 5%","Menil 10%","Spotted 20%","Common 63%"], maps:["hirsch"] },
-  { class:4, animal:"Wild Boar", maxDifficulty:"5 (Medium)", diamond:144.25, basis:"Weight-based (Body)", minWeight:"120 kg / 265 lbs", sex:"M / F", variants:["Albino 0.1%","Melanistic 0.2%","Piebald 1%","Light Brown 10%","Brown 20%","Dark 69%"], maps:["hirsch"] },
-  { class:6, animal:"Red Deer", maxDifficulty:"9 (Legendary)", diamond:251.07, basis:"Organ-based (Antlers)", minWeight:"–", sex:"M", variants:["Albino 0.1%","Melanistic 0.2%","Piebald 1%","Grey 5%","Dark Brown 10%","Brown 83%"], maps:["hirsch"] },
-  { class:9, animal:"European Bison", maxDifficulty:"9 (Legendary)", diamond:127.62, basis:"Weight-based (Body)", minWeight:"580 kg / 1278 lbs", sex:"M / F", variants:["Albino 0.05%","Melanistic 0.05%","Piebald 0.20%","Light Brown 33%","Brown 33%","Dark Brown 33%"], maps:["hirsch"] },
-
-  // ——— Medved-Taiga ———
-  { class:1, animal:"Western Capercaillie", maxDifficulty:"3 (Very Easy)", diamond:4.64, basis:"Combined (Weight/Features)", minWeight:"–", sex:"M / F", variants:["Leucistic 0.09%","Pale 0.04%","Bright 12.53%","Ochre 12.53%","Brown 74.88%","Dark 99.82%"], maps:["medved"] },
-  { class:2, animal:"Siberian Musk Deer", maxDifficulty:"3 (Very Easy)", diamond:249.00, basis:"Organ-based (Tusks)", minWeight:"–", sex:"M", variants:["Albino 0.1%","Melanistic 0.1%","Piebald 0.2%","Dark Brown 49.85%","Grey Brown 49.85%","Orange 49.85%"], maps:["medved"] },
-  { class:3, animal:"Eurasian Lynx", maxDifficulty:"9 (Legendary)", diamond:27.68, basis:"Organ-based (Skull)", minWeight:"–", sex:"M / F", variants:["Albino 0.1%","Melanistic 0.1%","Piebald 0.2%","Grey 49.85%","Light Brown 49.85%"], maps:["medved"] },
-  { class:5, animal:"Wild Boar", maxDifficulty:"5 (Medium)", diamond:144.25, basis:"Weight-based (Body)", minWeight:"120 kg / 265 lbs", sex:"M / F", variants:["Albino 0.1%","Melanistic 0.1%","Black Gold 0.2%","Dark Brown 33.23%","Light Brown 33.23%","Brown 33.23%"], maps:["medved"] },
-  { class:6, animal:"Gray Wolf", maxDifficulty:"9 (Legendary)", diamond:39.00, basis:"Organ-based (Skull)", minWeight:"–", sex:"M / F", variants:["Albino 0.05%","Melanistic 0.05%","Dark Grey 0.07%","Egg White 0.07%","Red Brown 0.07%","Grey 49.85%","Brown 49.85%"], maps:["medved"] },
-  { class:6, animal:"Mountain Reindeer", maxDifficulty:"5 (Medium)", diamond:430.23, basis:"Organ-based (Antlers)", minWeight:"–", sex:"M", variants:["Albino 0.05%","Melanistic 0.05%","Leucistic 0.1%","Piebald 0.1%","Brown 49.85%","Tan 49.85%","Dark Brown 49.85%","Light Brown 49.85%"], maps:["medved"] },
-  { class:7, animal:"Eurasian Brown Bear", maxDifficulty:"9 (Legendary)", diamond:27.70, basis:"Organ-based (Skull)", minWeight:"–", sex:"M / F", variants:["Albino 0.1%","Melanistic 0.2%","Blonde 5%","Dark Brown 5%","Gold 5%","Grey 5%","Spirit 5%","Cinnamon 24.9%","Light Brown 24.9%","Red Brown 24.9%"], maps:["medved"] },
-  { class:8, animal:"Moose", maxDifficulty:"9 (Legendary)", diamond:274.99, basis:"Organ-based (Antlers)", minWeight:"–", sex:"M", variants:["Albino 0.05%","Melanistic 0.05%","Piebald 0.2%","Brown 33.23%","Light Brown 33.23%","Tan 33.23%","Dark Brown 33.23%"], maps:["medved"] },
-
-  // ——— Vurhonga Savanna ———
-  { class:6, animal:"Blue Wildebeest", maxDifficulty:"5 (Medium)", diamond:37.69, basis:"Organ-based (Horns/Skull)", minWeight:"–", sex:"M / F", variants:["Albino 0.05%","Melanistic 0.05%","Piebald 0.20%","LightBrown 33%","Brown 33%","DarkBrown 33%"], maps:["vurhonga"] },
-  { class:9, animal:"Cape Buffalo", maxDifficulty:"9 (Legendary)", diamond:151.35, basis:"Organ-based (Horns/Skull)", minWeight:"–", sex:"M / F", variants:["Albino 0.05%","Melanistic 0.05%","Leucistic 0.20%","Brown 33%","DarkBrown 33%","Black 33%"], maps:["vurhonga"] },
-  { class:1, animal:"Eurasian Wigeon", maxDifficulty:"3 (Very Easy)", diamond:905.00, basis:"Weight-based (Body)", minWeight:"0.90 kg / 2.0 lbs", sex:"M / F", variants:["Albino 0.05%","Leucistic 0.20%","Piebald 0.20%","Grey 10%","Brown 30%","Dark 30%","Common 30%"], maps:["vurhonga"] },
-  { class:6, animal:"Gemsbok", maxDifficulty:"5 (Medium)", diamond:337.59, basis:"Organ-based (Horns)", minWeight:"–", sex:"M / F", variants:["Albino 0.05%","Melanistic 0.05%","Leucistic 0.20%","Tan 30%","Brown 30%","Grey 39.7%"], maps:["vurhonga"] },
-  { class:4, animal:"Lesser Kudu", maxDifficulty:"5 (Medium)", diamond:151.64, basis:"Organ-based (Horns)", minWeight:"–", sex:"M", variants:["Albino 0.05%","Melanistic 0.05%","Piebald 0.20%","DarkBrown 30%","LightBrown 30%","Grey 39.7%"], maps:["vurhonga"] },
-  { class:9, animal:"Lion", maxDifficulty:"9 (Legendary)", diamond:48.50, basis:"Organ-based (Skull)", minWeight:"–", sex:"M / F", variants:["Albino 0.05%","Melanistic 0.05%","Blonde 20%","DarkBrown 25%","LightBrown 25%","Tan 29.9%"], maps:["vurhonga"] },
-  { class:1, animal:"Scrub Hare", maxDifficulty:"3 (Very Easy)", diamond:5.37, basis:"Weight-based (Body)", minWeight:"5.30 kg / 11.7 lbs", sex:"M / F", variants:["Albino 0.05%","Leucistic 0.20%","LightBrown 30%","DarkBrown 30%","Tan 39.7%"], maps:["vurhonga"] },
-  { class:2, animal:"Side-Striped Jackal", maxDifficulty:"9 (Legendary)", diamond:29.10, basis:"Organ-based (Skull)", minWeight:"–", sex:"M / F", variants:["Albino 0.05%","Melanistic 0.05%","Leucistic 0.20%","Grey 30%","Brown 30%","DarkBrown 39.7%"], maps:["vurhonga"] },
-  { class:3, animal:"Springbok", maxDifficulty:"5 (Medium)", diamond:78.55, basis:"Organ-based (Horns)", minWeight:"–", sex:"M / F", variants:["Albino 0.05%","Melanistic 0.05%","Leucistic 0.20%","Orange 30%","Brown 30%","Tan 39.7%"], maps:["vurhonga"] },
-  { class:4, animal:"Warthog", maxDifficulty:"5 (Medium)", diamond:58.19, basis:"Organ-based (Tusks/Skull)", minWeight:"–", sex:"M / F", variants:["Albino 0.05%","Melanistic 0.05%","Leucistic 0.20%","LightBrown 30%","Brown 30%","Dark 39.7%"], maps:["vurhonga"] },
-
-  // ——— Parque Fernando ———
-  { class:3, animal:"Axis Deer", maxDifficulty:"5 (Medium)", diamond:217.29, basis:"Organ-based (Antlers)", minWeight:"–", sex:"M", variants:["Albino 0.06%","Melanistic 0.06%","Piebald 0.23%","Dark 14.29%","Spotted 85.37%"], maps:["parque"] },
-  { class:3, animal:"Blackbuck", maxDifficulty:"5 (Medium)", diamond:28.20, basis:"Organ-based (Horns)", minWeight:"–", sex:"M", variants:["Melanistic 0.10%","Leucistic 0.10%","Dark 49.90%","Black 49.90%"], maps:["parque"] },
-  { class:1, animal:"Cinnamon Teal", maxDifficulty:"3 (Very Easy)", diamond:4.60, basis:"Weight-based (Body)", minWeight:"0.47 kg / 1.0 lbs", sex:"M / F", variants:["Melanistic 0.10%","Piebald 12.53%","Red 12.53%","Cinnamon 74.85%"], maps:["parque"] }, 
-  { class:3, animal:"Collared Peccary", maxDifficulty:"5 (Medium)", diamond:144.20, basis:"Organ-based (Tusks/Skull)", minWeight:"–", sex:"M / F", variants:["Albino 0.05%","Melanistic 0.05%","Leucistic 0.10%","Ochre 0.10%","DarkGrey 12.50%","DarkBrown 12.50%","Grey 37.35%","Brown 37.35%"], maps:["parque"] }, 
-  { class:5, animal:"Mule Deer", maxDifficulty:"5 (Medium)", diamond:314.80, basis:"Organ-based (Antlers)", minWeight:"–", sex:"M", variants:["Albino 0.02%","Leucistic 0.02%","Melanistic 0.02%","Piebald 0.10%","Dilute 0.20%","Grey 24.98%","Blonde 37.32%","Brown 37.32%"], maps:["parque"] }, 
-  { class:5, animal:"Puma", maxDifficulty:"9 (Legendary)", diamond:39.00, basis:"Organ-based (Skull)", minWeight:"–", sex:"M / F", variants:["Albino 0.05%","Melanistic 0.05%","DarkRed 12.50%","Grey 12.50%","LightBrown 74.90%"], maps:["parque"] }, 
-  { class:6, animal:"Red Deer", maxDifficulty:"9 (Legendary)", diamond:251.07, basis:"Organ-based (Antlers)", minWeight:"–", sex:"M", variants:["Albino 0.05%","Melanistic 0.05%","Piebald 0.20%","LightBrown 33.23%","DarkBrown 33.23%","Brown 33.23%"], maps:["parque"] },
-  { class:9, animal:"Water Buffalo", maxDifficulty:"9 (Legendary)", diamond:167.50, basis:"Organ-based (Horns/Skull)", minWeight:"–", sex:"M / F", variants:["Albino 0.13%","Orange 0.26%","Black 3.23%","Grey 96.39%"], maps:["parque"] },
- 
-  // ——— Yukon Valley ———
-  { class:1, animal:"Canada Goose", maxDifficulty:"5 (Medium)", diamond:8.59, basis:"Weight-based (Body)", minWeight:"8.59 kg / 18.9 lbs", sex:"M / F", variants:["GrayBrown 74.90%","Grey 25.00%","WhiteHybrid 0.02%","Melanistic 0.02%","Leucistic 0.02%","BrownHybrid 0.02%","Albino 0.02%"], maps:["yukon"] }, 
-  { class:1, animal:"Harlequin Duck", maxDifficulty:"3 (Very Easy)", diamond:7.23, basis:"Weight-based (Body)", minWeight:"0.70 kg / 1.54 lbs", sex:"M / F", variants:["DarkGrey 74.85%","Piebald 25.05%","Melanistic 0.05%","Albino 0.05%"], maps:["yukon"] },
-  { class:2, animal:"Red Fox", maxDifficulty:"9 (Legendary)", diamond:14.05, basis:"Weight-based (Body)", minWeight:"14.00 kg / 30.9 lbs", sex:"M / F", variants:["Red 33.23%","Orange 33.23%","DarkRed 33.23%","Piebald 0.20%","Melanistic 0.05%","Albino 0.05%"], maps:["yukon"] },
-  { class:6, animal:"Gray Wolf", maxDifficulty:"9 (Legendary)", diamond:39.00, basis:"Organ-based (Skull)", minWeight:"–", sex:"M / F", variants:["Grey 49.85%","Brown 49.85%","RedBrown 0.07%","Eggwhite 0.07%","DarkGrey 0.07%","MelanisticCC 0.03%","Melanistic 0.03%","Albino 0.03%","Acromelanistic 0.03%"], maps:["yukon"] },
-  { class:6, animal:"Caribou", maxDifficulty:"5 (Medium)", diamond:430.23, basis:"Organ-based (Antlers)", minWeight:"–", sex:"M / F", variants:["LightBrown 49.85%","DarkBrown 49.85%","Piebald 0.20%","Melanistic 0.03%","Leucistic 0.03%","Albino 0.03%"], maps:["yukon"] },
-  { class:8, animal:"Grizzly Bear", maxDifficulty:"9 (Legendary)", diamond:66.94, basis:"Organ-based (Skull)", minWeight:"–", sex:"M / F", variants:["GrayBrown 99.70%","Brown 0.20%","Melanistic 0.05%","Albino 0.05%"], maps:["yukon"] }, 
-  { class:8, animal:"Moose", maxDifficulty:"5 (Medium)", diamond:274.99, basis:"Organ-based (Antlers)", minWeight:"–", sex:"M", variants:["Tan 33.23%","LightBrown 33.23%","Brown 33.23%","Piebald 0.20%","Melanistic 0.05%","Albino 0.05%"], maps:["yukon"] }, 
-  { class:9, animal:"Plains Bison", maxDifficulty:"5 (Medium)", diamond:183.50, basis:"Organ-based (Skull)", minWeight:"–", sex:"M / F", variants:["LightGrey 28.55%","LightBrown 28.55%","Dark 21.41%","Brown 21.41%","Melanistic 0.03%","Leucistic 0.03%","Albino 0.03%"], maps:["yukon"] },
-
-// ——— Cuatro Colinas ———
-{ class:4, animal:"Beceite Ibex", maxDifficulty:"5 (Medium)", diamond:191.63, basis:"Organ-based (Horns)", minWeight:"110 kg / 242 lbs", sex:"♂", variants:["Gray 24.9%","Gray-Brown 25%","Orange 24.9%","Brown Hybrid 24.9%","Melanistic 0.2%","Albino 0.1%"], maps:["cuatro"] },
-{ class:4, animal:"Gredos Ibex", maxDifficulty:"5 (Medium)", diamond:100.17, basis:"Organ-based (Horns)", minWeight:"102 kg / 224 lbs", sex:"♂", variants:["Gray-Brown 25%","Gray 24.9%","Orange 24.9%","Brown Hybrid 24.9%","Melanistic 0.2%","Albino 0.1%"], maps:["cuatro"] },
-{ class:4, animal:"Ronda Ibex", maxDifficulty:"5 (Medium)", diamond:107.98, basis:"Organ-based (Horns)", minWeight:"70 kg / 154 lbs", sex:"♂", variants:["Brown 25%","Gray 24.9%","Gray-Brown 24.9%","Brown Hybrid 24.9%","Melanistic 0.2%","Albino 0.1%"], maps:["cuatro"] },
-{ class:4, animal:"Southeastern Spanish Ibex", maxDifficulty:"5 (Medium)", diamond:89.68, basis:"Organ-based (Horns)", minWeight:"87.5 kg / 192 lbs", sex:"♂", variants:["Brown Hybrid 25%","Gray-Brown 24.9%","Light Grey 24.9%","Orange 24.9%","Melanistic 0.2%","Albino 0.1%"], maps:["cuatro"] },
-{ class:4, animal:"Iberian Mouflon", maxDifficulty:"5 (Medium)", diamond:179.56, basis:"Organ-based (Horns)", minWeight:"60 kg / 132 lbs", sex:"⚥", variants:["Brown 33.1%","Brown2 33.1%","Light Brown 33.1%","Grey 0.4%","Melanistic 0.2%","Albino 0.1%"], maps:["cuatro"] },
-{ class:6, animal:"Iberian Wolf", maxDifficulty:"9 (Legendary)", diamond:39.00, basis:"Organ-based (Skull)", minWeight:"50 kg / 110 lbs", sex:"⚥", variants:["Gray-Brown 73.9%","Gray 24.6%","Olive 0.4%","Winter 0.4%","Pristine 0.4%","Melanistic 0.2%","Albino 0.1%"], maps:["cuatro"] },
-{ class:6, animal:"Red Deer", maxDifficulty:"9 (Legendary)", diamond:251.07, basis:"Organ-based (Antlers)", minWeight:"–", sex:"♂", variants:["Light Brown 33.1%","Dark Brown 33.1%","Brown 33.1%","Piebald 0.4%","Melanistic 0.2%","Albino 0.1%"], maps:["cuatro"] },
-{ class:4, animal:"Roe Deer", maxDifficulty:"5 (Medium)", diamond:81.86, basis:"Organ-based (Antlers)", minWeight:"–", sex:"♂", variants:["Brown 33.1%","Dark Brown 33.1%","Dark Grey 33.1%","Piebald 0.4%","Melanistic 0.2%","Albino 0.1%"], maps:["cuatro"] },
-{ class:4, animal:"Ring-Necked Pheasant", maxDifficulty:"9 (Legendary)", diamond:20.29, basis:"Weight-based (Body)", minWeight:"1.4 kg / 3.1 lbs", sex:"⚥", variants:["White & Brown 37.4%","Brown 37.4%","Gray 12.5%","Molting 12.4%","Melanistic 0.2%","Leucistic 0.2%","Albino 0.1%"], maps:["cuatro"] },
-{ class:5, animal:"Wild Boar", maxDifficulty:"5 (Medium)", diamond:144.25, basis:"Weight-based (Body)", minWeight:"120 kg / 265 lbs", sex:"⚥", variants:["Light Brown1 33.1%","Light Brown2 33.1%","Brown 33.1%","Blackgold 0.4%","Melanistic 0.2%","Albino 0.1%"], maps:["cuatro"] },
-{ class:1, animal:"European Hare", maxDifficulty:"3 (Very Easy)", diamond:6.50, basis:"Weight-based (Body)", minWeight:"7 kg / 15.4 lbs", sex:"⚥", variants:["Light Brown 24.97%","Grey 24.97%","Dark Brown 24.97%","Brown 24.97%","Melanistic 0.05%","Albino 0.05%"], maps:["cuatro"] },
-
-// ——— Silver Ridge Peaks ———
-{ class:5, animal:"Bighorn Sheep", maxDifficulty:"5 (Medium)", diamond:196.64, basis:"Organ-based (Horns)", minWeight:"–", sex:"⚥", variants:["Brown 75.1%","Grey-Brown 8.3%","Bronze 8.3%","Black 8.2%","Albino 0.1%"], maps:["silverridge"] },
-{ class:7, animal:"Black Bear", maxDifficulty:"9 (Legendary)", diamond:22.80, basis:"Organ-based (Skull)", minWeight:"–", sex:"⚥", variants:["Black 32.4%","Dark 32.3%","Dusky 32.3%","Blonde 1%","Brown 1%","Cinnamon 1%"], maps:["silverridge"] },
-{ class:1, animal:"Merriam Turkey", maxDifficulty:"3 (Very Easy)", diamond:4.62, basis:"Combined (Weight/Features)", minWeight:"–", sex:"⚥", variants:["Brown 49.5%","Dark Brown 49.4%","Light Brown 0.8%","Melanistic 0.2%","Leucistic 0.2%","Albino 0.1%"], maps:["silverridge"] },
-{ class:4, animal:"Mountain Goat", maxDifficulty:"5 (Medium)", diamond:107.67, basis:"Organ-based (Horns)", minWeight:"–", sex:"⚥", variants:["White 25%","Beige 24.9%","Light Grey 24.9%","Light Brown 24.9%","Melanistic 0.2%","Albino 0.1%"], maps:["silverridge"] },
-{ class:5, animal:"Mountain Lion", maxDifficulty:"9 (Legendary)", diamond:39.00, basis:"Organ-based (Skull)", minWeight:"–", sex:"⚥", variants:["Light Brown 75%","Dark Red 12.4%","Grey 12.4%","Melanistic 0.2%","Albino 0.1%"], maps:["silverridge"] },
-{ class:5, animal:"Mule Deer", maxDifficulty:"5 (Medium)", diamond:312.17, basis:"Organ-based (Antlers)", minWeight:"–", sex:"♂", variants:["Brown 33.8%","Blonde 33.8%","Grey 22.3%","Dilute 0.4%","Piebald 0.4%","Melanistic 0.2%","Albino 0.1%"], maps:["silverridge"] },
-{ class:9, animal:"Plains Bison", maxDifficulty:"5 (Medium)", diamond:183.50, basis:"Organ-based (Skull)", minWeight:"–", sex:"⚥", variants:["Brown 24.9%","Light Brown 24.9%","Dark 24.9%","Light Grey 24.8%","Melanistic 0.2%","Leucistic 0.2%","Albino 0.1%"], maps:["silverridge"] },
-{ class:3, animal:"Pronghorn", maxDifficulty:"5 (Medium)", diamond:98.02, basis:"Organ-based (Horns)", minWeight:"–", sex:"⚥", variants:["Tan 37.3%","Brown 37.3%","Dark 24.6%","Piebald 0.5% ♂ / 0.3% ♀","Leucistic 0.2%","Albino 0.1%"], maps:["silverridge"] },
-{ class:7, animal:"Rocky Mountain Elk", maxDifficulty:"5 (Medium)", diamond:481.41, basis:"Organ-based (Antlers)", minWeight:"–", sex:"♂", variants:["Light Brown 37.4%","Brown 37.4%","Light Grey 37.4%","Piebald 0.4%","Albino 0.1%"], maps:["silverridge"] },
-
-// ——— Te Awaroa National Park ———
-{ class:6, animal:"Chamois", maxDifficulty:"5 (Medium)", diamond:58.30, basis:"Organ-based (Horns)", minWeight:"–", sex:"⚥", variants:["Brown 37.4%","Light Brown 37.4%","Tan 24.9%","Melanistic 0.2%","Albino 0.1%"], maps:["teawaroa"] },
-{ class:3, animal:"Feral Goat", maxDifficulty:"5 (Medium)", diamond:208.70, basis:"Organ-based (Horns)", minWeight:"–", sex:"⚥", variants:["Black 25%","Brown 25%","Light Brown 25%","White 24.9%","Melanistic 0.2%","Albino 0.1%"], maps:["teawaroa"] },
-{ class:4, animal:"Feral Pig", maxDifficulty:"5 (Medium)", diamond:144.25, basis:"Weight-based (Body)", minWeight:"120 kg / 265 lbs", sex:"⚥", variants:["Light Brown 33.1%","Dark Brown 33.1%","Brown 33.1%","Black Gold 0.4%","Melanistic 0.2%","Albino 0.1%"], maps:["teawaroa"] },
-{ class:6, animal:"Red Deer", maxDifficulty:"9 (Legendary)", diamond:251.07, basis:"Organ-based (Antlers)", minWeight:"–", sex:"♂", variants:["Light Brown 33.1%","Dark Brown 33.1%","Brown 33.1%","Piebald 0.4%","Melanistic 0.2%","Albino 0.1%"], maps:["teawaroa"] },
-{ class:8, animal:"Sambar Deer", maxDifficulty:"9 (Legendary)", diamond:252.20, basis:"Organ-based (Antlers)", minWeight:"–", sex:"♂", variants:["Brown 49.8%","Dark Brown 49.8%","Melanistic 0.3%","Albino 0.1%"], maps:["teawaroa"] },
-{ class:3, animal:"Turkey", maxDifficulty:"3 (Very Easy)", diamond:4.62, basis:"Combined (Weight/Features)", minWeight:"–", sex:"⚥", variants:["Brown 49.5%","Dark Brown 49.4%","Light Brown 0.8%","Melanistic 0.2%","Leucistic 0.2%","Albino 0.1%"], maps:["teawaroa"] },
-{ class:1, animal:"European Rabbit", maxDifficulty:"3 (Very Easy)", diamond:2.37, basis:"Weight-based (Body)", minWeight:"2.3 kg / 5 lbs", sex:"⚥", variants:["Dark Brown 37%","Tan 37%","Light Brown 12%","Brown 12%","Light Grey 0.4%","Melanistic 0.2%","Leucistic 0.2%","Albino 0.1%"], maps:["teawaroa"] },
-{ class:2, animal:"Feral Cat", maxDifficulty:"9 (Legendary)", diamond:27.65, basis:"Weight-based (Body)", minWeight:"8 kg / 17.6 lbs", sex:"⚥", variants:["Black 49.5%","Grey 49.5%","Melanistic 0.5%","Albino 0.5%"], maps:["teawaroa"] },
-
-// ——— Rancho del Arroyo ———
-{ class:3, animal:"Collared Peccary", maxDifficulty:"5 (Medium)", diamond:144.20, basis:"Organ-based (Tusks/Skull)", minWeight:"–", sex:"⚥", variants:["Brown 37.4%","Dark Brown 37.4%","Grey 24.9%","Ochre 0.1%","Melanistic 0.1%","Leucistic 0.1%","Albino 0.05%"], maps:["rancho"] },
-{ class:2, animal:"Coyote", maxDifficulty:"9 (Legendary)", diamond:61.86, basis:"Weight-based (Body)", minWeight:"25 kg / 55 lbs", sex:"⚥", variants:["Brown 85%","Dark Brown 10%","Grey 3%","Melanistic 1%","Blonde 0.1%","Albino 0.1%"], maps:["rancho"] },
-{ class:3, animal:"Gould’s Turkey", maxDifficulty:"3 (Very Easy)", diamond:6.00, basis:"Combined (Weight/Features)", minWeight:"–", sex:"⚥", variants:["Brown 49.5%","Dark Brown 49.4%","Light Brown 0.8%","Melanistic 0.2%","Leucistic 0.2%","Albino 0.1%"], maps:["rancho"] },
-{ class:8, animal:"Mexican Bobcat", maxDifficulty:"9 (Legendary)", diamond:27.60, basis:"Organ-based (Skull)", minWeight:"–", sex:"⚥", variants:["Brown 49.5%","Dark Brown 49.5%","Grey 0.5%","Melanistic 0.3%","Albino 0.1%"], maps:["rancho"] },
-{ class:6, animal:"Merriam’s Elk", maxDifficulty:"9 (Legendary)", diamond:481.41, basis:"Organ-based (Antlers)", minWeight:"–", sex:"♂", variants:["Light Brown 37.4%","Brown 37.4%","Light Grey 24.7%","Piebald 0.3%","Melanistic 0.2%","Albino 0.1%"], maps:["rancho"] },
-{ class:4, animal:"Mule Deer", maxDifficulty:"5 (Medium)", diamond:312.17, basis:"Organ-based (Antlers)", minWeight:"–", sex:"♂", variants:["Brown 33.8%","Blonde 33.8%","Grey 22.3%","Dilute 0.4%","Piebald 0.4%","Melanistic 0.2%","Albino 0.1%"], maps:["rancho"] },
-{ class:5, animal:"Pronghorn", maxDifficulty:"5 (Medium)", diamond:98.02, basis:"Organ-based (Horns)", minWeight:"–", sex:"⚥", variants:["Tan 37.3%","Brown 37.3%","Dark 24.6%","Piebald 0.5% ♂ / 0.3% ♀","Leucistic 0.2%","Albino 0.1%"], maps:["rancho"] },
-{ class:4, animal:"Whitetail Deer", maxDifficulty:"5 (Medium)", diamond:255.09, basis:"Organ-based (Antlers)", minWeight:"–", sex:"♂", variants:["Brown 90%","Tan 5%","Grey 3%","Dark Brown 1%","Piebald 0.4%","Melanistic 0.2%","Albino 0.1%"], maps:["rancho"] },
-
-// ——— Mississippi Acres Preserve ———
-{ class:1, animal:"Eastern Cottontail Rabbit", maxDifficulty:"3 (Very Easy)", diamond:1.98, basis:"Weight-based (Body)", minWeight:"2 kg / 4.4 lbs", sex:"⚥", variants:["Brown 37.4%","Dark Brown 37.4%","Light Brown 24.9%","Melanistic 0.2%","Leucistic 0.2%","Albino 0.1%"], maps:["mississippi"] },
-{ class:1, animal:"Northern Bobwhite Quail", maxDifficulty:"3 (Very Easy)", diamond:193.81, basis:"Weight-based (Body)", minWeight:"0.25 kg / 0.55 lbs", sex:"⚥", variants:["Brown 49.5%","Dark Brown 49.4%","Light Brown 0.8%","Melanistic 0.2%","Albino 0.1%"], maps:["mississippi"] },
-{ class:2, animal:"Eastern Wild Turkey", maxDifficulty:"3 (Very Easy)", diamond:4.62, basis:"Combined (Weight/Features)", minWeight:"–", sex:"⚥", variants:["Brown 49.5%","Dark Brown 49.4%","Light Brown 0.8%","Melanistic 0.2%","Leucistic 0.2%","Albino 0.1%"], maps:["mississippi"] },
-{ class:2, animal:"Raccoon", maxDifficulty:"9 (Legendary)", diamond:12.02, basis:"Weight-based (Body)", minWeight:"10 kg / 22 lbs", sex:"⚥", variants:["Grey 49.5%","Brown 49.5%","Melanistic 0.2%","Albino 0.1%"], maps:["mississippi"] },
-{ class:3, animal:"Grey Fox", maxDifficulty:"9 (Legendary)", diamond:5.80, basis:"Weight-based (Body)", minWeight:"5.8 kg / 12.8 lbs", sex:"⚥", variants:["Grey 49.5%","Red 49.5%","Melanistic 0.2%","Albino 0.1%"], maps:["mississippi"] },
-{ class:2, animal:"Red Fox", maxDifficulty:"9 (Legendary)", diamond:14.05, basis:"Weight-based (Body)", minWeight:"14 kg / 30.9 lbs", sex:"⚥", variants:["Red 33.1%","Orange 33.1%","Dark Red 33.1%","Piebald 0.4%","Melanistic 0.2%","Albino 0.1%"], maps:["mississippi"] },
-{ class:5, animal:"Feral Pig", maxDifficulty:"5 (Medium)", diamond:144.25, basis:"Weight-based (Body)", minWeight:"120 kg / 265 lbs", sex:"⚥", variants:["Light Brown 33.1%","Dark Brown 33.1%","Brown 33.1%","Black Gold 0.4%","Melanistic 0.2%","Albino 0.1%"], maps:["mississippi"] },
-{ class:4, animal:"Whitetail Deer", maxDifficulty:"5 (Medium)", diamond:255.09, basis:"Organ-based (Antlers)", minWeight:"–", sex:"♂", variants:["Brown 90%","Tan 5%","Grey 3%","Dark Brown 1%","Piebald 0.4%","Melanistic 0.2%","Albino 0.1%"], maps:["mississippi"] },
-{ class:5, animal:"Eastern Cottontail Turkey", maxDifficulty:"3 (Very Easy)", diamond:4.62, basis:"Combined (Weight/Features)", minWeight:"–", sex:"⚥", variants:["Brown 49.5%","Dark Brown 49.4%","Light Brown 0.8%","Melanistic 0.2%","Leucistic 0.2%","Albino 0.1%"], maps:["mississippi"] },
-{ class:6, animal:"Black Bear", maxDifficulty:"9 (Legendary)", diamond:22.80, basis:"Organ-based (Skull)", minWeight:"–", sex:"⚥", variants:["Black 32.4%","Dark 32.3%","Dusky 32.3%","Blonde 1%","Brown 1%","Cinnamon 1%"], maps:["mississippi"] },
-{ class:8, animal:"American Alligator", maxDifficulty:"9 (Legendary)", diamond:492.20, basis:"Weight-based (Body)", minWeight:"260 kg / 573 lbs", sex:"⚥", variants:["Olive 49.5%","Dark Brown 49.5%","Albino 0.1%","Melanistic 0.1%","Leucistic 0.1%"], maps:["mississippi"] },
-
-// ——— Revontuli Coast ———
-{ class:1, animal:"Capercaillie", maxDifficulty:"3 (Very Easy)", diamond:4.64, basis:"Combined (Weight/Features)", minWeight:"–", sex:"⚥", variants:["Brown 74.9%","Bright 12.5%","Ochre 12.5%","Pale 0.04%","Leucistic 0.09%","Melanistic 0.02%","Albino 0.01%"], maps:["revontuli"] },
-{ class:1, animal:"Black Grouse", maxDifficulty:"3 (Very Easy)", diamond:1170.00, basis:"Weight-based (Body)", minWeight:"1.17 kg / 2.58 lbs", sex:"♂", variants:["Black 74.9%","Grey 24.9%","Leucistic 0.1%","Melanistic 0.05%","Albino 0.05%"], maps:["revontuli"] },
-{ class:1, animal:"Hazel Grouse", maxDifficulty:"3 (Very Easy)", diamond:400.00, basis:"Weight-based (Body)", minWeight:"0.40 kg / 0.88 lbs", sex:"⚥", variants:["Brown 74.9%","Light Brown 24.9%","Melanistic 0.1%","Albino 0.05%"], maps:["revontuli"] },
-{ class:1, animal:"Rock Ptarmigan", maxDifficulty:"3 (Very Easy)", diamond:650.00, basis:"Weight-based (Body)", minWeight:"0.65 kg / 1.43 lbs", sex:"⚥", variants:["Winter White 74.9%","Brown 24.9%","Leucistic 0.1%","Melanistic 0.05%","Albino 0.05%"], maps:["revontuli"] },
-{ class:1, animal:"Willow Ptarmigan", maxDifficulty:"3 (Very Easy)", diamond:750.00, basis:"Weight-based (Body)", minWeight:"0.75 kg / 1.65 lbs", sex:"⚥", variants:["Winter White 74.9%","Brown 24.9%","Leucistic 0.1%","Melanistic 0.05%","Albino 0.05%"], maps:["revontuli"] },
-{ class:1, animal:"Goldeneye Duck", maxDifficulty:"3 (Very Easy)", diamond:1150.00, basis:"Weight-based (Body)", minWeight:"1.15 kg / 2.53 lbs", sex:"⚥", variants:["Brown 74.9%","Grey 24.9%","Leucistic 0.1%","Melanistic 0.05%","Albino 0.05%"], maps:["revontuli"] },
-{ class:1, animal:"Tufted Duck", maxDifficulty:"3 (Very Easy)", diamond:900.00, basis:"Weight-based (Body)", minWeight:"0.90 kg / 1.98 lbs", sex:"⚥", variants:["Brown 74.9%","Black 24.9%","Leucistic 0.1%","Melanistic 0.05%","Albino 0.05%"], maps:["revontuli"] },
-{ class:1, animal:"Eurasian Wigeon", maxDifficulty:"3 (Very Easy)", diamond:905.00, basis:"Weight-based (Body)", minWeight:"0.90 kg / 2.0 lbs", sex:"⚥", variants:["Brown 74.9%","Grey 24.9%","Leucistic 0.1%","Melanistic 0.05%","Albino 0.05%"], maps:["revontuli"] },
-{ class:1, animal:"Mallard Duck", maxDifficulty:"3 (Very Easy)", diamond:19.63, basis:"Weight-based (Body)", minWeight:"1.6 kg / 3.5 lbs", sex:"⚥", variants:["Brown 80%","Dark 10%","Grey 5%","Melanistic 1%","Albino 0.1%","Piebald 0.1%"], maps:["revontuli"] },
-{ class:1, animal:"Tundra Bean Goose", maxDifficulty:"3 (Very Easy)", diamond:3100.00, basis:"Weight-based (Body)", minWeight:"3.10 kg / 6.8 lbs", sex:"⚥", variants:["Brown 74.9%","Grey 24.9%","Leucistic 0.1%","Melanistic 0.05%","Albino 0.05%"], maps:["revontuli"] },
-{ class:1, animal:"Greylag Goose", maxDifficulty:"3 (Very Easy)", diamond:4300.00, basis:"Weight-based (Body)", minWeight:"4.30 kg / 9.5 lbs", sex:"⚥", variants:["Brown 74.9%","Grey 24.9%","Leucistic 0.1%","Melanistic 0.05%","Albino 0.05%"], maps:["revontuli"] },
-{ class:1, animal:"Eurasian Teal", maxDifficulty:"3 (Very Easy)", diamond:700.00, basis:"Weight-based (Body)", minWeight:"0.70 kg / 1.54 lbs", sex:"⚥", variants:["Brown 74.9%","Dark 24.9%","Leucistic 0.1%","Melanistic 0.05%","Albino 0.05%"], maps:["revontuli"] },
-{ class:2, animal:"Raccoon Dog", maxDifficulty:"9 (Legendary)", diamond:12.00, basis:"Weight-based (Body)", minWeight:"10 kg / 22 lbs", sex:"⚥", variants:["Brown 49.5%","Dark Brown 49.5%","Melanistic 0.2%","Albino 0.1%"], maps:["revontuli"] },
-{ class:2, animal:"Red Fox", maxDifficulty:"9 (Legendary)", diamond:14.05, basis:"Weight-based (Body)", minWeight:"14 kg / 31 lbs", sex:"⚥", variants:["Red 33.1%","Orange 33.1%","Dark Red 33.1%","Piebald 0.4%","Melanistic 0.2%","Albino 0.1%"], maps:["revontuli"] },
-{ class:3, animal:"Roe Deer", maxDifficulty:"5 (Medium)", diamond:81.86, basis:"Organ-based (Antlers)", minWeight:"–", sex:"♂", variants:["Brown 33.1%","Dark Brown 33.1%","Dark Grey 33.1%","Piebald 0.4%","Melanistic 0.2%","Albino 0.1%"], maps:["revontuli"] },
-{ class:6, animal:"Moose", maxDifficulty:"9 (Legendary)", diamond:274.99, basis:"Organ-based (Antlers)", minWeight:"–", sex:"♂", variants:["Brown 85%","Light Brown 10%","Dark Brown 3%","Grey 1%","Melanistic 0.2%","Albino 0.1%"], maps:["revontuli"] },
-{ class:7, animal:"Brown Bear", maxDifficulty:"9 (Legendary)", diamond:27.70, basis:"Organ-based (Skull)", minWeight:"–", sex:"⚥", variants:["Brown 24.9%","Cinnamon 24.9%","Light Brown 24.9%","Red Brown 24.9%","Grey 5%","Gold 0.2%","Spirit 0.1%","Melanistic 0.2%","Albino 0.1%"], maps:["revontuli"] },
-{ class:9, animal:"Whitetail Deer", maxDifficulty:"5 (Medium)", diamond:255.09, basis:"Organ-based (Antlers)", minWeight:"–", sex:"♂", variants:["Brown 90%","Tan 5%","Grey 3%","Dark Brown 1%","Piebald 0.4%","Melanistic 0.2%","Albino 0.1%"], maps:["revontuli"] },
-
-// ——— New England Mountains ———
-{ class:1, animal:"Eastern Cottontail Rabbit", maxDifficulty:"3 (Very Easy)", diamond:1.98, basis:"Weight-based (Body)", minWeight:"2.0 kg / 4.4 lbs", sex:"⚥", variants:["Brown 37.4%","Dark Brown 37.4%","Light Brown 24.9%","Melanistic 0.2%","Leucistic 0.2%","Albino 0.1%"], maps:["newengland"] },
-{ class:1, animal:"Green-Winged Teal", maxDifficulty:"3 (Very Easy)", diamond:0.77, basis:"Weight-based (Body)", minWeight:"0.77 kg / 1.7 lbs", sex:"⚥", variants:["Brown 74.9%","Dark 24.9%","Leucistic 0.1%","Melanistic 0.05%","Albino 0.05%"], maps:["newengland"] },
-{ class:1, animal:"Mallard Duck", maxDifficulty:"3 (Very Easy)", diamond:19.63, basis:"Weight-based (Body)", minWeight:"1.6 kg / 3.5 lbs", sex:"⚥", variants:["Brown 80%","Dark 10%","Grey 5%","Melanistic 1%","Albino 0.1%","Piebald 0.1%"], maps:["newengland"] },
-{ class:1, animal:"Ring-Necked Pheasant", maxDifficulty:"3 (Very Easy)", diamond:20.29, basis:"Weight-based (Body)", minWeight:"1.4 kg / 3.1 lbs", sex:"⚥", variants:["Brown 37.4%","White & Brown 37.4%","Gray 12.5%","Molting 12.4%","Melanistic 0.2%","Leucistic 0.2%","Albino 0.1%"], maps:["newengland"] },
-{ class:2, animal:"Raccoon", maxDifficulty:"9 (Legendary)", diamond:12.02, basis:"Weight-based (Body)", minWeight:"10 kg / 22 lbs", sex:"⚥", variants:["Grey 49.5%","Brown 49.5%","Melanistic 0.2%","Albino 0.1%"], maps:["newengland"] },
-{ class:2, animal:"Red Fox", maxDifficulty:"9 (Legendary)", diamond:14.05, basis:"Weight-based (Body)", minWeight:"14 kg / 31 lbs", sex:"⚥", variants:["Red 33.1%","Orange 33.1%","Dark Red 33.1%","Piebald 0.4%","Melanistic 0.2%","Albino 0.1%"], maps:["newengland"] },
-{ class:3, animal:"Bobwhite Quail", maxDifficulty:"3 (Very Easy)", diamond:193.81, basis:"Weight-based (Body)", minWeight:"0.25 kg / 0.55 lbs", sex:"⚥", variants:["Brown 49.5%","Dark Brown 49.5%","Light Brown 0.8%","Melanistic 0.2%","Albino 0.1%"], maps:["newengland"] },
-{ class:3, animal:"Eastern Wild Turkey", maxDifficulty:"3 (Very Easy)", diamond:4.62, basis:"Combined (Weight/Features)", minWeight:"–", sex:"⚥", variants:["Brown 49.5%","Dark Brown 49.4%","Light Brown 0.8%","Melanistic 0.2%","Leucistic 0.2%","Albino 0.1%"], maps:["newengland"] },
-{ class:4, animal:"Whitetail Deer", maxDifficulty:"5 (Medium)", diamond:255.09, basis:"Organ-based (Antlers)", minWeight:"–", sex:"♂", variants:["Brown 90%","Tan 5%","Grey 3%","Dark Brown 1%","Piebald 0.4%","Melanistic 0.2%","Albino 0.1%"], maps:["newengland"] },
-{ class:6, animal:"Moose", maxDifficulty:"9 (Legendary)", diamond:274.99, basis:"Organ-based (Antlers)", minWeight:"–", sex:"♂", variants:["Brown 85%","Light Brown 10%","Dark Brown 3%","Grey 1%","Melanistic 0.2%","Albino 0.1%"], maps:["newengland"] },
-{ class:7, animal:"Black Bear", maxDifficulty:"9 (Legendary)", diamond:22.80, basis:"Organ-based (Skull)", minWeight:"–", sex:"⚥", variants:["Black 32.4%","Dark 32.3%","Dusky 32.3%","Blonde 1%","Brown 1%","Cinnamon 1%"], maps:["newengland"] },
-
-// ——— Emerald Coast ———
-{ class:1, animal:"Magpie Goose", maxDifficulty:"3 (Very Easy)", diamond:3.85, basis:"Weight-based (Body)", minWeight:"3.85 kg / 8.5 lbs", sex:"⚥", variants:["Yellow 33.20%","Orange 33.20%","Maroon 33.20%","Piebald1 0.13%","Piebald2 0.13%","Melanistic 0.04%","Leucistic1 0.04%","Leucistic2 0.04%"], maps:["emerald"] },
-{ class:1, animal:"Stubble Quail", maxDifficulty:"3 (Very Easy)", diamond:238.00, basis:"Weight-based (Body)", minWeight:"0.24 kg / 0.53 lbs", sex:"⚥", variants:["Gray Brown 49.60%","Brown 49.60%","Dark Brown 0.53%","Albino 0.27%"], maps:["emerald"] },
-{ class:2, animal:"Red Fox", maxDifficulty:"9 (Legendary)", diamond:14.05, basis:"Weight-based (Body)", minWeight:"14.00 kg / 30.9 lbs", sex:"⚥", variants:["Red 33.23%","Orange 33.23%","Dark Red 33.23%","Piebald 0.20%","Melanistic 0.05%","Albino 0.05%"], maps:["emerald"] },
-{ class:3, animal:"Axis Deer", maxDifficulty:"5 (Medium)", diamond:217.29, basis:"Organ-based (Antlers)", minWeight:"–", sex:"♂", variants:["Spotted 85.37%","Dark 14.29%","Piebald 0.23%","Melanistic 0.06%","Albino 0.06%"], maps:["emerald"] },
-{ class:3, animal:"Feral Goat", maxDifficulty:"5 (Medium)", diamond:208.71, basis:"Organ-based (Horns)", minWeight:"–", sex:"⚥", variants:["White 18.68%","Dark Brown 18.68%","Brown 18.68%","Blonde 18.68%","White Brown 8.33%","Black White 8.33%","Black Brown 8.33%"], maps:["emerald"] },
-{ class:3, animal:"Hog Deer", maxDifficulty:"5 (Medium)", diamond:108.68, basis:"Organ-based (Antlers)", minWeight:"–", sex:"♂", variants:["Brown 79.68%","Dark Spotted 6.67%","Spotted 6.67%","Dark Brown 6.67%","Piebald 0.21%","Leucistic 0.11%"], maps:["emerald"] },
-{ class:4, animal:"Eastern Grey Kangaroo", maxDifficulty:"9 (Legendary)", diamond:492.00, basis:"Weight-based (Body)", minWeight:"90.0 kg / 198 lbs", sex:"♂", variants:["Grey","Brown","Gray Brown","Albino","Leucistic","Melanistic"], maps:["emerald"] },
-{ class:4, animal:"Fallow Deer", maxDifficulty:"5 (Medium)", diamond:249.99, basis:"Organ-based (Antlers)", minWeight:"–", sex:"♂", variants:["Dark Spotted","Spotted","White","Chocolate","Piebald1","Piebald2","Melanistic","Albino"], maps:["emerald"] },
-{ class:5, animal:"Feral Pig", maxDifficulty:"5 (Medium)", diamond:144.25, basis:"Weight-based (Body)", minWeight:"120.0 kg / 265 lbs", sex:"⚥", variants:["Black Spots1 12.50%","Black Spots2 12.50%","Dark Brown1 12.45%","Dark Brown2 12.45%","Brown Hybrid1 12.45%","Brown Hybrid2 12.45%","Blackgold 12.45%","Black 12.45%","Pink 0.20%","Albino 0.10%"], maps:["emerald"] },
-{ class:5, animal:"Javan Rusa", maxDifficulty:"5 (Medium)", diamond:148.78, basis:"Organ-based (Antlers)", minWeight:"–", sex:"♂", variants:[], maps:["emerald"] },
-{ class:6, animal:"Red Deer", maxDifficulty:"9 (Legendary)", diamond:251.07, basis:"Organ-based (Antlers)", minWeight:"–", sex:"♂", variants:["Light Brown","Dark Brown","Brown","Grey","Piebald","Albino","Melanistic"], maps:["emerald"] },
-{ class:7, animal:"Sambar", maxDifficulty:"9 (Legendary)", diamond:166.43, basis:"Organ-based (Antlers)", minWeight:"–", sex:"♂", variants:["Brown","Dark Brown","Dusky Gradient","Piebald","Albino","Leucistic","Melanistic"], maps:["emerald"] },
-{ class:8, animal:"Saltwater Crocodile", maxDifficulty:"9 (Legendary)", diamond:1015.00, basis:"Weight-based (Body)", minWeight:"500 kg / 1100 lbs", sex:"⚥", variants:["Dark Brown","Grey","Olive","Light Brown","Albino","Leucistic","Melanistic"], maps:["emerald"] },
-{ class:9, animal:"Banteng", maxDifficulty:"9 (Legendary)", diamond:137.00, basis:"Organ-based (Horns/Skull)", minWeight:"–", sex:"⚥", variants:["Albino","Black","Brown","Dark Brown","Mocha","Orange"], maps:["emerald"] },
-
-// ——— Sundarpatan ———
-{ class:6, animal:"Barasingha", maxDifficulty:"5 (Medium)", diamond:226.05, basis:"Organ-based (Antlers)", minWeight:"280 kg / 617 lbs", sex:"♂", variants:["Red 24.90%","Light Brown 24.90%","Brown 24.90%","Dark Red 12.50%","Dark Brown 12.50%","Piebald 0.10%","Leucistic 0.10%","Melanistic 0.05%","Albino 0.05%"], maps:["sundarpatan"] },
-{ class:9, animal:"Bengal Tiger", maxDifficulty:"9 (Legendary)", diamond:57.00, basis:"Organ-based (Skull)", minWeight:"324 kg / 714 lbs", sex:"⚥", variants:["Orange 98.80%","White Stripeless 0.14%","White 0.14%","Pseudo Melanistic White1 0.14%","Pseudo Melanistic White2 0.14%","Pseudo Melanistic1 0.14%","Pseudo Melanistic2 0.14%","Gold 0.14%","Melanistic 0.10%"], maps:["sundarpatan"] },
-{ class:3, animal:"Blackbuck", maxDifficulty:"5 (Medium)", diamond:132.26, basis:"Organ-based (Horns)", minWeight:"51 kg / 112 lbs", sex:"♂", variants:["Dark Brown 53.76%","Brown 35.84%","Beige 9.96%","Piebald 0.30%","Melanistic 0.05%","Leucistic 0.05%","Albino 0.05%"], maps:["sundarpatan"] },
-{ class:4, animal:"Blue Sheep", maxDifficulty:"5 (Medium)", diamond:154.08, basis:"Organ-based (Horns)", minWeight:"75 kg / 165 lbs", sex:"⚥", variants:["Slate Grey 37.38%","Brown 37.38%","Yellow 12.50%","Blue Grey 12.50%","Melanistic 0.10%","Leucistic 0.10%","Albino 0.05%"], maps:["sundarpatan"] },
-{ class:1, animal:"Greylag Goose", maxDifficulty:"5 (Medium)", diamond:3.85, basis:"Weight-based (Body)", minWeight:"4.4 kg / 8.8 lbs", sex:"⚥", variants:["Brown 74.94%","Grey 24.98%","Leucistic (var.) 0.05%","Hybrid 0.01%"], maps:["sundarpatan"] },
-{ class:6, animal:"Nilgai", maxDifficulty:"5 (Medium)", diamond:94.89, basis:"Organ-based (Horns)", minWeight:"308 kg / 679 lbs", sex:"⚥", variants:["Blue (♂) 74.80%","Dark Brown (♂) 25.00%","Brown (♀) 74.80%","Light Brown (♀) 25.00%","Piebald1 0.10%","Piebald2 0.10%"], maps:["sundarpatan"] },
-{ class:2, animal:"Northern Red Muntjac", maxDifficulty:"5 (Medium)", diamond:35.24, basis:"Organ-based (Skull)", minWeight:"28 kg / 62 lbs", sex:"⚥", variants:["Red2 49.87%","Red 49.87%","Melanistic 0.07%","Leucistic 0.14%","Albino 0.05%"], maps:["sundarpatan"] },
-{ class:4, animal:"Snow Leopard", maxDifficulty:"9 (Legendary)", diamond:29.00, basis:"Organ-based (Skull)", minWeight:"75 kg / 165 lbs", sex:"⚥", variants:["Snow 73.80%","Caramel 25.00%","Melanistic 0.50%","Leucistic 0.50%","Albino 0.20%"], maps:["sundarpatan"] },
-{ class:4, animal:"Tahr", maxDifficulty:"5 (Medium)", diamond:101.87, basis:"Organ-based (Horns)", minWeight:"140 kg / 308 lbs", sex:"♂", variants:["Red Brown 74.45%","Straw 12.50%","Light Brown 12.50%","White 0.10%","Red 0.10%","Dark Red 0.10%","Dark Brown 0.10%","Black 0.10%","Albino 0.05%"], maps:["sundarpatan"] },
-{ class:9, animal:"Water Buffalo", maxDifficulty:"9 (Legendary)", diamond:167.54, basis:"Organ-based (Horns/Skull)", minWeight:"1250 kg / 2755 lbs", sex:"⚥", variants:["Grey 96.39%","Black 3.23%","Orange 0.26%","Albino 0.13%"], maps:["sundarpatan"] },
-{ class:9, animal:"Wild Yak", maxDifficulty:"5 (Medium)", diamond:273.23, basis:"Organ-based (Skull)", minWeight:"1200 kg / 2646 lbs", sex:"⚥", variants:["Jet Black 49.8%","Dark Brown 49.8%","Gold 0.2%","Leucistic 0.1%","Albino 0.1%"], maps:["sundarpatan"] },
-{ class:1, animal:"Woolly Hare", maxDifficulty:"3 (Very Easy)", diamond:3.28, basis:"Weight-based (Body)", minWeight:"3 kg / 7 lbs", sex:"⚥", variants:["Light Grey 27.90%","Light Brown 27.90%","Dark Brown 27.90%","Molting 16.00%","White 0.20%","Albino 0.10%"], maps:["sundarpatan"] },
-
-// ——— Salzwiesen Park ———
-{ class:1, animal:"Mallard Duck", maxDifficulty:"3 (Very Easy)", diamond:19.63, basis:"Weight-based (Body)", minWeight:"1.6 kg / 3.5 lbs", sex:"⚥", variants:["Brown 80%","Dark 10%","Grey 5%","Melanistic 1%","Albino 0.1%","Piebald 0.1%"], maps:["salzwiesen"] },
-{ class:1, animal:"Eurasian Teal", maxDifficulty:"3 (Very Easy)", diamond:0.90, basis:"Weight-based (Body)", minWeight:"0.90 kg / 2.0 lbs", sex:"⚥", variants:["Brown 74.9%","Dark 24.9%","Leucistic 0.1%","Melanistic 0.05%","Albino 0.05%"], maps:["salzwiesen"] },
-{ class:1, animal:"Eurasian Wigeon", maxDifficulty:"3 (Very Easy)", diamond:905.00, basis:"Weight-based (Body)", minWeight:"0.90 kg / 2.0 lbs", sex:"⚥", variants:["Brown 74.9%","Grey 24.9%","Leucistic 0.1%","Melanistic 0.05%","Albino 0.05%"], maps:["salzwiesen"] },
-{ class:1, animal:"Goldeneye", maxDifficulty:"3 (Very Easy)", diamond:1.15, basis:"Weight-based (Body)", minWeight:"1.15 kg / 2.53 lbs", sex:"⚥", variants:["Brown 74.9%","Grey 24.9%","Leucistic 0.1%","Melanistic 0.05%","Albino 0.05%"], maps:["salzwiesen"] },
-{ class:1, animal:"Tufted Duck", maxDifficulty:"3 (Very Easy)", diamond:0.90, basis:"Weight-based (Body)", minWeight:"0.90 kg / 1.98 lbs", sex:"⚥", variants:["Brown 74.9%","Black 24.9%","Leucistic 0.1%","Melanistic 0.05%","Albino 0.05%"], maps:["salzwiesen"] },
-{ class:1, animal:"Greylag Goose", maxDifficulty:"3 (Very Easy)", diamond:4.30, basis:"Weight-based (Body)", minWeight:"4.30 kg / 9.5 lbs", sex:"⚥", variants:["Brown 74.9%","Grey 24.9%","Leucistic 0.1%","Melanistic 0.05%","Albino 0.05%"], maps:["salzwiesen"] },
-{ class:1, animal:"Bean Goose", maxDifficulty:"3 (Very Easy)", diamond:3.10, basis:"Weight-based (Body)", minWeight:"3.10 kg / 6.8 lbs", sex:"⚥", variants:["Brown 74.9%","Grey 24.9%","Leucistic 0.1%","Melanistic 0.05%","Albino 0.05%"], maps:["salzwiesen"] },
-{ class:1, animal:"Gadwall", maxDifficulty:"3 (Very Easy)", diamond:0.84, basis:"Weight-based (Body)", minWeight:"0.84 kg / 1.85 lbs", sex:"⚥", variants:["Brown 74.9%","Grey 24.9%","Leucistic 0.1%","Melanistic 0.05%","Albino 0.05%"], maps:["salzwiesen"] },
-{ class:1, animal:"Ferruginous Duck", maxDifficulty:"3 (Very Easy)", diamond:0.70, basis:"Weight-based (Body)", minWeight:"0.70 kg / 1.54 lbs", sex:"⚥", variants:["Brown 74.9%","Dark 24.9%","Leucistic 0.1%","Melanistic 0.05%","Albino 0.05%"], maps:["salzwiesen"] },
-{ class:1, animal:"Black Grouse", maxDifficulty:"3 (Very Easy)", diamond:1.17, basis:"Weight-based (Body)", minWeight:"1.17 kg / 2.58 lbs", sex:"♂", variants:["Black 74.9%","Grey 24.9%","Leucistic 0.1%","Melanistic 0.05%","Albino 0.05%"], maps:["salzwiesen"] },
-{ class:2, animal:"Red Fox", maxDifficulty:"9 (Legendary)", diamond:14.05, basis:"Weight-based (Body)", minWeight:"14 kg / 31 lbs", sex:"⚥", variants:["Red 33.1%","Orange 33.1%","Dark Red 33.1%","Piebald 0.4%","Melanistic 0.2%","Albino 0.1%"], maps:["salzwiesen"] },
-{ class:1, animal:"European Rabbit", maxDifficulty:"3 (Very Easy)", diamond:2.37, basis:"Weight-based (Body)", minWeight:"2.3 kg / 5 lbs", sex:"⚥", variants:["Dark Brown 37%","Tan 37%","Light Brown 12%","Brown 12%","Light Grey 0.4%","Melanistic 0.2%","Leucistic 0.2%","Albino 0.1%"], maps:["salzwiesen"] },
-{ class:2, animal:"Raccoon Dog", maxDifficulty:"9 (Legendary)", diamond:12.00, basis:"Weight-based (Body)", minWeight:"10 kg / 22 lbs", sex:"⚥", variants:["Brown 49.5%","Dark Brown 49.5%","Melanistic 0.2%","Albino 0.1%"], maps:["salzwiesen"] },
-{ class:2, animal:"Common Raccoon", maxDifficulty:"9 (Legendary)", diamond:12.02, basis:"Weight-based (Body)", minWeight:"10 kg / 22 lbs", sex:"⚥", variants:["Grey 49.5%","Brown 49.5%","Melanistic 0.2%","Albino 0.1%"], maps:["salzwiesen"] },
-
-// ——— Askiy Ridge Hunting Preserve ———
-{ class:9, animal:"Wood Bison", maxDifficulty:"9 (Legendary)", diamond:158.00, basis:"Organ-based (Horns/Skull)", minWeight:"–", sex:"⚥", variants:["Light Brown 74.70%","Gingersplit 12.50%","Ginger 12.50%","Piebald 0.10%","Dark Brown 0.10%","Melanistic 0.03%","Leucistic 0.03%","Albino 0.03%"], maps:["askiy"] },
-{ class:7, animal:"Manitoban Elk", maxDifficulty:"5 (Medium)", diamond:457.56, basis:"Organ-based (Antlers)", minWeight:"–", sex:"♂", variants:["Brown Maned 74.78%","Dark 25.03%","Piebald 0.10%","Melanistic 0.03%","Leucistic 0.03%","Albino 0.03%"], maps:["askiy"] },
-{ class:6, animal:"Woodland Caribou", maxDifficulty:"5 (Medium)", diamond:430.23, basis:"Organ-based (Antlers)", minWeight:"–", sex:"♂", variants:["Light Brown 49.85%","Dark Brown 49.85%","Piebald1 0.10%","Piebald2 0.10%","Melanistic 0.03%","Leucistic 0.03%","Albino 0.03%"], maps:["askiy"] },
-{ class:5, animal:"Bighorn Sheep", maxDifficulty:"5 (Medium)", diamond:196.93, basis:"Organ-based (Horns)", minWeight:"–", sex:"⚥", variants:["Grey 37.30%","Brown 37.30%","Bronze 12.50%","Black 12.50%","Piebald1 0.10%","Piebald2 0.10%","Leucistic 0.10%","Melanistic 0.05%","Albino 0.05%"], maps:["askiy"] },
-{ class:4, animal:"Mountain Goat", maxDifficulty:"5 (Medium)", diamond:91.24, basis:"Organ-based (Horns)", minWeight:"–", sex:"⚥", variants:["White 24.97%","Light Grey 24.97%","Light Brown 24.97%","Beige 24.97%","Melanistic 0.05%","Albino 0.05%"], maps:["askiy"] },
-{ class:5, animal:"Mule Deer", maxDifficulty:"5 (Medium)", diamond:314.80, basis:"Organ-based (Antlers)", minWeight:"–", sex:"♂", variants:["Brown 37.32%","Blonde 37.32%","Grey 24.98%","Dilute 0.20%","Piebald1 0.05%","Piebald2 0.05%","Melanistic 0.02%","Leucistic 0.02%","Albino 0.02%"], maps:["askiy"] },
-{ class:4, animal:"Whitetail Deer", maxDifficulty:"5 (Medium)", diamond:255.09, basis:"Organ-based (Antlers)", minWeight:"–", sex:"♂", variants:["Tan 33.23%","Red Brown 33.23%","Dark Brown 33.23%","Brown 33.23%","Piebald 0.20%","Melanistic 0.05%","Albino 0.05%"], maps:["askiy"] },
-{ class:3, animal:"Pronghorn", maxDifficulty:"5 (Medium)", diamond:108.00, basis:"Organ-based (Horns)", minWeight:"–", sex:"⚥", variants:["Tan (♂/♀) ~37.3%","Brown (♂/♀) ~37.3%","Dark (♂/♀) ~25%","Piebald (♂) 0.20%","Piebald2 (♂) 0.10%","Melanistic 0.03%","Leucistic 0.03%","Albino 0.03%"], maps:["askiy"] },
-{ class:8, animal:"Moose", maxDifficulty:"9 (Legendary)", diamond:274.99, basis:"Organ-based (Antlers)", minWeight:"–", sex:"♂", variants:["Tan 33.23%","Light Brown 33.23%","Dark Brown 33.23%","Brown 33.23%","Piebald 0.20%","Melanistic 0.05%","Albino 0.05%"], maps:["askiy"] },
-{ class:7, animal:"Black Bear", maxDifficulty:"9 (Legendary)", diamond:22.80, basis:"Organ-based (Skull)", minWeight:"–", sex:"⚥", variants:["Dusky 33.23%","Dark 33.23%","Black 33.23%","Cinnamon 0.20%","Brown 0.05%","Blonde 0.05%"], maps:["askiy"] },
-{ class:6, animal:"Gray Wolf", maxDifficulty:"9 (Legendary)", diamond:39.00, basis:"Organ-based (Skull)", minWeight:"–", sex:"⚥", variants:["Grey 49.85%","Brown 49.85%","Red Brown 0.07%","Eggwhite 0.07%","Dark Grey 0.07%","Melanistic CC 0.03%","Melanistic 0.03%","Albino 0.03%","Acromelanistic 0.03%"], maps:["askiy"] },
-{ class:2, animal:"North American Beaver", maxDifficulty:"5 (Medium)", diamond:30.42, basis:"Weight-based (Body)", minWeight:"–", sex:"⚥", variants:["Light Brown 74.70%","Reddish Brown 12.50%","Dark Brown 12.50%","Piebald 0.20%","Melanistic 0.03%","Leucistic 0.03%","Albino 0.03%"], maps:["askiy"] },
-{ class:1, animal:"Northern Pintail", maxDifficulty:"3 (Very Easy)", diamond:1.04, basis:"Weight-based (Body)", minWeight:"1.04 kg / 2.29 lbs", sex:"⚥", variants:["♂ Grey 74.48%","♂ Eclipse 24.93%","♀ Brown 74.48%","♀ Bright 24.93%","Piebald 0.40%","Melanistic 0.05%","Leucistic 0.05%","Erythristic 0.05%","Albino 0.05%"], maps:["askiy"] },
-{ class:1, animal:"Wood Duck", maxDifficulty:"3 (Very Easy)", diamond:0.67, basis:"Weight-based (Body)", minWeight:"0.67 kg / 1.48 lbs", sex:"⚥", variants:["Standard 74.74%","Dark 24.96%","Piebald 0.05%","Melanistic 0.05%","Leucistic 0.05%","Erythristic Golden 0.05%","Dilute Silver 0.05%","Albino 0.05%"], maps:["askiy"] },
-{ class:1, animal:"Snow Goose", maxDifficulty:"3 (Very Easy)", diamond:3.85, basis:"Weight-based (Body)", minWeight:"3.85 kg / 8.49 lbs", sex:"⚥", variants:["White Morph 99.60%","Intermediate Morph 0.10%","Hybrid 0.10%","Blue Morph 0.10%","Melanistic 0.05%","Albino 0.05%"], maps:["askiy"] },
-{ class:1, animal:"Dusky Grouse", maxDifficulty:"3 (Very Easy)", diamond:151.00, basis:"Weight-based (Body)", minWeight:"–", sex:"⚥", variants:["♂ Slate Grey 59.87%","♂ Molting 19.98%","♂ Brown 19.98%","♂/♀ Melanistic 0.05%","♂/♀ Leucistic 0.05%","♂/♀ Albino 0.05%","♀ Gray Brown 99.74%"], maps:["askiy"] },
-{ class:1, animal:"Canada Goose", maxDifficulty:"5 (Medium)", diamond:8.59, basis:"Weight-based (Body)", minWeight:"8.59 kg / 18.9 lbs", sex:"⚥", variants:["Gray Brown 74.90%","Grey 25.00%","White Hybrid 0.02%","Melanistic 0.02%","LG Leucistic 0.02%","Brown Hybrid 0.02%","Albino 0.02%"], maps:["askiy"] },
-{ class:1, animal:"Mallard Duck", maxDifficulty:"3 (Very Easy)", diamond:19.63, basis:"Weight-based (Body)", minWeight:"1.6 kg / 3.5 lbs", sex:"⚥", variants:["Black Brown 74.77%","Piebald 12.51%","Brown Hybrid 12.51%","Melanistic 0.10%","Leucistic 0.10% (♂)","Blonde 0.10% (♀)"], maps:["askiy"] },
-{ class:1, animal:"Ring-Necked Pheasant", maxDifficulty:"9 (Legendary)", diamond:20.29, basis:"Weight-based (Body)", minWeight:"1.4 kg / 3.1 lbs", sex:"⚥", variants:["♂ White Brown 37.45%","♂ Brown 37.45%","♂ Molting 12.50%","♂ Grey 12.50%","♂ Melanistic 0.03%","♂ Leucistic 0.03%","♂ Albino 0.03%","♀ Brown 87.98%","♀ Grey 11.78%","♀ Melanistic 0.08%","♀ Leucistic 0.08%","♀ Albino 0.08%"], maps:["askiy"] }
-
+/* =========================
+   MAP CATALOG (names/ids)
+   ========================= */
+const MAPS_BASE = [
+  { id:"layton", name:"Layton Lake District", region:"Pacific Northwest, USA" },
+  { id:"hirsch", name:"Hirschfelden Hunting Reserve", region:"Germany" }
 ];
-
-    const MAPS_BASE = [
-  { id: "layton", name: "Layton Lake District", region: "Pacific Northwest, USA" },
-  { id: "hirsch", name: "Hirschfelden Hunting Reserve", region: "Germany" },
-];
-
 const MAPS_DLC = [
-  { id: "medved", name: "Medved-Taiga National Park", region: "Siberia, Russia" },
-  { id: "vurhonga", name: "Vurhonga Savanna Reserve", region: "Africa" },
-  { id: "parque", name: "Parque Fernando", region: "Argentina, South America" },
-  { id: "yukon", name: "Yukon Valley", region: "Alaska / Canada" },
-  { id: "cuatro", name: "Cuatro Colinas Game Reserve", region: "Spain" },
-  { id: "silverridge", name: "Silver Ridge Peaks", region: "Colorado, USA" },
-  { id: "teawaroa", name: "Te Awaroa National Park", region: "New Zealand" },
-  { id: "rancho", name: "Rancho del Arroyo", region: "Mexico" },
-  { id: "mississippi", name: "Mississippi Acres Preserve", region: "USA (Mississippi region)" },
-  { id: "revontuli", name: "Revontuli Coast", region: "Finland / Arctic region" },
-  { id: "newengland", name: "New England Mountains", region: "USA – New England region" },
-  { id: "emerald", name: "Emerald Coast", region: "Australia" },
-  { id: "sundarpatan", name: "Sundarpatan Hunting Reserve", region: "Nepal / Himalayas" },
-  { id: "salzwiesen", name: "Salzwiesen Park", region: "Coastal / marsh region (Germany?)" },
-  { id: "askiy", name: "Askiy Ridge Hunting Preserve", region: "Russia / High-Latitude terrain" },
+  { id:"medved", name:"Medved-Taiga National Park", region:"Siberia, Russia" },
+  { id:"vurhonga", name:"Vurhonga Savanna Reserve", region:"Africa" },
+  { id:"parque", name:"Parque Fernando", region:"Argentina" },
+  { id:"yukon", name:"Yukon Valley", region:"Alaska" },
+  { id:"cuatro", name:"Cuatro Colinas Game Reserve", region:"Spain" },
+  { id:"silverridge", name:"Silver Ridge Peaks", region:"Colorado" },
+  { id:"teawaroa", name:"Te Awaroa National Park", region:"New Zealand" },
+  { id:"rancho", name:"Rancho del Arroyo", region:"Mexico" },
+  { id:"mississippi", name:"Mississippi Acres Preserve", region:"USA" },
+  { id:"revontuli", name:"Revontuli Coast", region:"Finland" },
+  { id:"newengland", name:"New England Mountains", region:"USA" },
+  { id:"emerald", name:"Emerald Coast", region:"Australia" }
+];
+const MAPS_BY_ID = [...MAPS_BASE, ...MAPS_DLC].reduce((a,m)=> (a[m.id]=m, a), {});
+
+/* ============================================================
+   PASTE YOUR EXISTING SPECIES ARRAY HERE (unchanged structure)
+   The page will still run with these sample rows.
+   ============================================================ */
+const SPECIES = [
+  // SAMPLE ROWS — replace with your full array
+  { class:1, animal:"Mallard Duck", maxDifficulty:"3 (Very Easy)", diamond:19.63, basis:"Weight-based (Body)", minWeight:"1.6 kg / 3.5 lbs", sex:"M / F", variants:["Brown 80%","Dark 10%","Grey 5%","Melanistic 1%","Albino 0.1%","Piebald 0.1%"], maps:["layton","revontuli","newengland"] },
+  { class:4, animal:"Whitetail Deer", maxDifficulty:"5 (Medium)", diamond:255.09, basis:"Organ-based (Antlers)", minWeight:"–", sex:"M", variants:["Brown 90%","Tan 5%","Grey 3%","Dark Brown 1%","Piebald 0.4%","Melanistic 0.2%","Albino 0.1%"], maps:["layton","rancho","mississippi","revontuli","newengland"] },
+  { class:8, animal:"Moose", maxDifficulty:"9 (Legendary)", diamond:274.99, basis:"Organ-based (Antlers)", minWeight:"–", sex:"M", variants:["Brown 85%","Light Brown 10%","Dark Brown 3%","Grey 1%","Melanistic 0.2%","Albino 0.1%"], maps:["layton","medved","yukon","revontuli","newengland"] },
 ];
 
-    const S = { sortKey:'class', sortDir:'asc', q:'', classFilter:'', sexFilter:'', selectedMap:'' };
+/* =========================
+   STATE
+   ========================= */
+let currentMap = "";
+let currentSort = { key: "animal", dir: 1 }; // 1 asc, -1 desc
 
-    const baseList = document.getElementById('base-list');
-    const dlcList = document.getElementById('dlc-list');
-    const panelTitle = document.getElementById('panel-title');
-    const panelSub = document.getElementById('panel-sub');
-    const panelBody = document.getElementById('panel-body');
+/* =========================
+   INIT UI
+   ========================= */
+const mapSelect = document.getElementById('mapSelect');
+const classFilter = document.getElementById('classFilter');
+const sexFilter = document.getElementById('sexFilter');
+const searchInput = document.getElementById('search');
+const panelTitle = document.getElementById('panel-title');
+const panelSub = document.getElementById('panel-sub');
+const panelBody = document.getElementById('panel-body');
 
-    function mapItemHTML(m){ return `<div class="map-item" data-id="${m.id}"><span class="map-name">${m.name}</span><span class="map-region">${m.region}</span></div>`; }
+// populate map dropdown (only maps that exist in SPECIES)
+const mapIdsUsed = new Set(SPECIES.flatMap(s => s.maps || []));
+[...MAPS_BASE, ...MAPS_DLC]
+  .filter(m => mapIdsUsed.has(m.id))
+  .forEach(m => {
+    const opt = document.createElement('option');
+    opt.value = m.id;
+    opt.textContent = m.name;
+    mapSelect.appendChild(opt);
+  });
 
-    function paintSidebar(){
-      baseList.innerHTML = MAPS_BASE.map(mapItemHTML).join('');
-      dlcList.innerHTML  = MAPS_DLC.map(mapItemHTML).join('');
-      document.querySelectorAll('.map-item').forEach(el=>{
-        el.addEventListener('click',()=>{ selectMap(el.dataset.id); });
-      });
+// restore last selections
+(function restoreState(){
+  try {
+    const savedMap = localStorage.getItem('lastMap');
+    const savedClass = localStorage.getItem('lastClassFilter') || "";
+    const savedSex = localStorage.getItem('lastSexFilter') || "";
+    const savedSearch = localStorage.getItem('lastSearch') || "";
+    if (savedMap && mapIdsUsed.has(savedMap)) {
+      mapSelect.value = savedMap;
+      currentMap = savedMap;
     }
+    classFilter.value = savedClass;
+    sexFilter.value = savedSex;
+    searchInput.value = savedSearch;
+  } catch {}
+})();
 
-    function rarityClass(label){
-      const m = /([0-9]*\.?[0-9]+)\s*%$/.exec(String(label).trim());
-      if(!m) return '';
-      const p = parseFloat(m[1]);
-      if (p <= 0.1) return 'r-ultra';
-      if (p <= 5) return 'r-rare';
-      if (p <= 24) return 'r-silver';
-      return 'r-bronze';
+/* =========================
+   EVENTS
+   ========================= */
+mapSelect.addEventListener('change', () => {
+  currentMap = mapSelect.value;
+  try { localStorage.setItem('lastMap', currentMap); } catch {}
+  buildClassOptions();
+  render();
+});
+
+classFilter.addEventListener('change', () => {
+  try { localStorage.setItem('lastClassFilter', classFilter.value); } catch {}
+  render();
+});
+sexFilter.addEventListener('change', () => {
+  try { localStorage.setItem('lastSexFilter', sexFilter.value); } catch {}
+  render();
+});
+searchInput.addEventListener('input', () => {
+  try { localStorage.setItem('lastSearch', searchInput.value); } catch {}
+  render();
+});
+
+/* =========================
+   RENDERING
+   ========================= */
+function buildClassOptions(){
+  // build classes for the selected map
+  const classes = new Set(
+    SPECIES.filter(s => !currentMap || (s.maps||[]).includes(currentMap))
+           .map(s => s.class)
+  );
+  classFilter.innerHTML = '<option value="">All Classes</option>' +
+    [...classes].sort((a,b)=>a-b).map(c => `<option value="${c}">Class ${c}</option>`).join('');
+}
+
+function formatVariants(list){
+  if (!list || !list.length) return '';
+  return '<div class="chips">' + list.map(v => {
+    // style by rough rarity keywords if present
+    const low = v.toLowerCase();
+    let extra = '';
+    if (low.includes('0.1%') || low.includes('0.05%')) extra = ' r-ultra';
+    else if (low.includes('0.2%') || low.includes('0.3%') || low.includes('0.4%') || low.includes('1%') || low.includes('2%') || low.includes('5%')) extra = ' r-rare';
+    else if (low.includes('6%') || low.includes('7%') || low.includes('8%') || low.includes('9%') || low.includes('10%') || low.includes('12%') || low.includes('15%') || low.includes('20%') || low.includes('24%')) extra = ' r-silver';
+    else if (low.includes('25%') || low.includes('30%') || low.includes('33') || low.includes('37') || low.includes('49') || low.includes('74')) extra = ' r-bronze';
+    return `<span class="chip${extra}">${v}</span>`;
+  }).join('') + '</div>';
+}
+
+function render(){
+  const mapMeta = MAPS_BY_ID[currentMap] || null;
+  panelTitle.textContent = mapMeta ? mapMeta.name : 'Select a map';
+  panelSub.textContent = mapMeta ? (mapMeta.region || '—') : '—';
+
+  if (!currentMap){
+    panelBody.innerHTML = '<div class="empty">Choose a map from the dropdown to load its species table.</div>';
+    return;
+  }
+
+  // filters
+  const q = (searchInput.value||'').trim().toLowerCase();
+  const wantClass = classFilter.value ? Number(classFilter.value) : null;
+  const wantSex = sexFilter.value;
+
+  let rows = SPECIES.filter(s => (s.maps||[]).includes(currentMap));
+
+  if (wantClass) rows = rows.filter(s => s.class === wantClass);
+  if (wantSex) {
+    if (wantSex === 'MF') rows = rows.filter(s => (s.sex||'').includes('M') && (s.sex||'').includes('F'));
+    else rows = rows.filter(s => (s.sex||'').startsWith(wantSex));
+  }
+  if (q){
+    rows = rows.filter(s =>
+      (s.animal||'').toLowerCase().includes(q) ||
+      (s.maxDifficulty||'').toLowerCase().includes(q) ||
+      (s.basis||'').toLowerCase().includes(q) ||
+      (s.minWeight||'').toLowerCase().includes(q) ||
+      (Array.isArray(s.variants) ? s.variants.join(' ').toLowerCase().includes(q) : false)
+    );
+  }
+
+  // sort
+  const key = currentSort.key;
+  const dir = currentSort.dir;
+  rows.sort((a,b)=>{
+    let va = a[key], vb = b[key];
+    if (key === 'class' || key === 'diamond'){
+      va = Number(va); vb = Number(vb);
+      return (va - vb) * dir;
     }
+    return String(va||'').localeCompare(String(vb||'')) * dir;
+  });
 
-    function tableHTML(rows){
-      if(!rows.length) return `<div class="empty">No entries for this map yet.</div>`;
-      const sorted = rows.sort((a,b)=>a.class-b.class);
-      return `<table><thead><tr>
-        <th data-key="class">Class</th>
-        <th data-key="animal">Animal</th>
-        <th data-key="maxDifficulty">Max</th>
-        <th data-key="diamond">Diamond</th>
-        <th data-key="basis">Trophy Basis</th>
-        <th data-key="minWeight">Min Diamond Weight</th>
-        <th data-key="sex">Sex</th>
-        <th data-key="variants">Fur Variants</th>
-      </tr></thead><tbody>`+
-        sorted.map(r=>`<tr>
-          <td class=\"center\">${r.class}</td>
-          <td class=\"left nowrap\">${r.animal}</td>
-          <td class=\"center\">${r.maxDifficulty.replace(/\((.*?)\)/, '<div style="color:#8ea3bb;font-size:11px">($1)</div>')}</td>
-          <td class=\"num\"><span class=\"diamond-val\">${Number(r.diamond).toFixed(2)}</span></td>
-          <td class=\"left\">${r.basis}</td>
-          <td class=\"center\">${r.minWeight.replace(/\//, '<div style="color:#8ea3bb;font-size:11px">/</div>')}</td>
-          <td class="sex">${r.sex}</td>
-          <td><div class="chips">${(r.variants||[]).map(v=>`<span class="chip ${rarityClass(v)}">${v}</span>`).join('')}</div></td>
-        </tr>`).join('')+`</tbody></table>`;
-    }
+  // build table
+  const th = (label, key, extra='') =>
+    `<th ${extra} data-key="${key}">${label}${currentSort.key===key ? (currentSort.dir>0?' ▲':' ▼'):''}</th>`;
 
-    function selectMap(id){
-      S.selectedMap=id;
-      document.querySelectorAll('.map-item').forEach(x=>x.classList.toggle('active', x.dataset.id===id));
-      const m=[...MAPS_BASE,...MAPS_DLC].find(x=>x.id===id);
-      panelTitle.textContent=m?m.name:'Select a map';
-      panelSub.textContent=m?m.region:'—';
-      const rows=SPECIES.filter(s=>s.maps.includes(id));
-      panelBody.innerHTML=tableHTML(rows);
-    }
+  const thead = `
+    <thead>
+      <tr>
+        ${th('Class','class','class="center"')}
+        ${th('Animal','animal')}
+        ${th('Max Diff.','maxDifficulty','class="center"')}
+        ${th('Trophy (Diamond)','diamond','class="num"')}
+        ${th('Basis','basis')}
+        ${th('Sex','sex','class="center"')}
+        ${th('Fur Variants','variants')}
+      </tr>
+    </thead>`;
 
-    paintSidebar();
+  const tbody = '<tbody>' + rows.map(s => `
+    <tr>
+      <td class="center"><span class="class">${s.class}</span></td>
+      <td class="left">${s.animal||''}</td>
+      <td class="center">${s.maxDifficulty||''}</td>
+      <td class="num"><span class="diamond-val">${Number(s.diamond).toFixed(2)}</span></td>
+      <td class="left">${s.basis||''}${s.minWeight && s.minWeight!=='–' ? `, <span class="muted">${s.minWeight}</span>`:''}</td>
+      <td class="center sex">${s.sex||''}</td>
+      <td class="left">${formatVariants(s.variants)}</td>
+    </tr>
+  `).join('') + '</tbody>';
+
+  panelBody.innerHTML = `<table>${thead}${tbody}</table>`;
+
+  // attach sorting
+  panelBody.querySelectorAll('th[data-key]').forEach(thEl=>{
+    thEl.addEventListener('click', ()=>{
+      const k = thEl.getAttribute('data-key');
+      if (currentSort.key === k) currentSort.dir *= -1;
+      else { currentSort.key = k; currentSort.dir = 1; }
+      render();
+    });
+  });
+}
+
+// initial build
+buildClassOptions();
+if (currentMap){ render(); }
   </script>
 </body>
 </html>
