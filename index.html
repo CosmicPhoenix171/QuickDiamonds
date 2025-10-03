@@ -246,44 +246,54 @@ function saveState(){
     compact: document.body.classList.contains('compact')
   }));
 }
+
 function loadState(){
   try{ return JSON.parse(localStorage.getItem(LS_KEY)||'{}'); }catch{ return {}; }
 }
 
+
 async function loadSpecies() {
-  let url = 'species.json'; // keep this if that’s your file name & path
+  let url = 'species.json';
   try {
     const res = await fetch(url, { cache: 'no-store' });
     if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
     const raw = await res.json();
 
-    // Accept either: [{...}, {...}]  OR  { emerald:[{...}], askiy:[{...}], ... }
     let flat = [];
     if (Array.isArray(raw)) {
       flat = raw;
     } else if (raw && typeof raw === 'object') {
-      // Flatten {map:[...]} to a single array and add the map to each entry
       flat = Object.entries(raw).flatMap(([mapName, arr]) => {
         if (!Array.isArray(arr)) return [];
-        return arr.map(o => ({
-          ...o,
-          // ensure expected fields exist
-          variants: Array.isArray(o.variants) ? o.variants : [],
-          maps: Array.isArray(o.maps) ? o.maps : [mapName]   // <- important
-        }));
+        return arr.map(o => {
+          // Normalize maps field if present
+          let maps = Array.isArray(o.maps) ? o.maps.map(m => String(m).toLowerCase()) : [mapName];
+          return {
+            ...o,
+            variants: Array.isArray(o.variants) ? o.variants : [],
+            maps,
+          };
+        });
       });
     } else {
       throw new Error('Unrecognized JSON format');
     }
 
-    // Minimal sanity check so the rest of the UI won’t choke
     window.SPECIES = flat.filter(Boolean);
     if (!Array.isArray(window.SPECIES) || !window.SPECIES.length) {
       console.warn('Loaded species.json but it has 0 entries after flattening.');
     }
+    // Debug logging
+    console.log('Loaded species:', window.SPECIES);
+    const mapCounts = {};
+    window.SPECIES.forEach(s => {
+      (s.maps||[]).forEach(m => {
+        mapCounts[m] = (mapCounts[m]||0)+1;
+      });
+    });
+    console.log('Species count per map:', mapCounts);
   } catch (err) {
     console.error('Failed to load species.json:', err);
-    // Optional: show a friendly message in the UI
     const el = document.getElementById('cards') || document.body;
     el.innerHTML = `<div style="color:#f88;padding:12px;border:1px solid #f88;border-radius:8px">
       Failed to load <code>${url}</code>: ${err.message}
