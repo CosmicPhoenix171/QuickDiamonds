@@ -358,7 +358,7 @@ function normalizeVariant(raw) {
 
 function variantChip(raw) {
   const v = normalizeVariant(raw);
-  const rcls = v.rarity || rarityFromPercent(v.pct) || rarityClass(v.name) || "common";
+  const rcls = v.rarity || rarityFromPercent(v.pct) || "common";
   const pctAttr = v.pct ? ` data-percent="${v.pct}" title="${v.pct}"` : "";
   return `<span class="variant ${rcls}"${pctAttr}>${v.name}</span>`;
 }
