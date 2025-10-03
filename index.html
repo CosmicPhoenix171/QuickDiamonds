@@ -61,32 +61,34 @@
   color:#c6d3e6; font-size:inherit;
 }
 
-/* 4-column rarity matrix inside the Fur Variants cell */
-.variant-matrix{
+/* horizontal rows: Ultra / Rare / Uncommon / Common */
+.variant-rows{ display:flex; flex-direction:column; gap:10px; }
+
+.vrow{
   display:grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap:12px;
+  grid-template-columns: 120px 1fr;   /* label | chips */
   align-items:start;
+  column-gap:10px;
 }
+
 .vtitle{
   font-size:11px;
   color:#8ea3bb;
   letter-spacing:.06em;
   text-transform:uppercase;
-  margin-bottom:6px;
+  margin-top:4px;
 }
-.vchips{display:flex; flex-wrap:wrap; gap:6px}
 
-/* responsive: shrink to 2 cols, then 1 */
-@media (max-width:1200px){
-  .variant-matrix{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
+.vchips{ display:flex; flex-wrap:wrap; gap:6px; }
+
+/* responsive: stack label above chips on small screens */
 @media (max-width:700px){
-  .variant-matrix{ grid-template-columns: 1fr; }
+  .vrow{ grid-template-columns: 1fr; row-gap:4px; }
 }
 
-/* give the Fur Variants column more room */
+/* keep the Fur Variants column roomy */
 thead th:nth-child(7), tbody td:nth-child(7){ min-width:420px; }
+      
       position:absolute; left:50%; top:50%;
       transform: translate(-50%, -50%);
       white-space:nowrap; pointer-events:none;
@@ -524,32 +526,32 @@ function formatVariants(list){
     // thresholds: Ultra ≤0.9, Rare 1–5, Uncommon 6–11, Common ≥12
     let cls = '', key = 'other';
     if (val !== null) {
-      if (val <= 0.9)        { cls = ' r-ultra';  key = 'ultra'; }
-      else if (val <= 5)     { cls = ' r-rare';   key = 'rare'; }
-      else if (val <= 11)    { cls = ' r-silver'; key = 'uncom'; }
-      else                   { cls = ' r-bronze'; key = 'common'; }
+      if (val <= 0.9)      { cls = ' r-ultra';  key = 'ultra'; }
+      else if (val <= 5)   { cls = ' r-rare';   key = 'rare'; }
+      else if (val <= 11)  { cls = ' r-silver'; key = 'uncom'; }
+      else                 { cls = ' r-bronze'; key = 'common'; }
     }
 
     const attr = percentText ? ` data-percent="${percentText}"` : '';
     (buckets[key] || buckets.other).push(`<span class="chip${cls}"${attr}>${name}</span>`);
   });
 
-  // build columns (skip empty ones)
-  const col = (label, key) =>
+  // rows: label on left, chips on right
+  const row = (label, key) =>
     buckets[key].length
-      ? `<div class="vcol">
+      ? `<div class="vrow">
            <div class="vtitle">${label}</div>
            <div class="vchips">${buckets[key].join('')}</div>
          </div>`
       : '';
 
   return `
-    <div class="variant-matrix">
-      ${col('Ultra Rare', 'ultra')}
-      ${col('Rare', 'rare')}
-      ${col('Uncommon', 'uncom')}
-      ${col('Common', 'common')}
-      ${col('Other', 'other')}
+    <div class="variant-rows">
+      ${row('Ultra Rare', 'ultra')}
+      ${row('Rare', 'rare')}
+      ${row('Uncommon', 'uncom')}
+      ${row('Common', 'common')}
+      ${row('Other', 'other')}
     </div>
   `;
 }
