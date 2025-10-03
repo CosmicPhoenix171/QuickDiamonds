@@ -476,7 +476,7 @@ function cardHTML(a){
          <span class="label">Sex</span> <span class="chip">${sexAbbrev(a.sex)}</span></div>
     <div class="row"><span class="label">Fur Variants</span></div>
     <div class="variants">
-      ${variants.map(v=>`<span class="variant ${rarityClass(v)}">${v}</span>`).join('')}
+      ${variants.map(v => variantChip(v)).join("")}
     </div>
   </article>`;
 }
