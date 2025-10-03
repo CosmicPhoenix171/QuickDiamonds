@@ -8,11 +8,20 @@
     :root{
       --bg:#0b0f14; --card:#121821; --muted:#8ea3bb; --text:#e7edf5; --accent:#5cc8ff; --accent-2:#9bffd6;
       --chip:#1b2430; --chip-border:#2a3442; --border:#1a2330; --panel:#0f1621;
+      --percent-ink:#ffffff; /* color for % readout on hover */
     }
     html,body{height:100%}
-    body{margin:0; font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif; color:var(--text); background:linear-gradient(180deg,#0a0f15,#0b1017 30%,#0e141d)}
+    body{
+      margin:0; font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif; color:var(--text);
+      background:linear-gradient(180deg,#0a0f15,#0b1017 30%,#0e141d)
+    }
 
-    header{position:sticky; top:0; backdrop-filter:saturate(1.2) blur(6px); background:rgba(11,16,23,.85); border-bottom:1px solid #0f1722; z-index:10}
+    header{
+      position:sticky; top:0; z-index:10;
+      backdrop-filter:saturate(1.2) blur(6px);
+      background:rgba(11,16,23,.85);
+      border-bottom:1px solid #0f1722;
+    }
     .wrap{max-width:1200px; margin:0 auto; padding:16px}
     h1{font-size:clamp(20px,2.2vw,28px); margin:0 0 6px}
     .sub{color:var(--muted); font-size:13px}
@@ -20,8 +29,14 @@
     .layout{max-width:1200px; margin:16px auto; display:grid; grid-template-columns: 1fr; gap:14px; padding:0 16px}
     main{min-height:60vh}
 
-    .controls{display:grid; grid-template-columns: 200px 1fr 170px 170px 160px 130px; gap:10px; margin-bottom:12px}
-    .controls input, .controls select, .controls button{background:#0e1520; color:var(--text); border:1px solid #1d2734; border-radius:10px; padding:10px 12px; outline:none; font-size:14px}
+    .controls{
+      display:grid; grid-template-columns: 200px 1fr 170px 170px 160px 130px;
+      gap:10px; margin-bottom:12px
+    }
+    .controls input, .controls select, .controls button{
+      background:#0e1520; color:var(--text); border:1px solid #1d2734;
+      border-radius:10px; padding:10px 12px; outline:none; font-size:14px
+    }
     .controls input::placeholder{color:#708095}
 
     .panel{background:var(--card); border:1px solid var(--border); border-radius:16px; overflow:hidden; box-shadow:0 6px 24px rgba(0,0,0,.25)}
@@ -30,23 +45,40 @@
     .hint{color:#8ea3bb; font-size:12px}
 
     /* ——— Card Grid ——— */
-    .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; padding: 16px; }
-    .animal-card { background:#121821; border:1px solid #1a2330; border-radius:14px; padding:12px; box-shadow:0 4px 16px rgba(0,0,0,.3); position:relative; }
-    .animal-card::before{ content:""; position:absolute; inset:-40% -40% auto auto; height:160px; width:160px; background:conic-gradient(from 120deg at 50% 50%, rgba(74,168,255,.18), rgba(255,255,255,.05), rgba(74,168,255,.18)); filter:blur(12px); opacity:.35; pointer-events:none; border-radius:50%; }
+    .card-grid {
+      display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 14px; padding: 16px;
+    }
+    .animal-card {
+      background:#121821; border:1px solid #1a2330; border-radius:14px; padding:12px;
+      box-shadow:0 4px 16px rgba(0,0,0,.3); position:relative;
+    }
+    .animal-card::before{
+      content:""; position:absolute; inset:-40% -40% auto auto; height:160px; width:160px;
+      background:conic-gradient(from 120deg at 50% 50%, rgba(74,168,255,.18), rgba(255,255,255,.05), rgba(74,168,255,.18));
+      filter:blur(12px); opacity:.35; pointer-events:none; border-radius:50%;
+    }
 
     .card-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
     .card-title { font-weight:700; font-size:16px; line-height:1.1 }
     .class-badge { background:#0d1620; padding:6px 10px; border-radius:10px; font-size:12px; color:#5cc8ff; font-weight:700; border:1px solid #1a2330; }
     .row { margin:6px 0; font-size:13px; display:flex; gap:8px; align-items:center; flex-wrap:wrap }
     .label{font-size:.75rem; color:var(--muted)}
-    .diamond { background:#0a2233; border:1px solid #2e9dd8; padding:2px 6px; border-radius:6px; color:#5cc8ff; font-weight:800; letter-spacing:.2px }
-    .chip { background:var(--chip); border:1px solid var(--chip-border); padding:4px 8px; border-radius:10px; font-size:12px; color:#c6d3e6; white-space:nowrap }
+    .diamond {
+      background:#0a2233; border:1px solid #2e9dd8; padding:2px 6px;
+      border-radius:6px; color:#5cc8ff; font-weight:800; letter-spacing:.2px
+    }
+    .chip {
+      background:var(--chip); border:1px solid var(--chip-border); padding:4px 8px;
+      border-radius:10px; font-size:12px; color:#c6d3e6; white-space:nowrap
+    }
 
     .variants { display:flex; flex-wrap:wrap; gap:6px; margin-top:4px }
-    .variant { padding:4px 8px; border-radius:999px; font-size:12px; background:#1b2430; border:1px solid #2a3442; color:#c6d3e6 }
-    .variant.uncommon{ background:#241a0d; color:#ffd9a1; border-color:#3b2b14 }
-    .variant.rare{ background:#1a1a00; color:gold; }
-    .variant.ultra{ background:#2a1010; color:#ffb9b9; border-color:#3b1515 }
+    .variant {
+      position:relative;
+      padding:4px 8px; border-radius:999px; font-size:12px;
+      background:#1b2430; border:1px solid #2a3442; color:#c6d3e6;
+    }
 
     .legend{padding:0 16px 16px; display:flex; flex-wrap:wrap; gap:8px; align-items:center}
     .legend strong{margin-right:6px}
@@ -58,63 +90,50 @@
 
     @media (max-width: 1100px){ .controls{ grid-template-columns: 1fr 1fr 1fr 1fr; } }
     @media (max-width: 700px){ .controls{ grid-template-columns: 1fr 1fr; } }
-      /* Hover-to-reveal percentages on variant chips */
-    .variant { position: relative; }
-    .variant[data-percent]:hover { color: transparent; }
-    .variant[data-percent]:hover::before,
-    .variant[data-percent]:active::before {
-      content: attr(data-percent);
-      position: absolute;
-      left: 50%; top: 50%;
-      transform: translate(-50%, -50%);
-      white-space: nowrap;
-      pointer-events: none;
-      color: #c6d3e6;
-    }
-    .variant[data-percent]:active { color: transparent; }
+
     /* === Metallic rarity colors === */
-  /* Base chip stays the same; these override per-rarity for a metallic look */
-  .variant.common{
-    background: linear-gradient(145deg, #654a3a, #7a5a45);
-    border-color: #8e6b50;
-    color:#0b0f14;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,.18), inset 0 -1px 0 rgba(0,0,0,.35);
-  }
-  .variant.uncommon{
-    background: linear-gradient(145deg, #dfe3e8, #aeb6bf);
-    border-color: #c3c9d1;
-    color:#0b0f14;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,.6), inset 0 -1px 0 rgba(0,0,0,.35);
-  }
-  .variant.rare{
-    background: linear-gradient(145deg, #f7e6a1, #caa74b);
-    border-color: #e2c874;
-    color:#0b0f14;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 -1px 0 rgba(120,84,0,.35);
-  }
-  .variant.ultra{
-    background: linear-gradient(145deg, #ff6b6b, #a92222);
-    border-color: #d24b4b;
-    color:#0b0f14;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,.35), inset 0 -1px 0 rgba(80,0,0,.35);
-  }
-  /* Contrast boost for % readout on hover */
-  .variant[data-percent]{ position:relative; }
-  .variant[data-percent]:hover, .variant[data-percent]:active{ color:transparent; }
-  .variant[data-percent]:hover::after,
-  .variant[data-percent]:active::after{
-    content:""; position:absolute; inset:0; border-radius:inherit;
-    background: rgba(0,0,0,.28); pointer-events:none; z-index:1;
-  }
-  .variant[data-percent]:hover::before,
-  .variant[data-percent]:active::before{
-    content: attr(data-percent);
-    position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
-    color:#ffffff; font-weight:800; letter-spacing:.2px;
-    text-shadow: 0 1px 2px rgba(0,0,0,.9), 0 0 8px rgba(0,0,0,.7);
-    pointer-events:none; z-index:2; white-space:nowrap;
-  }
-</style>
+    .variant.common{
+      background: linear-gradient(145deg, #654a3a, #7a5a45);
+      border-color: #8e6b50;
+      color:#0b0f14;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.18), inset 0 -1px 0 rgba(0,0,0,.35);
+    }
+    .variant.uncommon{
+      background: linear-gradient(145deg, #dfe3e8, #aeb6bf);
+      border-color: #c3c9d1;
+      color:#0b0f14;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.6), inset 0 -1px 0 rgba(0,0,0,.35);
+    }
+    .variant.rare{
+      background: linear-gradient(145deg, #f7e6a1, #caa74b);
+      border-color: #e2c874;
+      color:#0b0f14;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 -1px 0 rgba(120,84,0,.35);
+    }
+    .variant.ultra{
+      background: linear-gradient(145deg, #ff6b6b, #a92222);
+      border-color: #d24b4b;
+      color:#0b0f14;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.35), inset 0 -1px 0 rgba(80,0,0,.35);
+    }
+
+    /* Hover-to-reveal percentages on variant chips (high contrast) */
+    .variant[data-percent]:hover,
+    .variant[data-percent]:active{ color:transparent; }
+    .variant[data-percent]:hover::after,
+    .variant[data-percent]:active::after{
+      content:""; position:absolute; inset:0; border-radius:inherit;
+      background: rgba(0,0,0,.28); pointer-events:none; z-index:1;
+    }
+    .variant[data-percent]:hover::before,
+    .variant[data-percent]:active::before{
+      content: attr(data-percent);
+      position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+      color:var(--percent-ink); font-weight:800; letter-spacing:.2px;
+      text-shadow: 0 1px 2px rgba(0,0,0,.9), 0 0 8px rgba(0,0,0,.7);
+      pointer-events:none; z-index:2; white-space:nowrap;
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -162,7 +181,7 @@
 
       <div class="legend">
         <strong>Legend:</strong>
-        <span class="variant">Common</span>
+        <span class="variant common">Common</span>
         <span class="variant uncommon">Uncommon</span>
         <span class="variant rare">Rare</span>
         <span class="variant ultra">Ultra Rare</span>
@@ -171,17 +190,14 @@
   </div>
 
   <script>
-// =========================
-//  DATA HOOKS
-// =========================
-// If MAPS / SPECIES already exist (from your original file), we keep them.
-// Otherwise, we define minimal fallbacks so the page still runs.
-
-window.MAPS_BASE = window.MAPS_BASE || [
+/* =========================
+   MAPS
+   ========================= */
+const MAPS_BASE = [
   { id:"layton", name:"Layton Lake District", region:"Pacific Northwest, USA" },
   { id:"hirsch", name:"Hirschfelden Hunting Reserve", region:"Germany" }
 ];
-window.MAPS_DLC = window.MAPS_DLC || [
+const MAPS_DLC = [
   { id:"medved",      name:"Medved-Taiga National Park",     region:"Siberia, Russia" },
   { id:"vurhonga",    name:"Vurhonga Savanna Reserve",       region:"Africa" },
   { id:"parque",      name:"Parque Fernando",                region:"Argentina" },
@@ -200,13 +216,9 @@ window.MAPS_DLC = window.MAPS_DLC || [
 ];
 const MAPS_BY_ID = [...MAPS_BASE, ...MAPS_DLC].reduce((a,m)=> (a[m.id]=m, a), {});
 
-// IMPORTANT: Your original file already defines a huge SPECIES array.
-// We re-use it if present. If not, this small sample prevents a blank page.
-
-
-// =========================
-//  UI STATE
-// =========================
+/* =========================
+   ELEMENTS & STATE
+   ========================= */
 const els = {
   map: document.getElementById('mapSelect'),
   search: document.getElementById('search'),
@@ -219,13 +231,10 @@ const els = {
   reset: document.getElementById('resetBtn')
 };
 
-// Populate dropdowns
 [...MAPS_BASE, ...MAPS_DLC].forEach(m=>{
   const o=document.createElement('option'); o.value=m.id; o.textContent=`${m.name}`; els.map.appendChild(o);
 });
 
-
-// Restore last state
 const LS_KEY='hunter.cards.v1';
 function saveState(){
   localStorage.setItem(LS_KEY, JSON.stringify({
@@ -241,7 +250,36 @@ function loadState(){
   try{ return JSON.parse(localStorage.getItem(LS_KEY)||'{}'); }catch{ return {}; }
 }
 
-// Rarity class from token
+/* =========================
+   DATA LOADING (species.json)
+   ========================= */
+let SPECIES = [];
+
+async function loadSpecies(){
+  try{
+    const res = await fetch('species.json', { cache: 'no-store' });
+    if(!res.ok) throw new Error('species.json not found');
+    SPECIES = await res.json();
+    window.SPECIES = SPECIES; // expose for console debugging
+  }catch(e){
+    console.warn('Could not load species.json:', e);
+    SPECIES = [];
+  }
+}
+
+function populateClassFilter(){
+  els.classFilter.innerHTML = '<option value="">All Classes</option>';
+  const classes = Array.from(new Set(SPECIES.map(s=>s.class))).sort((a,b)=>a-b);
+  classes.forEach(c=>{
+    const o=document.createElement('option');
+    o.value=c; o.textContent=`Class ${c}`;
+    els.classFilter.appendChild(o);
+  });
+}
+
+/* =========================
+   HELPERS
+   ========================= */
 function rarityClass(name){
   const n = (name||'').toLowerCase();
   if(n.includes('ultra') || n.includes('great one') || n.includes('super')) return 'ultra';
@@ -250,8 +288,24 @@ function rarityClass(name){
   return '';
 }
 
+// Percent thresholds (tune these if you want)
+const RARITY_THRESHOLDS = {
+  ultra: 0.1,     // < 0.1%  = Ultra
+  rare: 1,        // < 1%    = Rare
+  uncommon: 10    // < 10%   = Uncommon
+  // >= 10% = Common
+};
+function rarityFromPercent(pctStr) {
+  if (!pctStr) return "";
+  const n = parseFloat(String(pctStr).replace("%",""));
+  if (isNaN(n)) return "";
+  if (n < RARITY_THRESHOLDS.ultra) return "ultra";
+  if (n < RARITY_THRESHOLDS.rare) return "rare";
+  if (n < RARITY_THRESHOLDS.uncommon) return "uncommon";
+  return "common";
+}
+
 function sexAbbrev(sex){
-  // normalize various notations from your dataset: "M / F", "⚥", "♂", "♀"
   const s = (sex||'').replace(/\s+/g,'').toUpperCase();
   if(s.includes('M/F') || s.includes('⚥')) return 'M / F';
   if(s.includes('M') && s.includes('F')) return 'M / F';
@@ -260,6 +314,31 @@ function sexAbbrev(sex){
   return sex || '—';
 }
 
+function normalizeVariant(raw) {
+  if (typeof raw === "string") {
+    const m = raw.match(/^(.*?)(?:\s+(\d+(?:\.\d+)?%))$/);
+    if (m) return { name: m[1].trim(), pct: m[2], rarity: "" };
+    return { name: raw.trim(), pct: "", rarity: "" };
+  }
+  if (raw && typeof raw === "object") {
+    const name = (raw.name || "").trim();
+    const pct  = (raw.percent || raw.pct || "").toString();
+    const rarity = raw.rarity || "";
+    return { name, pct, rarity };
+  }
+  return { name: String(raw || "").trim(), pct: "", rarity: "" };
+}
+
+function variantChip(raw) {
+  const v = normalizeVariant(raw);
+  const rcls = v.rarity || rarityFromPercent(v.pct) || rarityClass(v.name) || "common";
+  const pctAttr = v.pct ? ` data-percent="${v.pct}" title="${v.pct}"` : "";
+  return `<span class="variant ${rcls}"${pctAttr}>${v.name}</span>`;
+}
+
+/* =========================
+   RENDER
+   ========================= */
 function cardHTML(a){
   const variants = Array.isArray(a.variants) ? a.variants : [];
   return `
@@ -275,19 +354,13 @@ function cardHTML(a){
          <span class="label">Sex</span> <span class="chip">${sexAbbrev(a.sex)}</span></div>
     <div class="row"><span class="label">Fur Variants</span></div>
     <div class="variants">
-      ${variants.map(v => variantChip(v)).join('')}
+      ${variants.map(v => variantChip(v)).join("")}
     </div>
   </article>`;
 }
 
 function applyFilters(){
-  const map = els.map.value;
-  const q = els.search.value.toLowerCase().trim();
-  const cls = els.classFilter.value;
-  const sex = els.sexFilter.value;
-  const sortBy = els.sortBy.value;
-
-  let list = Array.isArray(window.SPECIES) ? window.SPECIES : [];
+  let list = Array.isArray(SPECIES) ? SPECIES : [];
   if (!list.length) {
     els.cards.innerHTML = '<div class="row" style="padding:16px;color:#8ea3bb;">No species loaded. Add <code>species.json</code> to this folder.</div>';
     els.title.textContent = 'No species loaded';
@@ -295,6 +368,13 @@ function applyFilters(){
     saveState();
     return;
   }
+
+  const map = els.map.value;
+  const q = els.search.value.toLowerCase().trim();
+  const cls = els.classFilter.value;
+  const sex = els.sexFilter.value;
+  const sortBy = els.sortBy.value;
+
   if(map) list = list.filter(s=> (s.maps||[]).includes(map));
   if(cls) list = list.filter(s=> String(s.class) === String(cls));
   if(sex){
@@ -329,7 +409,9 @@ function applyFilters(){
   saveState();
 }
 
-// Listeners
+/* =========================
+   LISTENERS + BOOTSTRAP
+   ========================= */
 ['input','change'].forEach(evt=>{
   els.search.addEventListener(evt, applyFilters);
   els.classFilter.addEventListener(evt, applyFilters);
@@ -350,76 +432,22 @@ els.reset.addEventListener('click', ()=>{
   applyFilters();
 });
 
-// Helpers for JSON loading (species.json)
-function rebuildClassFilter() {
-  const sel = els.classFilter;
-  const prev = sel.value;
-  sel.innerHTML = '<option value="">All Classes</option>';
-  const classes = Array.from(new Set((window.SPECIES || []).map(s => s.class))).sort((a,b)=>a-b);
-  classes.forEach(c => {
-    const o = document.createElement('option');
-    o.value = c;
-    o.textContent = `Class ${c}`;
-    sel.appendChild(o);
-  });
-  if (classes.includes(Number(prev))) sel.value = prev;
-}
-
-async function tryLoadSpecies() {
-  try {
-    const res = await fetch('species.json', { cache: 'no-store' });
-    if (res.ok) {
-      window.SPECIES = await res.json();
-    } else {
-      console.warn('species.json not found; using inline fallback if present.');
-    }
-  } catch (e) {
-    console.warn('Could not fetch species.json; using inline fallback if present.', e);
-  }
-}
-
 // Bootstrap (load JSON first, then build UI)
 (async function init(){
-  await tryLoadSpecies();
-  rebuildClassFilter();
-
   const state = loadState();
-  if (state.map) els.map.value = state.map;
-  if (state.q) els.search.value = state.q;
-  if (state.cls) els.classFilter.value = state.cls;
-  if (state.sex) els.sexFilter.value = state.sex;
-  if (state.sort) els.sortBy.value = state.sort;
-  if (state.compact) document.body.classList.add('compact');
+  if(state.compact) document.body.classList.add('compact');
+
+  await loadSpecies();
+  populateClassFilter();
+
+  if(state.map) els.map.value = state.map;
+  if(state.q)   els.search.value = state.q;
+  if(state.cls) els.classFilter.value = state.cls;
+  if(state.sex) els.sexFilter.value = state.sex;
+  if(state.sort)els.sortBy.value = state.sort;
 
   applyFilters();
 })();
-  
-function normalizeVariant(raw) {
-  if (typeof raw === "string") {
-    const tokens = raw.trim().split(' ').filter(Boolean);
-    const last = tokens[tokens.length - 1] || '';
-    const isPct = last.endsWith('%') && !isNaN(parseFloat(last));
-    if (isPct) {
-      const name = tokens.slice(0, -1).join(' ');
-      return { name: name || raw.trim(), pct: last, rarity: '' };
-    }
-    return { name: raw.trim(), pct: '', rarity: '' };
-  }
-  if (raw && typeof raw === 'object') {
-    const name = (raw.name || '').trim();
-    const pct  = (raw.percent || raw.pct || '').toString();
-    const rarity = raw.rarity || '';
-    return { name, pct, rarity };
-  }
-  return { name: String(raw || '').trim(), pct: '', rarity: '' };
-}
-
-function variantChip(raw) {
-  const v = normalizeVariant(raw);
-  const rcls = v.rarity || rarityFromPercent(v.pct) || rarityClass(v.name) || "common";
-  const pctAttr = v.pct ? ` data-percent="${v.pct}" title="${v.pct}"` : '';
-  return `<span class="variant ${rcls}"${pctAttr}>${v.name}</span>`;
-}
-</script>
+  </script>
 </body>
 </html>
