@@ -234,18 +234,21 @@ const MAPS_BASE = [
   { id:"hirsch", name:"Hirschfelden Hunting Reserve", region:"Germany" }
 ];
 const MAPS_DLC = [
-  { id:"medved", name:"Medved-Taiga National Park", region:"Siberia, Russia" },
-  { id:"vurhonga", name:"Vurhonga Savanna Reserve", region:"Africa" },
-  { id:"parque", name:"Parque Fernando", region:"Argentina" },
-  { id:"yukon", name:"Yukon Valley", region:"Alaska" },
-  { id:"cuatro", name:"Cuatro Colinas Game Reserve", region:"Spain" },
-  { id:"silverridge", name:"Silver Ridge Peaks", region:"Colorado" },
-  { id:"teawaroa", name:"Te Awaroa National Park", region:"New Zealand" },
-  { id:"rancho", name:"Rancho del Arroyo", region:"Mexico" },
-  { id:"mississippi", name:"Mississippi Acres Preserve", region:"USA" },
-  { id:"revontuli", name:"Revontuli Coast", region:"Finland" },
-  { id:"newengland", name:"New England Mountains", region:"USA" },
-  { id:"emerald", name:"Emerald Coast", region:"Australia" }
+  { id:"medved",      name:"Medved-Taiga National Park",     region:"Siberia, Russia" },
+  { id:"vurhonga",    name:"Vurhonga Savanna Reserve",       region:"Africa" },
+  { id:"parque",      name:"Parque Fernando",                region:"Argentina" },
+  { id:"yukon",       name:"Yukon Valley",                   region:"Alaska" },
+  { id:"cuatro",      name:"Cuatro Colinas Game Reserve",    region:"Spain" },
+  { id:"silverridge", name:"Silver Ridge Peaks",             region:"Colorado" },
+  { id:"teawaroa",    name:"Te Awaroa National Park",        region:"New Zealand" },
+  { id:"rancho",      name:"Rancho del Arroyo",              region:"Mexico" },
+  { id:"mississippi", name:"Mississippi Acres Preserve",     region:"USA" },
+  { id:"revontuli",   name:"Revontuli Coast",                region:"Finland" },
+  { id:"newengland",  name:"New England Mountains",          region:"USA" },
+  { id:"emerald",     name:"Emerald Coast",                  region:"Australia" },
+  { id:"sundarpatan", name:"Sundarpatan",                    region:"Nepal / Himalayas" },
+  { id:"salzwiesen",  name:"Salzwiesen Park",                region:"Germany" },
+  { id:"askiy",       name:"Askiy Ridge Hunting Preserve",   region:"Canada" }
 ];
 const MAPS_BY_ID = [...MAPS_BASE, ...MAPS_DLC].reduce((a,m)=> (a[m.id]=m, a), {});
 
