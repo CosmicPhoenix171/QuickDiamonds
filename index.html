@@ -250,22 +250,48 @@ function loadState(){
   try{ return JSON.parse(localStorage.getItem(LS_KEY)||'{}'); }catch{ return {}; }
 }
 
-/* =========================
-   DATA LOADING (species.json)
-   ========================= */
-let SPECIES = [];
+<script>
+async function loadSpecies() {
+  let url = 'species.json'; // keep this if that’s your file name & path
+  try {
+    const res = await fetch(url, { cache: 'no-store' });
+    if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
+    const raw = await res.json();
 
-async function loadSpecies(){
-  try{
-    const res = await fetch('species.json', { cache: 'no-store' });
-    if(!res.ok) throw new Error('species.json not found');
-    SPECIES = await res.json();
-    window.SPECIES = SPECIES; // expose for console debugging
-  }catch(e){
-    console.warn('Could not load species.json:', e);
-    SPECIES = [];
+    // Accept either: [{...}, {...}]  OR  { emerald:[{...}], askiy:[{...}], ... }
+    let flat = [];
+    if (Array.isArray(raw)) {
+      flat = raw;
+    } else if (raw && typeof raw === 'object') {
+      // Flatten {map:[...]} to a single array and add the map to each entry
+      flat = Object.entries(raw).flatMap(([mapName, arr]) => {
+        if (!Array.isArray(arr)) return [];
+        return arr.map(o => ({
+          ...o,
+          // ensure expected fields exist
+          variants: Array.isArray(o.variants) ? o.variants : [],
+          maps: Array.isArray(o.maps) ? o.maps : [mapName]   // <- important
+        }));
+      });
+    } else {
+      throw new Error('Unrecognized JSON format');
+    }
+
+    // Minimal sanity check so the rest of the UI won’t choke
+    window.SPECIES = flat.filter(Boolean);
+    if (!Array.isArray(window.SPECIES) || !window.SPECIES.length) {
+      console.warn('Loaded species.json but it has 0 entries after flattening.');
+    }
+  } catch (err) {
+    console.error('Failed to load species.json:', err);
+    // Optional: show a friendly message in the UI
+    const el = document.getElementById('cards') || document.body;
+    el.innerHTML = `<div style="color:#f88;padding:12px;border:1px solid #f88;border-radius:8px">
+      Failed to load <code>${url}</code>: ${err.message}
+    </div>`;
   }
 }
+</script>
 
 function populateClassFilter(){
   els.classFilter.innerHTML = '<option value="">All Classes</option>';
