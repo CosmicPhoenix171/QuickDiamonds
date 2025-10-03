@@ -50,9 +50,43 @@
     }
 
     /* swap name → % on hover/tap */
-    .chip[data-percent]:hover{ color:transparent; }
-    .chip[data-percent]:hover::before{
-      content: attr(data-percent);
+.chip{ position:relative; } /* keep your existing .chip base styles above */
+.chip[data-percent]:hover{ color:transparent; }
+.chip[data-percent]:hover::before,
+.chip[data-percent]:active::before{
+  content: attr(data-percent);
+  position:absolute; left:50%; top:50%;
+  transform: translate(-50%, -50%);
+  white-space:nowrap; pointer-events:none;
+  color:#c6d3e6; font-size:inherit;
+}
+
+/* 4-column rarity matrix inside the Fur Variants cell */
+.variant-matrix{
+  display:grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap:12px;
+  align-items:start;
+}
+.vtitle{
+  font-size:11px;
+  color:#8ea3bb;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  margin-bottom:6px;
+}
+.vchips{display:flex; flex-wrap:wrap; gap:6px}
+
+/* responsive: shrink to 2 cols, then 1 */
+@media (max-width:1200px){
+  .variant-matrix{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width:700px){
+  .variant-matrix{ grid-template-columns: 1fr; }
+}
+
+/* give the Fur Variants column more room */
+thead th:nth-child(7), tbody td:nth-child(7){ min-width:420px; }
       position:absolute; left:50%; top:50%;
       transform: translate(-50%, -50%);
       white-space:nowrap; pointer-events:none;
@@ -478,24 +512,46 @@ function buildClassOptions(){
 
 function formatVariants(list){
   if (!list || !list.length) return '';
-  return '<div class="chips">' + list.map(v => {
-    // split "Name 12.5%" into name + percent (grabs the first % it sees)
-    const m = v.match(/^(.*?)(\s+([\d.]+)%)/);
+
+  // bucket chips by rarity
+  const buckets = { ultra: [], rare: [], uncom: [], common: [], other: [] };
+
+  list.forEach(v => {
+    const m = v.match(/^(.*?)(\s+([\d.]+)%)$/); // split "Name 12.5%"
     let name = v, percentText = '', val = null;
     if (m) { name = m[1].trim(); percentText = m[2].trim(); val = parseFloat(m[3]); }
 
-    // Ultra ≤0.9, Rare 1–5, Uncommon 6–11, Common ≥12
-    let extra = '';
+    // thresholds: Ultra ≤0.9, Rare 1–5, Uncommon 6–11, Common ≥12
+    let cls = '', key = 'other';
     if (val !== null) {
-      if (val <= 0.9) extra = ' r-ultra';
-      else if (val >= 1 && val <= 5) extra = ' r-rare';
-      else if (val >= 6 && val <= 11) extra = ' r-silver';
-      else if (val >= 12) extra = ' r-bronze';
+      if (val <= 0.9)        { cls = ' r-ultra';  key = 'ultra'; }
+      else if (val <= 5)     { cls = ' r-rare';   key = 'rare'; }
+      else if (val <= 11)    { cls = ' r-silver'; key = 'uncom'; }
+      else                   { cls = ' r-bronze'; key = 'common'; }
     }
 
     const attr = percentText ? ` data-percent="${percentText}"` : '';
-    return `<span class="chip${extra}"${attr}>${name}</span>`;
-  }).join('') + '</div>';
+    (buckets[key] || buckets.other).push(`<span class="chip${cls}"${attr}>${name}</span>`);
+  });
+
+  // build columns (skip empty ones)
+  const col = (label, key) =>
+    buckets[key].length
+      ? `<div class="vcol">
+           <div class="vtitle">${label}</div>
+           <div class="vchips">${buckets[key].join('')}</div>
+         </div>`
+      : '';
+
+  return `
+    <div class="variant-matrix">
+      ${col('Ultra Rare', 'ultra')}
+      ${col('Rare', 'rare')}
+      ${col('Uncommon', 'uncom')}
+      ${col('Common', 'common')}
+      ${col('Other', 'other')}
+    </div>
+  `;
 }
 
 function render(){
