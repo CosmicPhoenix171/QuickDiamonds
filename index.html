@@ -34,11 +34,43 @@
     table{width:100%; border-collapse:collapse; table-layout:auto}
     thead th{position:sticky; top:0; background:#0f1621; color:#b9c7da; font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:.08em; padding:12px 10px; border:1px solid #1a2330; cursor:pointer; user-select:none; white-space:nowrap}
     tbody td{padding:10px 10px; border:1px solid #1a2330; font-size:14px; line-height:1.4; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; vertical-align:middle}
+    /* allow the fur-variants cell to show overflow from the resizable box */
+tbody td.variants-cell{ overflow: visible; }
+
+/* the resizable wrapper */
+.variants-resize{
+  /* start at the cell width, but user can drag it wider */
+  width: 100%;
+  max-width: none;          /* allow stretching past the cell */
+  min-width: 260px;
+
+  resize: horizontal;       /* drag to resize left/right */
+  overflow: auto;           /* show scrollbars if needed */
+
+  display: inline-block;
+  position: relative;
+  z-index: 2;               /* render above neighbors while stretched */
+
+  background: rgba(15,22,33,.4);
+  border: 1px dashed #1a2330;
+  border-radius: 8px;
+  padding: 6px;
+}
+
+/* subtle UI: only show border on hover/focus to keep things clean */
+.variants-resize{ border-color: transparent; }
+.variants-resize:hover,
+.variants-resize:focus-within{ border-color: #1a2330; }
+
     tbody tr:nth-child(even){background:#0e141d}
     tbody tr:hover{background:#121a1f}
     td.num, th.num{text-align:right}
     td.center, th.center{text-align:center}
-    td.left{text-align:left}
+    <td class="left variants-cell">
+     <div class="variants-resize">
+        ${formatVariants(s.variants)}
+      </div>
+    </td>
     td.nowrap{text-align:left}
 
     .chips{display:flex; flex-wrap:wrap; gap:6px; justify-content:flex-start}
