@@ -1,13 +1,13 @@
 {
-  "layton": [
-    {"class": 1, "animal": "Mallard Duck", "maxDifficulty": "9 (Legendary)", "diamond": 19.63, "basis": "Weight-based (Body)", "minWeight": "1.6 kg / 3.5 lbs", "sex": "M / F", "variants": ["Brown 80%", "Dark 10%", "Grey 5%", "Melanistic 1%", "Albino 0.1%", "Piebald 0.1%"]},
-    {"class": 2, "animal": "Coyote", "maxDifficulty": "9 (Legendary)", "diamond": 61.86, "basis": "Weight-based (Body)", "minWeight": "25 kg / 55 lbs", "sex": "M / F", "variants": ["Brown 85%", "Dark Brown 10%", "Grey 3%", "Melanistic 1%", "Blonde 0.1%", "Albino 0.1%"]},
-    {"class": 4, "animal": "Whitetail Deer", "maxDifficulty": "5 (Medium)", "diamond": 255.09, "basis": "Organ-based (Antlers)", "minWeight": "–", "sex": "M", "variants": ["Brown 90%", "Tan 5%", "Grey 3%", "Dark Brown 5%", "Piebald 1%", "Melanistic 0.2%", "Albino 0.1%"]},
-    {"class": 4, "animal": "Blacktail Deer", "maxDifficulty": "5 (Medium)", "diamond": 182.25, "basis": "Organ-based (Antlers)", "minWeight": "–", "sex": "M", "variants": ["Brown 85%", "Dark Brown 10%", "Tan 3%", "Piebald 1%", "Melanistic 0.2%", "Albino 0.1%"]},
-    {"class": 7, "animal": "Black Bear", "maxDifficulty": "9 (Legendary)", "diamond": 22.8, "basis": "Organ-based (Skull)", "minWeight": "–", "sex": "M / F", "variants": ["Brown 75%", "Cinnamon 10%", "Dark 10%", "Grey 3%", "Melanistic 1%", "Albino 0.1%"]},
-    {"class": 8, "animal": "Roosevelt Elk", "maxDifficulty": "9 (Legendary)", "diamond": 380.84, "basis": "Organ-based (Antlers)", "minWeight": "–", "sex": "M", "variants": ["Brown 80%", "Light Brown 10%", "Dark Brown 5%", "Grey 3%", "Fabled Piebald 1%", "Melanistic 0.2%", "Albino 0.1%"]},
-    {"class": 8, "animal": "Moose", "maxDifficulty": "9 (Legendary)", "diamond": 274.99, "basis": "Organ-based (Antlers)", "minWeight": "–", "sex": "M", "variants": ["Brown 85%", "Light Brown 10%", "Dark Brown 3%", "Grey 1%", "Melanistic 0.2%", "Albino 0.1%"]}
-  ],
+ "layton": [
+  {"class": 1, "animal": "Mallard Duck", "maxDifficulty": "3 (Very Easy)", "diamond": 19.63, "basis": "Weight-based (Body)", "minWeight": "1.6 kg / 3.5 lbs", "variants": ["Brown 80%", "Dark 10%", "Grey 5%", "Melanistic 1%", "Albino 0.1%", "Piebald 0.1%"]},
+  {"class": 2, "animal": "Coyote", "maxDifficulty": "9 (Legendary)", "diamond": 61.86, "basis": "Weight-based (Body)", "minWeight": "25 kg / 55 lbs", "variants": ["Brown 85%", "Dark Brown 10%", "Grey 3%", "Melanistic 1%", "Blonde 0.1%", "Albino 0.1%"]},
+  {"class": 3, "animal": "Whitetail Deer", "maxDifficulty": "3 (Very Easy)", "diamond": 255.09, "basis": "Organ-based (Antlers)", "minWeight": "–", "variants": ["Brown 75%", "Tan 15%", "Grey 5%", "Dark Brown 5%", "Piebald 0.20%", "Melanistic 0.05%", "Albino 0.05%"]},
+  {"class": 4, "animal": "Blacktail Deer", "maxDifficulty": "5 (Medium)", "diamond": 177.50, "basis": "Organ-based (Antlers)", "minWeight": "–", "variants": ["Brown 80%", "Dark Brown 10%", "Tan 5%", "Piebald 0.20%", "Melanistic 0.05%", "Albino 0.05%"]},
+  {"class": 7, "animal": "Black Bear", "maxDifficulty": "9 (Legendary)", "diamond": 22.80, "basis": "Organ-based (Skull)", "minWeight": "–", "variants": ["Brown 75%", "Cinnamon 10%", "Dark 10%", "Grey 3%", "Melanistic 1%", "Albino 0.1%"]},
+  {"class": 7, "animal": "Roosevelt Elk", "maxDifficulty": "5 (Medium)", "diamond": 380.84, "basis": "Organ-based (Antlers)", "minWeight": "–", "variants": ["Brown 33.23%", "Orange 33.23%", "Tan 33.23%", "Piebald 0.20%", "Albino 0.05%", "Melanistic 0.05%"]},
+  {"class": 8, "animal": "Moose", "maxDifficulty": "5 (Medium)", "diamond": 274.99, "basis": "Organ-based (Antlers)", "minWeight": "–", "variants": ["Tan 33.23%", "Light Brown 33.23%", "Brown 33.23%", "Piebald 0.20%", "Albino 0.05%", "Melanistic 0.05%"]}
+ ],
   "hirsch": [
     {"class": 1, "animal": "Ring-Necked Pheasant", "maxDifficulty": "9 (Legendary)", "diamond": 20.29, "basis": "Weight-based (Body)", "minWeight": "1.4 kg / 3.1 lbs", "sex": "M / F", "variants": ["Albino 0.1%", "Melanistic 0.2%", "Leucistic 0.2%", "Grey 3%", "Brown 10%", "Dark 20%", "Common 66%"]},
     {"class": 1, "animal": "Canada Goose", "maxDifficulty": "9 (Legendary)", "diamond": 8.5, "basis": "Weight-based (Body)", "minWeight": "8.5 kg / 18.7 lbs", "sex": "M / F", "variants": ["Albino 0.1%", "Melanistic 0.2%", "Light Grey Leucistic 0.1%", "Bald Leucistic 0.1%", "Grey 0.4%", "Brown Hybrid 14.2%", "Gray-Brown 85%"]},
