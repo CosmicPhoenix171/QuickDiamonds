@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -32,45 +32,40 @@
     .card-sub{color:#8ea3bb; font-size:12px}
 
     table{width:100%; border-collapse:collapse; table-layout:auto}
-    thead th{position:sticky; top:0; background:#0f1621; color:#b9c7da; font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:.08em; padding:12px 10px; border:1px solid #1a2330; cursor:pointer; user-select:none; white-space:nowrap}
+    thead th{position:sticky; top:0; background:#0f1621; color:#b9c7da; font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:.08em; padding:12px 10px; border:1px solid #1a2330; cursor:pointer;}
     tbody td{padding:10px 10px; border:1px solid #1a2330; font-size:14px; line-height:1.4; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; vertical-align:middle}
     /* allow the fur-variants cell to show overflow from the resizable box */
-tbody td.variants-cell{ overflow: visible; }
+    tbody td.variants-cell{ overflow: visible; }
 
-/* the resizable wrapper */
-.variants-resize{
-  /* start at the cell width, but user can drag it wider */
-  width: 100%;
-  max-width: none;          /* allow stretching past the cell */
-  min-width: 260px;
+    /* the resizable wrapper */
+    .variants-resize{
+      /* start at the cell width, but user can drag it wider */
+      width: 100%;
+      max-width: none;          /* allow stretching past the cell */
+      min-width: 260px;
 
-  resize: horizontal;       /* drag to resize left/right */
-  overflow: auto;           /* show scrollbars if needed */
+      resize: horizontal;       /* drag to resize left/right */
+      overflow: auto;           /* show scrollbars if needed */
 
-  display: inline-block;
-  position: relative;
-  z-index: 2;               /* render above neighbors while stretched */
+      display: inline-block;
+      position: relative;
+      z-index: 2;               /* render above neighbors while stretched */
 
-  background: rgba(15,22,33,.4);
-  border: 1px dashed #1a2330;
-  border-radius: 8px;
-  padding: 6px;
-}
+      background: rgba(15,22,33,.4);
+      border: 1px dashed #1a2330;
+      border-radius: 8px;
+      padding: 6px;
+    }
 
-/* subtle UI: only show border on hover/focus to keep things clean */
-.variants-resize{ border-color: transparent; }
-.variants-resize:hover,
-.variants-resize:focus-within{ border-color: #1a2330; }
+    /* subtle UI: only show border on hover/focus to keep things clean */
+    .variants-resize{ border-color: transparent; }
+    .variants-resize:hover,
+    .variants-resize:focus-within{ border-color: #1a2330; }
 
     tbody tr:nth-child(even){background:#0e141d}
     tbody tr:hover{background:#121a1f}
     td.num, th.num{text-align:right}
     td.center, th.center{text-align:center}
-    <td class="left variants-cell">
-     <div class="variants-resize">
-        ${formatVariants(s.variants)}
-      </div>
-    </td>
     td.nowrap{text-align:left}
 
     .chips{display:flex; flex-wrap:wrap; gap:6px; justify-content:flex-start}
@@ -78,49 +73,15 @@ tbody td.variants-cell{ overflow: visible; }
       background:var(--chip); border:1px solid var(--chip-border);
       padding:4px 8px; border-radius:999px; font-size:12px; color:#c6d3e6;
       white-space:nowrap;
-      position:relative; /* keep this */
+      position:relative;
     }
 
     /* swap name → % on hover/tap */
-.chip{ position:relative; } /* keep your existing .chip base styles above */
-.chip[data-percent]:hover{ color:transparent; }
-.chip[data-percent]:hover::before,
-.chip[data-percent]:active::before{
-  content: attr(data-percent);
-  position:absolute; left:50%; top:50%;
-  transform: translate(-50%, -50%);
-  white-space:nowrap; pointer-events:none;
-  color:#c6d3e6; font-size:inherit;
-}
-
-/* horizontal rows: Ultra / Rare / Uncommon / Common */
-.variant-rows{ display:flex; flex-direction:column; gap:10px; }
-
-.vrow{
-  display:grid;
-  grid-template-columns: 120px 1fr;   /* label | chips */
-  align-items:start;
-  column-gap:10px;
-}
-
-.vtitle{
-  font-size:11px;
-  color:#8ea3bb;
-  letter-spacing:.06em;
-  text-transform:uppercase;
-  margin-top:4px;
-}
-
-.vchips{ display:flex; flex-wrap:wrap; gap:6px; }
-
-/* responsive: stack label above chips on small screens */
-@media (max-width:700px){
-  .vrow{ grid-template-columns: 1fr; row-gap:4px; }
-}
-
-/* keep the Fur Variants column roomy */
-thead th:nth-child(7), tbody td:nth-child(7){ min-width:420px; }
-      
+    .chip{ position:relative; }
+    .chip[data-percent]:hover{ color:transparent; }
+    .chip[data-percent]:hover::before,
+    .chip[data-percent]:active::before{
+      content: attr(data-percent);
       position:absolute; left:50%; top:50%;
       transform: translate(-50%, -50%);
       white-space:nowrap; pointer-events:none;
@@ -129,7 +90,7 @@ thead th:nth-child(7), tbody td:nth-child(7){ min-width:420px; }
     /* touch support */
     .chip[data-percent]:active{ color:transparent; }
     .chip[data-percent]:active::before{ content: attr(data-percent); }
-    }
+
     .class{font-weight:700; color:var(--accent)}
     .sex{white-space:nowrap; min-width:70px; text-align:center}
     .hint{color:#8ea3bb; font-size:12px; margin-top:8px}
@@ -159,6 +120,13 @@ thead th:nth-child(7), tbody td:nth-child(7){ min-width:420px; }
     @media (max-width: 980px){
       .controls{grid-template-columns: 1fr 1fr}
     }
+    /* responsive: stack label above chips on small screens */
+    @media (max-width:700px){
+      .vrow{ grid-template-columns: 1fr; row-gap:4px; }
+    }
+
+    /* keep the Fur Variants column roomy */
+    thead th:nth-child(7), tbody td:nth-child(7){ min-width:420px; }
   </style>
 </head>
 <body>
@@ -238,11 +206,8 @@ const MAPS_DLC = [
 ];
 const MAPS_BY_ID = [...MAPS_BASE, ...MAPS_DLC].reduce((a,m)=> (a[m.id]=m, a), {});
 
-/* ============================================================
-   PASTE YOUR EXISTING SPECIES ARRAY HERE (unchanged structure)
-   The page will still run with these sample rows.
-   ============================================================ */
 const SPECIES = [
+  const SPECIES = [
   // SAMPLE ROWS — replace with your full array
   { class:1, animal:"Mallard Duck", maxDifficulty:"9 (Legendary)", diamond:19.63, basis:"Weight-based (Body)", minWeight:"1.6 kg / 3.5 lbs", sex:"M / F", variants:["Brown 80%","Dark 10%","Grey 5%","Melanistic 1%","Albino 0.1%","Piebald 0.1%"], maps:["layton"] },
   { class:2, animal:"Coyote", maxDifficulty:"9 (Legendary)", diamond:61.86, basis:"Weight-based (Body)", minWeight:"25 kg / 55 lbs", sex:"M / F", variants:["Brown 85%","Dark Brown 10%","Grey 3%","Melanistic 1%","Blonde 0.1%","Albino 0.1%"], maps:["layton"] },
