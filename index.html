@@ -257,7 +257,19 @@ async function loadSpecies() {
   try {
     const res = await fetch(url, { cache: 'no-store' });
     if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
-    const raw = await res.json();
+    const txt = await res.text();
+
+    // Try to parse as standard JSON first, fall back to NDJSON (one JSON object per line)
+    let raw;
+    try {
+      raw = JSON.parse(txt);
+    } catch (e) {
+      const lines = txt.split(/\r?\n/).filter(Boolean);
+      raw = lines.map(l => {
+        try { return JSON.parse(l); }
+        catch (err) { console.error('Invalid JSONL line, skipping:', l); return null; }
+      }).filter(Boolean);
+    }
 
     let flat = [];
     if (Array.isArray(raw)) {
@@ -360,7 +372,9 @@ function variantChip(raw) {
   const v = normalizeVariant(raw);
   const rcls = v.rarity || rarityFromPercent(v.pct) || "common";
   const pctAttr = v.pct ? ` data-percent="${v.pct}" title="${v.pct}"` : "";
-  return `<span class="variant ${rcls}"${pctAttr}>${v.name}</span>`;
+  // Add a default class if no percent detected
+  const defaultClass = !v.pct ? " no-percent" : "";
+  return `<span class="variant ${rcls}${defaultClass}"${pctAttr}>${v.name}</span>`;
 }
 
 /* =========================
