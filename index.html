@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Hunter Diamonds — Quick Reference</title>
+  <title>Hunter Diamonds — Card Reference</title>
   <style>
     :root{
-      --bg:#0b0f14; --card:#121821; --muted:#7f8a9a; --text:#e7edf5; --accent:#5cc8ff; --accent-2:#9bffd6;
-      --chip:#1b2430; --chip-border:#2a3442; --border:#121a26;
+      --bg:#0b0f14; --card:#121821; --muted:#8ea3bb; --text:#e7edf5; --accent:#5cc8ff; --accent-2:#9bffd6;
+      --chip:#1b2430; --chip-border:#2a3442; --border:#1a2330; --panel:#0f1621;
     }
     html,body{height:100%}
     body{margin:0; font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif; color:var(--text); background:linear-gradient(180deg,#0a0f15,#0b1017 30%,#0e141d)}
@@ -17,178 +17,61 @@
     h1{font-size:clamp(20px,2.2vw,28px); margin:0 0 6px}
     .sub{color:var(--muted); font-size:13px}
 
-    /* Single-column layout (sidebar removed) */
     .layout{max-width:1200px; margin:16px auto; display:grid; grid-template-columns: 1fr; gap:14px; padding:0 16px}
-    #sidebar{display:none}
     main{min-height:60vh}
 
-    .controls{display:grid; grid-template-columns: 220px 1fr 170px 170px; gap:10px; margin-bottom:12px}
-    .controls input, .controls select{background:#0e1520; color:var(--text); border:1px solid #1d2734; border-radius:10px; padding:10px 12px; outline:none; font-size:14px}
+    .controls{display:grid; grid-template-columns: 200px 1fr 170px 170px 160px 130px; gap:10px; margin-bottom:12px}
+    .controls input, .controls select, .controls button{background:#0e1520; color:var(--text); border:1px solid #1d2734; border-radius:10px; padding:10px 12px; outline:none; font-size:14px}
     .controls input::placeholder{color:#708095}
 
-    .card{background:var(--card); border:1px solid var(--border); border-radius:16px; overflow:hidden; box-shadow:0 6px 24px rgba(0,0,0,.25)}
-    .card-head{display:flex; align-items:center; justify-content:space-between; gap:10px; padding:14px 16px; background:#0f1621; border-bottom:1px solid #1a2330}
-    .card-title{font-weight:700}
-    .card-sub{color:#8ea3bb; font-size:12px}
+    .panel{background:var(--card); border:1px solid var(--border); border-radius:16px; overflow:hidden; box-shadow:0 6px 24px rgba(0,0,0,.25)}
+    .panel-head{display:flex; align-items:center; justify-content:space-between; gap:10px; padding:14px 16px; background:var(--panel); border-bottom:1px solid #1a2330}
+    .panel-title{font-weight:700}
+    .hint{color:#8ea3bb; font-size:12px}
 
-    table{width:100%; border-collapse:collapse; table-layout:auto}
-    thead th{position:sticky; top:0; background:#0f1621; color:#b9c7da; font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:.08em; padding:12px 10px; border:1px solid #1a2330; cursor:pointer;}
-    tbody td{padding:10px 10px; border:1px solid #1a2330; font-size:14px; line-height:1.4; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; vertical-align:middle}
-    /* allow the fur-variants cell to show overflow from the resizable box */
-    tbody td.variants-cell{ overflow: visible; }
+    /* ——— Card Grid ——— */
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; padding: 16px; }
+    .animal-card { background:#121821; border:1px solid #1a2330; border-radius:14px; padding:12px; box-shadow:0 4px 16px rgba(0,0,0,.3); position:relative; }
+    .animal-card::before{ content:""; position:absolute; inset:-40% -40% auto auto; height:160px; width:160px; background:conic-gradient(from 120deg at 50% 50%, rgba(74,168,255,.18), rgba(255,255,255,.05), rgba(74,168,255,.18)); filter:blur(12px); opacity:.35; pointer-events:none; border-radius:50%; }
 
-    /* the resizable wrapper */
-    .variants-resize{
-      /* start at the cell width, but user can drag it wider */
-      width: 100%;
-      max-width: none;          /* allow stretching past the cell */
-      min-width: 260px;
+    .card-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+    .card-title { font-weight:700; font-size:16px; line-height:1.1 }
+    .class-badge { background:#0d1620; padding:6px 10px; border-radius:10px; font-size:12px; color:#5cc8ff; font-weight:700; border:1px solid #1a2330; }
+    .row { margin:6px 0; font-size:13px; display:flex; gap:8px; align-items:center; flex-wrap:wrap }
+    .label{font-size:.75rem; color:var(--muted)}
+    .diamond { background:#0a2233; border:1px solid #2e9dd8; padding:2px 6px; border-radius:6px; color:#5cc8ff; font-weight:800; letter-spacing:.2px }
+    .chip { background:var(--chip); border:1px solid var(--chip-border); padding:4px 8px; border-radius:10px; font-size:12px; color:#c6d3e6; white-space:nowrap }
 
-      resize: horizontal;       /* drag to resize left/right */
-      overflow: auto;           /* show scrollbars if needed */
+    .variants { display:flex; flex-wrap:wrap; gap:6px; margin-top:4px }
+    .variant { padding:4px 8px; border-radius:999px; font-size:12px; background:#1b2430; border:1px solid #2a3442; color:#c6d3e6 }
+    .variant.uncommon{ background:#241a0d; color:#ffd9a1; border-color:#3b2b14 }
+    .variant.rare{ background:#1a1a00; color:gold; }
+    .variant.ultra{ background:#2a1010; color:#ffb9b9; border-color:#3b1515 }
 
-      display: inline-block;
-      position: relative;
-      z-index: 2;               /* render above neighbors while stretched */
-
-      background: rgba(15,22,33,.4);
-      border: 1px dashed #1a2330;
-      border-radius: 8px;
-      padding: 6px;
-    }
-
-    /* subtle UI: only show border on hover/focus to keep things clean */
-    .variants-resize{ border-color: transparent; }
-    .variants-resize:hover,
-    .variants-resize:focus-within{ border-color: #1a2330; }
-
-    tbody tr:nth-child(even){background:#0e141d}
-    tbody tr:hover{background:#121a1f}
-    td.num, th.num{text-align:right}
-    td.center, th.center{text-align:center}
-    td.nowrap{text-align:left}
-
-    .chips{display:flex; flex-wrap:wrap; gap:6px; justify-content:flex-start}
-    .chip{
-  background:var(--chip); border:1px solid var(--chip-border);
-  padding:4px 8px; border-radius:999px; font-size:12px; color:#c6d3e6;
-  white-space:nowrap;
-  position:relative;
-}
-
-/* NEW — Fur variants layout + two-row wrap (paste this right after .chip{…}) */
-.variant-rows{ display:flex; flex-direction:column; gap:6px; }
-
-.vrow{
-  display:grid;
-  grid-template-columns: 110px 1fr;   /* label | chips */
-  column-gap:10px;
-  align-items:start;
-}
-
-.vtitle{
-  font-size:11px;
-  color:#8ea3bb;
-  text-transform:uppercase;
-  letter-spacing:.06em;
-  margin-top:3px;
-}
-
-/* make each chip a fixed height so clamping is clean */
-.vchips .chip{
-  display:inline-flex;
-  align-items:center;
-  height:26px;     /* chip row height */
-  padding:0 8px;
-}
-
-/* allow wrapping, but clamp to 2 rows max */
-.vchips{
-  --gap: 6px;
-  --chiph: 26px;
-  display:flex;
-  flex-wrap:wrap;
-  gap:var(--gap);
-  overflow:hidden;
-  max-height: calc(var(--chiph) * 2 + var(--gap)); /* two rows max */
-}
-
-/* (optional) reveal all on hover/focus */
-.vrow:hover .vchips,
-.vrow:focus-within .vchips{
-  max-height:none;
-}
-
-    /* swap name → % on hover/tap */
-    .chip{ position:relative; }
-    .chip[data-percent]:hover{ color:transparent; }
-    .chip[data-percent]:hover::before,
-    .chip[data-percent]:active::before{
-      content: attr(data-percent);
-      position:absolute; left:50%; top:50%;
-      transform: translate(-50%, -50%);
-      white-space:nowrap; pointer-events:none;
-      color:#c6d3e6; font-size:inherit;
-    }
-    /* touch support */
-    .chip[data-percent]:active{ color:transparent; }
-    .chip[data-percent]:active::before{ content: attr(data-percent); }
-
-    .class{font-weight:700; color:var(--accent)}
-    .sex{white-space:nowrap; min-width:70px; text-align:center}
-    .hint{color:#8ea3bb; font-size:12px; margin-top:8px}
-    .empty{color:#90a4bf; font-size:14px; padding:12px}
-
-    footer{color:#7c8da3; font-size:12px; padding:14px 0}
-
-    .chip.r-bronze{border-color:#cd7f32; background:#2a1d14; color:#cd7f32; font-weight:600; box-shadow:0 0 6px rgba(205,127,50,0.6)}
-    .chip.r-silver{border-color:silver; background:#1a1a1a; color:#c0c0c0; font-weight:600; box-shadow:0 0 6px rgba(192,192,192,0.6)}
-    .chip.r-rare{border-color:gold; background:#1a1a00; color:gold; font-weight:600; box-shadow:0 0 6px rgba(255,215,0,0.6)}
-    .chip.r-ultra{border-color:#6b1e1e; background:#241010; color:#ff4d4d; font-weight:600; box-shadow:0 0 6px rgba(255,0,0,0.6)}
-
-    .diamond-val{display:inline-block; padding:4px 8px; border-radius:6px; background:#0a2233; border:1px solid #2e9dd8; color:#5cc8ff; font-weight:700; box-shadow:0 0 6px rgba(92,200,255,0.6)}
-
-    .legend{margin-top:8px; display:flex; flex-wrap:wrap; gap:8px; align-items:center}
+    .legend{padding:0 16px 16px; display:flex; flex-wrap:wrap; gap:8px; align-items:center}
     .legend strong{margin-right:6px}
 
-    /* Column sizing */
-    thead th:nth-child(1), tbody td:nth-child(1){width:60px; text-align:center}
-    thead th:nth-child(2), tbody td:nth-child(2){min-width:200px; text-align:left}
-    thead th:nth-child(3), tbody td:nth-child(3){width:130px; text-align:center}
-    thead th:nth-child(4), tbody td:nth-child(4){width:130px; text-align:right}
-    thead th:nth-child(5), tbody td:nth-child(5){min-width:170px; text-align:left}
-    thead th:nth-child(6), tbody td:nth-child(6){width:90px; text-align:center}
-    thead th:nth-child(7), tbody td:nth-child(7){min-width:260px;}
+    .density button{cursor:pointer}
+    .compact .card-grid{gap:10px}
+    .compact .animal-card{padding:10px}
+    .compact .variant{padding:3px 7px; font-size:11px}
 
-    @media (max-width: 980px){
-      .controls{grid-template-columns: 1fr 1fr}
-    }
-    /* responsive: stack label above chips on small screens */
-    @media (max-width:700px){
-      .vrow{ grid-template-columns: 1fr; row-gap:4px; }
-    }
-
-    /* keep the Fur Variants column roomy */
-    thead th:nth-child(7), tbody td:nth-child(7){ min-width:420px; }
+    @media (max-width: 1100px){ .controls{ grid-template-columns: 1fr 1fr 1fr 1fr; } }
+    @media (max-width: 700px){ .controls{ grid-template-columns: 1fr 1fr; } }
   </style>
 </head>
 <body>
   <header>
     <div class="wrap" style="display:flex; align-items:center; justify-content:space-between;">
       <div>
-        <h1>Hunter Diamonds — Quick Reference</h1>
-        <div class="sub">Pick a map with the dropdown. Selected map’s table appears below. Fully offline.</div>
+        <h1>Hunter Diamonds — Card Reference</h1>
+        <div class="sub">Card grid version — all species details at a glance. Filters and last selection are remembered.</div>
       </div>
-      <a href="guns.html"
-         style="background:#5cc8ff; color:#0b0f14; padding:8px 16px; border-radius:8px; font-weight:600; text-decoration:none; box-shadow:0 2px 6px rgba(0,0,0,.4);">
-        🔫 Guns & Ammo
-      </a>
+      <div class="density"><button id="toggleDensity" aria-pressed="false">Compact On/Off</button></div>
     </div>
   </header>
 
   <div class="layout">
-    <!-- (Sidebar removed; we build from dropdown) -->
-
     <main>
       <div class="controls">
         <select id="mapSelect"><option value="">Select map…</option></select>
@@ -200,40 +83,49 @@
           <option value="F">Female-only</option>
           <option value="MF">Both</option>
         </select>
+        <select id="sortBy">
+          <option value="animal">Sort: Animal A→Z</option>
+          <option value="class">Sort: Class ↑</option>
+          <option value="diamond">Sort: Diamond ↓</option>
+        </select>
+        <button id="resetBtn">Reset</button>
       </div>
 
-      <div class="card" id="panel">
-        <div class="card-head">
+      <div class="panel">
+        <div class="panel-head">
           <div>
-            <div class="card-title" id="panel-title">Select a map</div>
-            <div class="card-sub" id="panel-sub">—</div>
+            <div class="panel-title" id="panel-title">Select a map</div>
+            <div class="sub" id="panel-sub">—</div>
           </div>
-          <div class="hint">Click a column header to sort. Last selection & filters are remembered.</div>
+          <div class="hint">Tip: Use Compact mode to fit ~13–16 cards per screen.</div>
         </div>
-        <div id="panel-body"><div class="empty">Choose a map from the dropdown to load its species table.</div></div>
+        <div id="panel-body">
+          <div class="card-grid" id="cards"></div>
+        </div>
       </div>
 
-      <footer>
       <div class="legend">
         <strong>Legend:</strong>
-        <span class="chip r-bronze">Common</span>
-        <span class="chip r-silver">Uncommon</span>
-        <span class="chip r-rare">Rare</span>
-        <span class="chip r-ultra">Ultra Rare</span>
+        <span class="variant">Common</span>
+        <span class="variant uncommon">Uncommon</span>
+        <span class="variant rare">Rare</span>
+        <span class="variant ultra">Ultra Rare</span>
       </div>
-  </footer>
     </main>
   </div>
 
   <script>
-/* =========================
-   MAP CATALOG (names/ids)
-   ========================= */
-const MAPS_BASE = [
+// =========================
+//  DATA HOOKS
+// =========================
+// If MAPS / SPECIES already exist (from your original file), we keep them.
+// Otherwise, we define minimal fallbacks so the page still runs.
+
+window.MAPS_BASE = window.MAPS_BASE || [
   { id:"layton", name:"Layton Lake District", region:"Pacific Northwest, USA" },
   { id:"hirsch", name:"Hirschfelden Hunting Reserve", region:"Germany" }
 ];
-const MAPS_DLC = [
+window.MAPS_DLC = window.MAPS_DLC || [
   { id:"medved",      name:"Medved-Taiga National Park",     region:"Siberia, Russia" },
   { id:"vurhonga",    name:"Vurhonga Savanna Reserve",       region:"Africa" },
   { id:"parque",      name:"Parque Fernando",                region:"Argentina" },
@@ -252,8 +144,9 @@ const MAPS_DLC = [
 ];
 const MAPS_BY_ID = [...MAPS_BASE, ...MAPS_DLC].reduce((a,m)=> (a[m.id]=m, a), {});
 
-const SPECIES = [
-  // SAMPLE ROWS — replace with your full array
+// IMPORTANT: Your original file already defines a huge SPECIES array.
+// We re-use it if present. If not, this small sample prevents a blank page.
+window.SPECIES = window.SPECIES || [
   { class:1, animal:"Mallard Duck", maxDifficulty:"9 (Legendary)", diamond:19.63, basis:"Weight-based (Body)", minWeight:"1.6 kg / 3.5 lbs", sex:"M / F", variants:["Brown 80%","Dark 10%","Grey 5%","Melanistic 1%","Albino 0.1%","Piebald 0.1%"], maps:["layton"] },
   { class:2, animal:"Coyote", maxDifficulty:"9 (Legendary)", diamond:61.86, basis:"Weight-based (Body)", minWeight:"25 kg / 55 lbs", sex:"M / F", variants:["Brown 85%","Dark Brown 10%","Grey 3%","Melanistic 1%","Blonde 0.1%","Albino 0.1%"], maps:["layton"] },
   { class:4, animal:"Whitetail Deer", maxDifficulty:"5 (Medium)", diamond:255.09, basis:"Organ-based (Antlers)", minWeight:"–", sex:"M", variants:["Brown 90%","Tan 5%","Grey 3%","Dark Brown 5%","Piebald 1%","Melanistic 0.2%","Albino 0.1%"], maps:["layton"] },
@@ -472,221 +365,157 @@ const SPECIES = [
 { class:1, animal:"Mallard Duck", maxDifficulty:"3 (Very Easy)", diamond:19.63, basis:"Weight-based (Body)", minWeight:"1.6 kg / 3.5 lbs", sex:"⚥", variants:["Black Brown 74.77%","Piebald 12.51%","Brown Hybrid 12.51%","Melanistic 0.10%","Leucistic 0.10% (♂)","Blonde 0.10% (♀)"], maps:["askiy"] },
 { class:1, animal:"Ring-Necked Pheasant", maxDifficulty:"9 (Legendary)", diamond:20.29, basis:"Weight-based (Body)", minWeight:"1.4 kg / 3.1 lbs", sex:"⚥", variants:["♂ White Brown 37.45%","♂ Brown 37.45%","♂ Molting 12.50%","♂ Grey 12.50%","♂ Melanistic 0.03%","♂ Leucistic 0.03%","♂ Albino 0.03%","♀ Brown 87.98%","♀ Grey 11.78%","♀ Melanistic 0.08%","♀ Leucistic 0.08%","♀ Albino 0.08%"], maps:["askiy"] }
 ];
+// =========================
+//  UI STATE
+// =========================
+const els = {
+  map: document.getElementById('mapSelect'),
+  search: document.getElementById('search'),
+  classFilter: document.getElementById('classFilter'),
+  sexFilter: document.getElementById('sexFilter'),
+  sortBy: document.getElementById('sortBy'),
+  cards: document.getElementById('cards'),
+  title: document.getElementById('panel-title'),
+  sub: document.getElementById('panel-sub'),
+  reset: document.getElementById('resetBtn')
+};
 
-/* =========================
-   STATE
-   ========================= */
-let currentMap = "";
-let currentSort = { key: "animal", dir: 1 }; // 1 asc, -1 desc
-
-/* =========================
-   INIT UI
-   ========================= */
-const mapSelect = document.getElementById('mapSelect');
-const classFilter = document.getElementById('classFilter');
-const sexFilter = document.getElementById('sexFilter');
-const searchInput = document.getElementById('search');
-const panelTitle = document.getElementById('panel-title');
-const panelSub = document.getElementById('panel-sub');
-const panelBody = document.getElementById('panel-body');
-
-// populate map dropdown (only maps that exist in SPECIES)
-const mapIdsUsed = new Set(SPECIES.flatMap(s => s.maps || []));
-[...MAPS_BASE, ...MAPS_DLC]
-  .filter(m => mapIdsUsed.has(m.id))
-  .forEach(m => {
-    const opt = document.createElement('option');
-    opt.value = m.id;
-    opt.textContent = m.name;
-    mapSelect.appendChild(opt);
-  });
-
-// restore last selections
-(function restoreState(){
-  try {
-    const savedMap = localStorage.getItem('lastMap');
-    const savedClass = localStorage.getItem('lastClassFilter') || "";
-    const savedSex = localStorage.getItem('lastSexFilter') || "";
-    const savedSearch = localStorage.getItem('lastSearch') || "";
-    if (savedMap && mapIdsUsed.has(savedMap)) {
-      mapSelect.value = savedMap;
-      currentMap = savedMap;
-    }
-    classFilter.value = savedClass;
-    sexFilter.value = savedSex;
-    searchInput.value = savedSearch;
-  } catch {}
-})();
-
-/* =========================
-   EVENTS
-   ========================= */
-mapSelect.addEventListener('change', () => {
-  currentMap = mapSelect.value;
-  try { localStorage.setItem('lastMap', currentMap); } catch {}
-  buildClassOptions();
-  render();
+// Populate dropdowns
+[...MAPS_BASE, ...MAPS_DLC].forEach(m=>{
+  const o=document.createElement('option'); o.value=m.id; o.textContent=`${m.name}`; els.map.appendChild(o);
 });
+const classSet = Array.from(new Set(SPECIES.map(s=>s.class))).sort((a,b)=>a-b);
+classSet.forEach(c=>{ const o=document.createElement('option'); o.value=c; o.textContent=`Class ${c}`; els.classFilter.appendChild(o); });
 
-classFilter.addEventListener('change', () => {
-  try { localStorage.setItem('lastClassFilter', classFilter.value); } catch {}
-  render();
-});
-sexFilter.addEventListener('change', () => {
-  try { localStorage.setItem('lastSexFilter', sexFilter.value); } catch {}
-  render();
-});
-searchInput.addEventListener('input', () => {
-  try { localStorage.setItem('lastSearch', searchInput.value); } catch {}
-  render();
-});
-
-/* =========================
-   RENDERING
-   ========================= */
-function buildClassOptions(){
-  // build classes for the selected map
-  const classes = new Set(
-    SPECIES.filter(s => !currentMap || (s.maps||[]).includes(currentMap))
-           .map(s => s.class)
-  );
-  classFilter.innerHTML = '<option value="">All Classes</option>' +
-    [...classes].sort((a,b)=>a-b).map(c => `<option value="${c}">Class ${c}</option>`).join('');
+// Restore last state
+const LS_KEY='hunter.cards.v1';
+function saveState(){
+  localStorage.setItem(LS_KEY, JSON.stringify({
+    map: els.map.value,
+    q: els.search.value,
+    cls: els.classFilter.value,
+    sex: els.sexFilter.value,
+    sort: els.sortBy.value,
+    compact: document.body.classList.contains('compact')
+  }));
+}
+function loadState(){
+  try{ return JSON.parse(localStorage.getItem(LS_KEY)||'{}'); }catch{ return {}; }
 }
 
-function formatVariants(list){
-  if (!list || !list.length) return '';
+// Rarity class from token
+function rarityClass(name){
+  const n = (name||'').toLowerCase();
+  if(n.includes('ultra') || n.includes('great one') || n.includes('super')) return 'ultra';
+  if(n.includes('albino') || n.includes('melanistic') || n.includes('leucistic') || n.includes('piebald')) return 'rare';
+  if(n.includes('uncommon') || n.includes('blonde') || n.includes('grey') || n.includes('gray')) return 'uncommon';
+  return '';
+}
 
-  // bucket chips by rarity
-  const buckets = { ultra: [], rare: [], uncom: [], common: [], other: [] };
+function sexAbbrev(sex){
+  // normalize various notations from your dataset: "M / F", "⚥", "♂", "♀"
+  const s = (sex||'').replace(/\s+/g,'').toUpperCase();
+  if(s.includes('M/F') || s.includes('⚥')) return 'M / F';
+  if(s.includes('M') && s.includes('F')) return 'M / F';
+  if(/♂/.test(sex)) return 'M';
+  if(/♀/.test(sex)) return 'F';
+  return sex || '—';
+}
 
-  list.forEach(v => {
-    const m = v.match(/^(.*?)(\s+([\d.]+)%)$/); // split "Name 12.5%"
-    let name = v, percentText = '', val = null;
-    if (m) { name = m[1].trim(); percentText = m[2].trim(); val = parseFloat(m[3]); }
-
-    // thresholds: Ultra ≤0.9, Rare 1–5, Uncommon 6–11, Common ≥12
-    let cls = '', key = 'other';
-    if (val !== null) {
-      if (val <= 0.9)      { cls = ' r-ultra';  key = 'ultra'; }
-      else if (val <= 5)   { cls = ' r-rare';   key = 'rare'; }
-      else if (val <= 11)  { cls = ' r-silver'; key = 'uncom'; }
-      else                 { cls = ' r-bronze'; key = 'common'; }
-    }
-
-    const attr = percentText ? ` data-percent="${percentText}"` : '';
-    (buckets[key] || buckets.other).push(`<span class="chip${cls}"${attr}>${name}</span>`);
-  });
-
-  // rows: label on left, chips on right
-  const row = (label, key) =>
-    buckets[key].length
-      ? `<div class="vrow">
-           <div class="vtitle">${label}</div>
-           <div class="vchips">${buckets[key].join('')}</div>
-         </div>`
-      : '';
-
+function cardHTML(a){
+  const variants = Array.isArray(a.variants) ? a.variants : [];
   return `
-    <div class="variant-rows">
-      ${row('Ultra Rare', 'ultra')}
-      ${row('Rare', 'rare')}
-      ${row('Uncommon', 'uncom')}
-      ${row('Common', 'common')}
-      ${row('Other', 'other')}
+  <article class="animal-card" role="group" aria-label="${a.animal}">
+    <div class="card-head">
+      <div class="card-title">${a.animal}</div>
+      <span class="class-badge">Class ${a.class}</span>
     </div>
-  `;
+    <div class="row"><span class="label">Diamond</span> <span class="diamond">${Number(a.diamond).toFixed(2)}</span></div>
+    <div class="row"><span class="label">Max Diff.</span> <span class="chip">${a.maxDifficulty}</span></div>
+    <div class="row"><span class="label">Basis</span> <span class="chip">${a.basis}</span></div>
+    <div class="row"><span class="label">Min Weight</span> <span class="chip">${a.minWeight || '–'}</span>
+         <span class="label">Sex</span> <span class="chip">${sexAbbrev(a.sex)}</span></div>
+    <div class="row"><span class="label">Fur Variants</span></div>
+    <div class="variants">
+      ${variants.map(v=>`<span class="variant ${rarityClass(v)}">${v}</span>`).join('')}
+    </div>
+  </article>`;
 }
 
-function render(){
-  const mapMeta = MAPS_BY_ID[currentMap] || null;
-  panelTitle.textContent = mapMeta ? mapMeta.name : 'Select a map';
-  panelSub.textContent = mapMeta ? (mapMeta.region || '—') : '—';
+function applyFilters(){
+  const map = els.map.value;
+  const q = els.search.value.toLowerCase().trim();
+  const cls = els.classFilter.value;
+  const sex = els.sexFilter.value;
+  const sortBy = els.sortBy.value;
 
-  if (!currentMap){
-    panelBody.innerHTML = '<div class="empty">Choose a map from the dropdown to load its species table.</div>';
-    return;
+  let list = SPECIES;
+  if(map) list = list.filter(s=> (s.maps||[]).includes(map));
+  if(cls) list = list.filter(s=> String(s.class) === String(cls));
+  if(sex){
+    if(sex==='MF') list = list.filter(s=> /M/i.test(s.sex||'') && /F/i.test(s.sex||''));
+    else list = list.filter(s=> (s.sex||'').toUpperCase().includes(sex));
   }
-
-  // filters
-  const q = (searchInput.value||'').trim().toLowerCase();
-  const wantClass = classFilter.value ? Number(classFilter.value) : null;
-  const wantSex = sexFilter.value;
-
-  let rows = SPECIES.filter(s => (s.maps||[]).includes(currentMap));
-
-  if (wantClass) rows = rows.filter(s => s.class === wantClass);
-  if (wantSex) {
-    if (wantSex === 'MF') rows = rows.filter(s => (s.sex||'').includes('M') && (s.sex||'').includes('F'));
-    else rows = rows.filter(s => (s.sex||'').startsWith(wantSex));
-  }
-  if (q){
-    rows = rows.filter(s =>
-      (s.animal||'').toLowerCase().includes(q) ||
-      (s.maxDifficulty||'').toLowerCase().includes(q) ||
-      (s.basis||'').toLowerCase().includes(q) ||
-      (s.minWeight||'').toLowerCase().includes(q) ||
-      (Array.isArray(s.variants) ? s.variants.join(' ').toLowerCase().includes(q) : false)
-    );
-  }
-
-  // sort
-  const key = currentSort.key;
-  const dir = currentSort.dir;
-  rows.sort((a,b)=>{
-    let va = a[key], vb = b[key];
-    if (key === 'class' || key === 'diamond'){
-      va = Number(va); vb = Number(vb);
-      return (va - vb) * dir;
-    }
-    return String(va||'').localeCompare(String(vb||'')) * dir;
-  });
-
-  // build table
-  const th = (label, key, extra='') =>
-    `<th ${extra} data-key="${key}">${label}${currentSort.key===key ? (currentSort.dir>0?' ▲':' ▼'):''}</th>`;
-
-  const thead = `
-    <thead>
-      <tr>
-        ${th('Class','class','class="center"')}
-        ${th('Animal','animal')}
-        ${th('Max Diff.','maxDifficulty','class="center"')}
-        ${th('Trophy (Diamond)','diamond','class="num"')}
-        ${th('Basis','basis')}
-        ${th('Sex','sex','class="center"')}
-        ${th('Fur Variants','variants')}
-      </tr>
-    </thead>`;
-
-  const tbody = '<tbody>' + rows.map(s => `
-    <tr>
-      <td class="center"><span class="class">${s.class}</span></td>
-      <td class="left">${s.animal||''}</td>
-      <td class="center">${s.maxDifficulty||''}</td>
-      <td class="num"><span class="diamond-val">${Number(s.diamond).toFixed(2)}</span></td>
-      <td class="left">${s.basis||''}${s.minWeight && s.minWeight!=='–' ? `, <span class="muted">${s.minWeight}</span>`:''}</td>
-      <td class="center sex">${s.sex||''}</td>
-      <td class="left">${formatVariants(s.variants)}</td>
-    </tr>
-  `).join('') + '</tbody>';
-
-  panelBody.innerHTML = `<table>${thead}${tbody}</table>`;
-
-  // attach sorting
-  panelBody.querySelectorAll('th[data-key]').forEach(thEl=>{
-    thEl.addEventListener('click', ()=>{
-      const k = thEl.getAttribute('data-key');
-      if (currentSort.key === k) currentSort.dir *= -1;
-      else { currentSort.key = k; currentSort.dir = 1; }
-      render();
+  if(q){
+    list = list.filter(a=>{
+      const hay = [a.animal, a.basis, a.maxDifficulty, a.minWeight, a.sex, ...(a.variants||[])].join(' ').toLowerCase();
+      return hay.includes(q);
     });
+  }
+  // sort
+  list = list.slice().sort((a,b)=>{
+    if(sortBy==='class') return a.class - b.class || a.animal.localeCompare(b.animal);
+    if(sortBy==='diamond') return (b.diamond||0) - (a.diamond||0);
+    return a.animal.localeCompare(b.animal);
   });
+
+  els.cards.innerHTML = list.map(cardHTML).join('');
+
+  // panel header
+  if(map){
+    const m = MAPS_BY_ID[map];
+    els.title.textContent = `${m.name}`;
+    els.sub.textContent = m.region || '';
+  } else {
+    els.title.textContent = 'All Maps';
+    els.sub.textContent = '—';
+  }
+
+  saveState();
 }
 
-// initial build
-buildClassOptions();
-if (currentMap){ render(); }
+// Listeners
+['input','change'].forEach(evt=>{
+  els.search.addEventListener(evt, applyFilters);
+  els.classFilter.addEventListener(evt, applyFilters);
+  els.sexFilter.addEventListener(evt, applyFilters);
+  els.sortBy.addEventListener(evt, applyFilters);
+  els.map.addEventListener(evt, applyFilters);
+});
+
+document.getElementById('toggleDensity').addEventListener('click', ()=>{
+  document.body.classList.toggle('compact');
+  const on = document.body.classList.contains('compact');
+  document.getElementById('toggleDensity').setAttribute('aria-pressed', on? 'true':'false');
+  saveState();
+});
+
+els.reset.addEventListener('click', ()=>{
+  els.map.value=''; els.search.value=''; els.classFilter.value=''; els.sexFilter.value=''; els.sortBy.value='animal';
+  applyFilters();
+});
+
+// Bootstrap
+(function init(){
+  const state = loadState();
+  if(state.map) els.map.value = state.map;
+  if(state.q) els.search.value = state.q;
+  if(state.cls) els.classFilter.value = state.cls;
+  if(state.sex) els.sexFilter.value = state.sex;
+  if(state.sort) els.sortBy.value = state.sort;
+  if(state.compact) document.body.classList.add('compact');
+  applyFilters();
+})();
   </script>
 </body>
 </html>
