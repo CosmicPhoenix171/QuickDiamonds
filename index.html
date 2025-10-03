@@ -58,6 +58,23 @@
 
     @media (max-width: 1100px){ .controls{ grid-template-columns: 1fr 1fr 1fr 1fr; } }
     @media (max-width: 700px){ .controls{ grid-template-columns: 1fr 1fr; } }
+
+    /* Hover-to-reveal percentages on variant chips */
+    .variant { position: relative; }
+    .variant[data-percent]:hover { color: transparent; }
+    .variant[data-percent]:hover::before,
+    .variant[data-percent]:active::before {
+    content: attr(data-percent);
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    pointer-events: none;
+    color: #c6d3e6; /* match your light text */
+    }
+    .variant[data-percent]:active { color: transparent; } /* mobile press */
+
+    
   </style>
 </head>
 <body>
@@ -422,6 +439,28 @@ function sexAbbrev(sex){
   return sex || '—';
 }
 
+function normalizeVariant(raw) {
+  if (typeof raw === "string") {
+    const m = raw.match(/^(.*?)(?:\s+(\d+(?:\.\d+)?%))$/);
+    if (m) return { name: m[1].trim(), pct: m[2], rarity: "" };
+    return { name: raw.trim(), pct: "", rarity: "" };
+  }
+  if (raw && typeof raw === "object") {
+    const name = (raw.name || "").trim();
+    const pct  = (raw.percent || raw.pct || "").toString();
+    const rarity = raw.rarity || "";
+    return { name, pct, rarity };
+  }
+  return { name: String(raw || "").trim(), pct: "", rarity: "" };
+}
+
+function variantChip(raw) {
+  const v = normalizeVariant(raw);
+  const rcls = v.rarity ? v.rarity : rarityClass(v.name); // uses your existing rarityClass(name)
+  const pctAttr = v.pct ? ` data-percent="${v.pct}" title="${v.pct}"` : "";
+  return `<span class="variant ${rcls}"${pctAttr}>${v.name}</span>`;
+}
+    
 function cardHTML(a){
   const variants = Array.isArray(a.variants) ? a.variants : [];
   return `
