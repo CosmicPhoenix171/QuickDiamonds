@@ -461,16 +461,16 @@ els.reset.addEventListener('click', ()=>{
 // Bootstrap (load JSON first, then build UI)
 (async function init(){
   const state = loadState();
-  if(state.compact) document.body.classList.add('compact');
+  if (state.compact) document.body.classList.add('compact');
 
   await loadSpecies();
   populateClassFilter();
 
-  if(state.map) els.map.value = state.map;
-  if(state.q)   els.search.value = state.q;
-  if(state.cls) els.classFilter.value = state.cls;
-  if(state.sex) els.sexFilter.value = state.sex;
-  if(state.sort)els.sortBy.value = state.sort;
+  if (state.map)  els.map.value = state.map;
+  if (state.q)    els.search.value = state.q;
+  if (state.cls)  els.classFilter.value = state.cls;
+  if (state.sex)  els.sexFilter.value = state.sex;
+  if (state.sort) els.sortBy.value = state.sort;
 
   applyFilters();
 })();
