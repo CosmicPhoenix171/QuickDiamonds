@@ -498,6 +498,23 @@ function normalizeVariant(raw) {
   return { name: String(raw || "").trim(), pct: "", rarity: "" };
 }
 
+const RARITY_THRESHOLDS = {
+  ultra: 0.1,     // < 0.1%  = Ultra
+  rare: 1,        // < 1%    = Rare
+  uncommon: 10    // < 10%   = Uncommon
+  // >= 10% = Common
+};
+
+function rarityFromPercent(pctStr) {
+  if (!pctStr) return "";
+  const n = parseFloat(String(pctStr).replace("%",""));
+  if (isNaN(n)) return "";
+  if (n < RARITY_THRESHOLDS.ultra) return "ultra";
+  if (n < RARITY_THRESHOLDS.rare) return "rare";
+  if (n < RARITY_THRESHOLDS.uncommon) return "uncommon";
+  return "common";
+}
+
 function variantChip(raw) {
   const v = normalizeVariant(raw);
   const rcls = v.rarity ? v.rarity : (rarityClass(v.name) || "common");
