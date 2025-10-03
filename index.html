@@ -5,134 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Hunter Diamonds — Card Reference</title>
   <style>
-    :root{
-      --bg:#0b0f14; --card:#121821; --muted:#8ea3bb; --text:#e7edf5; --accent:#5cc8ff; --accent-2:#9bffd6;
-      --chip:#1b2430; --chip-border:#2a3442; --border:#1a2330; --panel:#0f1621;
-      --percent-ink:#ffffff; /* color for % readout on hover */
-    }
-    html,body{height:100%}
-    body{
-      margin:0; font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif; color:var(--text);
-      background:linear-gradient(180deg,#0a0f15,#0b1017 30%,#0e141d)
-    }
-
-    header{
-      position:sticky; top:0; z-index:10;
-      backdrop-filter:saturate(1.2) blur(6px);
-      background:rgba(11,16,23,.85);
-      border-bottom:1px solid #0f1722;
-    }
-    .wrap{max-width:1200px; margin:0 auto; padding:16px}
-    h1{font-size:clamp(20px,2.2vw,28px); margin:0 0 6px}
-    .sub{color:var(--muted); font-size:13px}
-
-    .layout{max-width:1200px; margin:16px auto; display:grid; grid-template-columns: 1fr; gap:14px; padding:0 16px}
-    main{min-height:60vh}
-
-    .controls{
-      display:grid; grid-template-columns: 200px 1fr 170px 170px 160px 130px;
-      gap:10px; margin-bottom:12px
-    }
-    .controls input, .controls select, .controls button{
-      background:#0e1520; color:var(--text); border:1px solid #1d2734;
-      border-radius:10px; padding:10px 12px; outline:none; font-size:14px
-    }
-    .controls input::placeholder{color:#708095}
-
-    .panel{background:var(--card); border:1px solid var(--border); border-radius:16px; overflow:hidden; box-shadow:0 6px 24px rgba(0,0,0,.25)}
-    .panel-head{display:flex; align-items:center; justify-content:space-between; gap:10px; padding:14px 16px; background:var(--panel); border-bottom:1px solid #1a2330}
-    .panel-title{font-weight:700}
-    .hint{color:#8ea3bb; font-size:12px}
-
-    /* ——— Card Grid ——— */
-    .card-grid {
-      display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 14px; padding: 16px;
-    }
-    .animal-card {
-      background:#121821; border:1px solid #1a2330; border-radius:14px; padding:12px;
-      box-shadow:0 4px 16px rgba(0,0,0,.3); position:relative;
-    }
-    .animal-card::before{
-      content:""; position:absolute; inset:-40% -40% auto auto; height:160px; width:160px;
-      background:conic-gradient(from 120deg at 50% 50%, rgba(74,168,255,.18), rgba(255,255,255,.05), rgba(74,168,255,.18));
-      filter:blur(12px); opacity:.35; pointer-events:none; border-radius:50%;
-    }
-
-    .card-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
-    .card-title { font-weight:700; font-size:16px; line-height:1.1 }
-    .class-badge { background:#0d1620; padding:6px 10px; border-radius:10px; font-size:12px; color:#5cc8ff; font-weight:700; border:1px solid #1a2330; }
-    .row { margin:6px 0; font-size:13px; display:flex; gap:8px; align-items:center; flex-wrap:wrap }
-    .label{font-size:.75rem; color:var(--muted)}
-    .diamond {
-      background:#0a2233; border:1px solid #2e9dd8; padding:2px 6px;
-      border-radius:6px; color:#5cc8ff; font-weight:800; letter-spacing:.2px
-    }
-    .chip {
-      background:var(--chip); border:1px solid var(--chip-border); padding:4px 8px;
-      border-radius:10px; font-size:12px; color:#c6d3e6; white-space:nowrap
-    }
-
-    .variants { display:flex; flex-wrap:wrap; gap:6px; margin-top:4px }
-    .variant {
-      position:relative;
-      padding:4px 8px; border-radius:999px; font-size:12px;
-      background:#1b2430; border:1px solid #2a3442; color:#c6d3e6;
-    }
-
-    .legend{padding:0 16px 16px; display:flex; flex-wrap:wrap; gap:8px; align-items:center}
-    .legend strong{margin-right:6px}
-
-    .density button{cursor:pointer}
-    .compact .card-grid{gap:10px}
-    .compact .animal-card{padding:10px}
-    .compact .variant{padding:3px 7px; font-size:11px}
-
-    @media (max-width: 1100px){ .controls{ grid-template-columns: 1fr 1fr 1fr 1fr; } }
-    @media (max-width: 700px){ .controls{ grid-template-columns: 1fr 1fr; } }
-
-    /* === Metallic rarity colors === */
-    .variant.common{
-      background: linear-gradient(145deg, #654a3a, #7a5a45);
-      border-color: #8e6b50;
-      color:#0b0f14;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.18), inset 0 -1px 0 rgba(0,0,0,.35);
-    }
-    .variant.uncommon{
-      background: linear-gradient(145deg, #dfe3e8, #aeb6bf);
-      border-color: #c3c9d1;
-      color:#0b0f14;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.6), inset 0 -1px 0 rgba(0,0,0,.35);
-    }
-    .variant.rare{
-      background: linear-gradient(145deg, #f7e6a1, #caa74b);
-      border-color: #e2c874;
-      color:#0b0f14;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 -1px 0 rgba(120,84,0,.35);
-    }
-    .variant.ultra{
-      background: linear-gradient(145deg, #ff6b6b, #a92222);
-      border-color: #d24b4b;
-      color:#0b0f14;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.35), inset 0 -1px 0 rgba(80,0,0,.35);
-    }
-
-    /* Hover-to-reveal percentages on variant chips (high contrast) */
-    .variant[data-percent]:hover,
-    .variant[data-percent]:active{ color:transparent; }
-    .variant[data-percent]:hover::after,
-    .variant[data-percent]:active::after{
-      content:""; position:absolute; inset:0; border-radius:inherit;
-      background: rgba(0,0,0,.28); pointer-events:none; z-index:1;
-    }
-    .variant[data-percent]:hover::before,
-    .variant[data-percent]:active::before{
-      content: attr(data-percent);
-      position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
-      color:var(--percent-ink); font-weight:800; letter-spacing:.2px;
-      text-shadow: 0 1px 2px rgba(0,0,0,.9), 0 0 8px rgba(0,0,0,.7);
-      pointer-events:none; z-index:2; white-space:nowrap;
-    }
+    /* (keep all your CSS as-is) */
   </style>
 </head>
 <body>
@@ -250,40 +123,35 @@ function loadState(){
   try{ return JSON.parse(localStorage.getItem(LS_KEY)||'{}'); }catch{ return {}; }
 }
 
+/* =========================
+   LOAD SPECIES
+   ========================= */
 async function loadSpecies() {
-  let url = 'species.json'; // keep this if that’s your file name & path
+  let url = 'species.json';
   try {
     const res = await fetch(url, { cache: 'no-store' });
     if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
     const raw = await res.json();
 
-    // Accept either: [{...}, {...}]  OR  { emerald:[{...}], askiy:[{...}], ... }
     let flat = [];
     if (Array.isArray(raw)) {
       flat = raw;
     } else if (raw && typeof raw === 'object') {
-      // Flatten {map:[...]} to a single array and add the map to each entry
       flat = Object.entries(raw).flatMap(([mapName, arr]) => {
         if (!Array.isArray(arr)) return [];
         return arr.map(o => ({
           ...o,
-          // ensure expected fields exist
           variants: Array.isArray(o.variants) ? o.variants : [],
-          maps: Array.isArray(o.maps) ? o.maps : [mapName]   // <- important
+          maps: Array.isArray(o.maps) ? o.maps : [mapName]
         }));
       });
     } else {
       throw new Error('Unrecognized JSON format');
     }
 
-    // Minimal sanity check so the rest of the UI won’t choke
     window.SPECIES = flat.filter(Boolean);
-    if (!Array.isArray(window.SPECIES) || !window.SPECIES.length) {
-      console.warn('Loaded species.json but it has 0 entries after flattening.');
-    }
   } catch (err) {
     console.error('Failed to load species.json:', err);
-    // Optional: show a friendly message in the UI
     const el = document.getElementById('cards') || document.body;
     el.innerHTML = `<div style="color:#f88;padding:12px;border:1px solid #f88;border-radius:8px">
       Failed to load <code>${url}</code>: ${err.message}
@@ -291,52 +159,10 @@ async function loadSpecies() {
   }
 }
 
-function loadState(){
-  try{ return JSON.parse(localStorage.getItem(LS_KEY)||'{}'); }catch{ return {}; }
-}
-
-async function loadSpecies() {
-  let url = 'species.json'; // keep this if that’s your file name & path
-  try {
-    const res = await fetch(url, { cache: 'no-store' });
-    if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
-    const raw = await res.json();
-
-    // Accept either: [{...}, {...}]  OR  { emerald:[{...}], askiy:[{...}], ... }
-    let flat = [];
-    if (Array.isArray(raw)) {
-      flat = raw;
-    } else if (raw && typeof raw === 'object') {
-      // Flatten {map:[...]} to a single array and add the map to each entry
-      flat = Object.entries(raw).flatMap(([mapName, arr]) => {
-        if (!Array.isArray(arr)) return [];
-        return arr.map(o => ({
-          ...o,
-          // ensure expected fields exist
-          variants: Array.isArray(o.variants) ? o.variants : [],
-          maps: Array.isArray(o.maps) ? o.maps : [mapName]   // <- important
-        }));
-      });
-    } else {
-      throw new Error('Unrecognized JSON format');
-    }
-
-    // Minimal sanity check so the rest of the UI won’t choke
-    window.SPECIES = flat.filter(Boolean);
-    if (!Array.isArray(window.SPECIES) || !window.SPECIES.length) {
-      console.warn('Loaded species.json but it has 0 entries after flattening.');
-    }
-  } catch (err) {
-    console.error('Failed to load species.json:', err);
-    // Optional: show a friendly message in the UI
-    const el = document.getElementById('cards') || document.body;
-    el.innerHTML = `<div style="color:#f88;padding:12px;border:1px solid #f88;border-radius:8px">
-      Failed to load <code>${url}</code>: ${err.message}
-    </div>`;
-  }
-}
-
-function populateClassFilter(){
+/* =========================
+   HELPERS
+   ========================= */
+function rarityClass(name){
   const n = (name||'').toLowerCase();
   if(n.includes('ultra') || n.includes('great one') || n.includes('super')) return 'ultra';
   if(n.includes('albino') || n.includes('melanistic') || n.includes('leucistic') || n.includes('piebald')) return 'rare';
@@ -344,13 +170,17 @@ function populateClassFilter(){
   return '';
 }
 
-// Percent thresholds (tune these if you want)
-const RARITY_THRESHOLDS = {
-  ultra: 0.1,     // < 0.1%  = Ultra
-  rare: 1,        // < 1%    = Rare
-  uncommon: 10    // < 10%   = Uncommon
-  // >= 10% = Common
-};
+function populateClassFilter(){
+  els.classFilter.innerHTML = '<option value="">All Classes</option>';
+  const classes = Array.from(new Set(SPECIES.map(s=>s.class))).sort((a,b)=>a-b);
+  classes.forEach(c=>{
+    const o=document.createElement('option');
+    o.value=c; o.textContent=`Class ${c}`;
+    els.classFilter.appendChild(o);
+  });
+}
+
+const RARITY_THRESHOLDS = { ultra:0.1, rare:1, uncommon:10 };
 function rarityFromPercent(pctStr) {
   if (!pctStr) return "";
   const n = parseFloat(String(pctStr).replace("%",""));
@@ -393,7 +223,7 @@ function variantChip(raw) {
 }
 
 /* =========================
-   RENDER
+   RENDER + FILTER
    ========================= */
 function cardHTML(a){
   const variants = Array.isArray(a.variants) ? a.variants : [];
@@ -443,7 +273,6 @@ function applyFilters(){
       return hay.includes(q);
     });
   }
-  // sort
   list = list.slice().sort((a,b)=>{
     if(sortBy==='class') return a.class - b.class || a.animal.localeCompare(b.animal);
     if(sortBy==='diamond') return (b.diamond||0) - (a.diamond||0);
@@ -452,7 +281,6 @@ function applyFilters(){
 
   els.cards.innerHTML = list.map(cardHTML).join('');
 
-  // panel header
   if(map){
     const m = MAPS_BY_ID[map];
     els.title.textContent = `${m.name}`;
