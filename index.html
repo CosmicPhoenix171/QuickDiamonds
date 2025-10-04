@@ -292,6 +292,31 @@ async function loadSpecies() {
     }
 
     window.SPECIES = flat.filter(Boolean);
+    
+    // Reorder variants for each species so the rarest appear first.
+    // Rarity order: ultra < rare < uncommon < common (smaller percent = rarer).
+    function variantSortKey(raw) {
+      const v = normalizeVariant(raw);
+      const rarity = v.rarity || rarityFromPercent(v.pct) || 'common';
+      const rankMap = { ultra: 0, rare: 1, uncommon: 2, common: 3 };
+      const rank = rankMap[rarity] ?? 3;
+      const pctNum = parseFloat(String(v.pct || '').replace('%',''));
+      const hasPct = !isNaN(pctNum);
+      return { rank, pctNum: hasPct ? pctNum : Number.POSITIVE_INFINITY, hasPct };
+    }
+
+    window.SPECIES.forEach(s => {
+      if (!Array.isArray(s.variants)) return;
+      s.variants = s.variants.slice().sort((a,b) => {
+        const A = variantSortKey(a);
+        const B = variantSortKey(b);
+        if (A.rank !== B.rank) return A.rank - B.rank; // smaller rank is rarer
+        // same rarity: prefer those with a numeric percent and smaller percent first
+        if (A.pctNum !== B.pctNum) return A.pctNum - B.pctNum;
+        // if both lack numeric percent, preserve stable order by comparing strings
+        return String(a).localeCompare(String(b));
+      });
+    });
     if (!Array.isArray(window.SPECIES) || !window.SPECIES.length) {
       console.warn('Loaded species.json but it has 0 entries after flattening.');
     }
