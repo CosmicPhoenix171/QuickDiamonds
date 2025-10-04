@@ -442,7 +442,7 @@ function cardHTML(a){
     <div class="row"><span class="label">Basis</span> <span class="chip">${a.basis}</span></div>
     <div class="row"><span class="label">Max Weight</span> <span class="chip">${a.maxWeight || a.minWeight || '–'}</span>
       <span class="label">Sex</span> <span class="chip">${sexAbbrev(a.sex)}</span></div>
-    <div class="row"><span class="label">Fur Variants</span></div>
+    <div class="row"><span class="label">Variants</span></div>
     <div class="variants">
       ${variants.map(v => variantChip(v)).join("")}
     </div>
