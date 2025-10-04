@@ -551,5 +551,37 @@ els.reset.addEventListener('click', ()=>{
   applyFilters();
 })();
 </script>
+<div id="tab-counter" style="position:fixed;bottom:12px;right:18px;background:#1b2430cc;color:#fff;padding:8px 16px;border-radius:10px;font-size:14px;z-index:999;box-shadow:0 2px 8px #0003;">Open tabs: <span id="tab-count">1</span></div>
+<script>
+// Tab counter logic
+const TAB_KEY = 'tab-counter-quickdiamonds';
+function updateTabCountDisplay(n) {
+  document.getElementById('tab-count').textContent = n;
+}
+function getTabIds() {
+  try {
+    return JSON.parse(localStorage.getItem(TAB_KEY) || '[]');
+  } catch { return []; }
+}
+function setTabIds(ids) {
+  localStorage.setItem(TAB_KEY, JSON.stringify(ids));
+}
+const myTabId = Math.random().toString(36).slice(2);
+let ids = getTabIds();
+ids.push(myTabId);
+setTabIds(ids);
+updateTabCountDisplay(ids.length);
+window.addEventListener('storage', e => {
+  if (e.key === TAB_KEY) {
+    const ids = getTabIds();
+    updateTabCountDisplay(ids.length);
+  }
+});
+window.addEventListener('beforeunload', () => {
+  let ids = getTabIds();
+  ids = ids.filter(id => id !== myTabId);
+  setTabIds(ids);
+});
+</script>
 </body>
 </html>
