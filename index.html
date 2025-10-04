@@ -414,7 +414,9 @@ function cardHTML(a){
   const variants = (Array.isArray(a.variants) && a.variants.length)
     ? a.variants
     : (a.rarity && typeof a.rarity === 'object')
-      ? Object.entries(a.rarity).map(([k,v]) => `${k} ${Number(v).toFixed(2)}%`)
+      ? Object.entries(a.rarity)
+          .sort((a, b) => Number(a[1]) - Number(b[1])) // sort by percent ascending (rarest first)
+          .map(([k,v]) => `${k} ${Number(v).toFixed(2)}%`)
       : [];
 
   // Build needZones HTML when available (hidden until card is toggled)
