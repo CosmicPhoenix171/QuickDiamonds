@@ -133,6 +133,10 @@
       text-shadow: 0 1px 2px rgba(0,0,0,.9), 0 0 8px rgba(0,0,0,.7);
       pointer-events:none; z-index:2; white-space:nowrap;
     }
+    /* Need zones — hidden by default, shown when card is expanded */
+    .animal-card{ cursor:pointer }
+    .animal-card .needzones{ display:none; margin-top:10px; border-top:1px solid rgba(255,255,255,.04); padding-top:8px }
+    .animal-card.expanded .needzones{ display:block }
   </style>
 </head>
 <body>
@@ -406,9 +410,27 @@ function variantChip(raw) {
    RENDER
    ========================= */
 function cardHTML(a){
-  const variants = Array.isArray(a.variants) ? a.variants : [];
+  // If variants not present, fall back to rarity object (map into "Name X%" strings)
+  const variants = (Array.isArray(a.variants) && a.variants.length)
+    ? a.variants
+    : (a.rarity && typeof a.rarity === 'object')
+      ? Object.entries(a.rarity).map(([k,v]) => `${k} ${Number(v).toFixed(2)}%`)
+      : [];
+
+  // Build needZones HTML when available (hidden until card is toggled)
+  let needHtml = '';
+  if (a.needZones && typeof a.needZones === 'object') {
+    needHtml = `<div class="needzones">
+      <div class="row"><span class="label">Need Zones</span></div>`;
+    for (const [zone, times] of Object.entries(a.needZones)){
+      const timesText = Array.isArray(times) ? times.join(', ') : String(times);
+      needHtml += `<div class="row"><span class="label">${zone}</span> <span class="chip">${timesText}</span></div>`;
+    }
+    needHtml += `</div>`;
+  }
+
   return `
-  <article class="animal-card" role="group" aria-label="${a.animal}">
+  <article class="animal-card" role="group" aria-label="${a.animal}" data-animal="${a.animal}">
     <div class="card-head">
       <div class="card-title">${a.animal}</div>
       <span class="class-badge">Class ${a.class}</span>
@@ -422,6 +444,7 @@ function cardHTML(a){
     <div class="variants">
       ${variants.map(v => variantChip(v)).join("")}
     </div>
+    ${needHtml}
   </article>`;
 }
 
@@ -461,6 +484,17 @@ function applyFilters(){
   });
 
   els.cards.innerHTML = list.map(cardHTML).join('');
+
+  // Make cards clickable to toggle needZones display
+  Array.from(document.querySelectorAll('.animal-card')).forEach(card => {
+    // toggle on click; allow multiple cards expanded
+    card.addEventListener('click', (ev) => {
+      // prevent accidental toggles when clicking controls in header (if any future additions)
+      // but allow regular clicks anywhere on the card
+      card.classList.toggle('expanded');
+      card.setAttribute('aria-expanded', card.classList.contains('expanded'));
+    });
+  });
 
   // panel header
   if(map){
