@@ -88,7 +88,7 @@
   <select id="animalFilter" multiple size="4"><option value="">Any Animal</option></select>
   <select id="categoryFilter"><option value="">All Categories</option></select>
   <select id="classFilter"><option value="">Any Class Coverage</option></select>
-  <select id="dlcFilter"><option value="">All DLC</option></select>
+  <select id="sortSelect"><option value="">Default Order</option><option value="pen-desc">Pen High→Low</option><option value="pen-asc">Pen Low→High</option><option value="exp-desc">Exp High→Low</option><option value="exp-asc">Exp Low→High</option></select>
   <button id="resetBtn">Reset</button>
   </div>
   <div id="cards" class="grid" aria-live="polite"></div>
@@ -121,13 +121,10 @@ async function loadWeapons(){
 function buildFilters(){
   const catSel = document.getElementById('categoryFilter');
   const classSel = document.getElementById('classFilter');
-  const dlcSel = document.getElementById('dlcFilter');
   const cats = [...new Set(WEAPONS.map(w=>w.category))].sort();
-  const dlcs = [...new Set(WEAPONS.map(w=>w.dlc))].sort();
   const allClasses = new Set();
   WEAPONS.forEach(w=> (w.ammo||[]).forEach(a=> (a.classes||[]).forEach(c=> allClasses.add(c))));
   cats.forEach(c=> catSel.insertAdjacentHTML('beforeend', `<option value="${c}">${c}</option>`));
-  dlcs.forEach(d=> dlcSel.insertAdjacentHTML('beforeend', `<option value="${d}">${d}</option>`));
   [...allClasses].sort((a,b)=>a-b).forEach(c=> classSel.insertAdjacentHTML('beforeend', `<option value="${c}">Needs Class ${c}</option>`));
   restoreState();
 }
@@ -225,10 +222,9 @@ function applyFilters(){
   const selectedAnimals = Array.from(animalSel.selectedOptions).map(opt => opt.value).filter(v => v);
   const cat = document.getElementById('categoryFilter').value;
   const cl = document.getElementById('classFilter').value;
-  const dlc = document.getElementById('dlcFilter').value;
+  const sort = document.getElementById('sortSelect').value;
   let list = WEAPONS.slice();
   if(cat) list = list.filter(w=> w.category===cat);
-  if(dlc) list = list.filter(w=> w.dlc===dlc);
   if(cl) list = list.filter(w=> (w.ammo||[]).some(a=> (a.classes||[]).includes(Number(cl))));
   if(selectedAnimals.length) {
     list = list.filter(w => (w.ammo||[]).some(a => (a.usableOn||[]).some(an => selectedAnimals.includes(an))));
@@ -237,6 +233,16 @@ function applyFilters(){
     const hay = [w.weapon, w.category, w.dlc, w.notes, ...(w.ammo||[]).map(a=> a.name)].join(' ').toLowerCase();
     return hay.includes(q);
   });
+  if(sort){
+    const metric = (w, kind) => {
+      const vals = (w.ammo||[]).map(a=> kind==='pen'? (a.penetration??0) : (a.expansion??0));
+      return vals.length? Math.max(...vals) : -Infinity;
+    };
+    if(sort==='pen-desc') list.sort((a,b)=> metric(b,'pen') - metric(a,'pen'));
+    else if(sort==='pen-asc') list.sort((a,b)=> metric(a,'pen') - metric(b,'pen'));
+    else if(sort==='exp-desc') list.sort((a,b)=> metric(b,'exp') - metric(a,'exp'));
+    else if(sort==='exp-asc') list.sort((a,b)=> metric(a,'exp') - metric(b,'exp'));
+  }
   const grid = document.getElementById('cards');
   const empty = document.getElementById('empty');
   if(!list.length){ grid.innerHTML=''; empty.style.display='block'; }
@@ -250,7 +256,7 @@ function saveState(){
     animals: Array.from(document.getElementById('animalFilter').selectedOptions).map(opt => opt.value),
     cat: document.getElementById('categoryFilter').value,
     cls: document.getElementById('classFilter').value,
-    dlc: document.getElementById('dlcFilter').value
+    sort: document.getElementById('sortSelect').value
   }));
 }
 function restoreState(){
@@ -264,15 +270,15 @@ function restoreState(){
   }
   if(st.cat) document.getElementById('categoryFilter').value = st.cat;
   if(st.cls) document.getElementById('classFilter').value = st.cls;
-  if(st.dlc) document.getElementById('dlcFilter').value = st.dlc;
+  if(st.sort) document.getElementById('sortSelect').value = st.sort;
 }
 
 document.getElementById('search').addEventListener('input', applyFilters);
-['animalFilter','categoryFilter','classFilter','dlcFilter'].forEach(id=> document.getElementById(id).addEventListener('change', applyFilters));
+['animalFilter','categoryFilter','classFilter','sortSelect'].forEach(id=> document.getElementById(id).addEventListener('change', applyFilters));
 
 document.getElementById('resetBtn').addEventListener('click', ()=>{
   document.getElementById('search').value='';
-  ['categoryFilter','classFilter','dlcFilter'].forEach(id=> document.getElementById(id).value='');
+  ['categoryFilter','classFilter','sortSelect'].forEach(id=> document.getElementById(id).value='');
   applyFilters();
 });
 
