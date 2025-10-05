@@ -22,9 +22,11 @@
   .controls input[type=search]{ flex:1; min-width:240px }
   button { background:#243444; color:var(--ink); border:1px solid #325069; padding:6px 14px; border-radius:6px; cursor:pointer; font-weight:600; letter-spacing:.5px }
   button:hover { background:#2e4860 }
-  .grid { display:grid; gap:14px; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); }
-  .card { background:var(--panel); border:1px solid #25313d; border-radius:14px; padding:14px 16px; display:flex; flex-direction:column; gap:10px; position:relative; box-shadow:0 4px 10px -4px rgba(0,0,0,.5); overflow:hidden }
-  .card h2 { margin:0; font-size:1.05rem; display:flex; align-items:center; gap:8px; font-weight:600 }
+  /* List layout replacing card grid */
+  .list { display:flex; flex-direction:column; gap:8px; }
+  .weapon-row { background:var(--panel); border:1px solid #25313d; border-radius:10px; padding:10px 14px; display:flex; flex-direction:column; gap:8px; position:relative; }
+  .weapon-row h2 { margin:0; font-size:.95rem; display:flex; flex-wrap:wrap; align-items:center; gap:8px; font-weight:600 }
+  .weapon-row + .weapon-row { margin-top:2px }
   .cat { font-size:.65rem; padding:2px 6px; border-radius:4px; background:#243444; letter-spacing:.5px; text-transform:uppercase; color:#b2cee9 }
   .dlc { font-size:.55rem; padding:2px 6px; border-radius:4px; background:#3a2d44; color:#d6b2ff; letter-spacing:.5px }
   .stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(58px,1fr)); gap:6px; margin-top:2px }
@@ -91,7 +93,7 @@
   <select id="sortSelect"><option value="">Default Order</option><option value="pen-desc">Pen High→Low</option><option value="pen-asc">Pen Low→High</option><option value="exp-desc">Exp High→Low</option><option value="exp-asc">Exp Low→High</option></select>
   <button id="resetBtn">Reset</button>
   </div>
-  <div id="cards" class="grid" aria-live="polite"></div>
+  <div id="cards" class="list" aria-live="polite"></div>
   <div id="empty" class="empty" style="display:none">No weapons match your filters.</div>
 </main>
 <footer>
@@ -197,7 +199,7 @@ function ammoBlock(ammoList){
   </div>`;
 }
 
-function weaponCard(w){
+function weaponRow(w){
   const stats = [
     ['Value', w.value],
     ['Weight', w.weight],
@@ -209,7 +211,7 @@ function weaponCard(w){
     ['Mag', w.magazine]
   ];
   const statsHtml = `<div class="stats">${stats.map(([l,v])=>`<div class="stat"><span class="stat-l">${l}</span><span class="stat-v">${v ?? '—'}</span></div>`).join('')}</div>`;
-  return `<div class="card" data-weapon="${w.weapon}">
+  return `<div class="weapon-row" data-weapon="${w.weapon}">
     <h2>${w.weapon} <span class="cat">${w.category}</span> <span class="dlc">${w.dlc}</span></h2>
     ${statsHtml}
     ${ammoBlock(w.ammo||[])}
@@ -246,7 +248,7 @@ function applyFilters(){
   const grid = document.getElementById('cards');
   const empty = document.getElementById('empty');
   if(!list.length){ grid.innerHTML=''; empty.style.display='block'; }
-  else { empty.style.display='none'; grid.innerHTML = list.map(weaponCard).join(''); }
+  else { empty.style.display='none'; grid.innerHTML = list.map(weaponRow).join(''); }
   saveState();
 }
 
