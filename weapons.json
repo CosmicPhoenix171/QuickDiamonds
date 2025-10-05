@@ -4,20 +4,20 @@
       { "name": ".223 Soft Point", "classes": [2,3,4], "penetration": 10, "expansion": 12, "range": 150, "price": 220 },
       { "name": ".223 Polymer Tip", "classes": [2,3,4], "penetration": 20, "expansion": 3, "range": 150, "price": 350 }
     ] },
-  { "weapon": ".243 R. Cuomo", "category": "Handgun", "dlc": "Handgun Pack", 
-    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
-      { "name": ".243 HC Soft Point", "classes": [2,3], "penetration": 5, "expansion": 7, "range": null, "price": null },
-      { "name": ".243 HC Polymer Tip", "classes": [2,3,4], "penetration": 7, "expansion": 5, "range": null, "price": null }
+  { "weapon": ".243 R. Cuomo", "category": "Handgun", "dlc": "Assorted Sidearms Pack", 
+    "value": 0, "weight": 1, "score": 0, "accuracy": 62, "recoil": 48, "reload": 50, "hipshot": 17, "magazine": 1, "ammo": [
+      { "name": ".243 HC Soft Point", "classes": [2,3,4,5,6], "penetration": 15, "expansion": 17, "range": 150, "price": 0 },
+      { "name": ".243 HC Polymer Tip", "classes": [2,3,4,5,6], "penetration": 30, "expansion": 4, "range": 150, "price": 530 }
     ] },
   { "weapon": ".270 Huntsman", "category": "Rifle", "dlc": "Base",
-    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
-      { "name": ".270 Soft Point", "classes": [4,5,6,7,8], "penetration": 6, "expansion": 6, "range": null, "price": null },
-      { "name": ".270 Polymer Tip", "classes": [4,5,6,7,8], "penetration": 8, "expansion": 4, "range": null, "price": null }
+    "value": 12000, "weight": 4, "score": 739, "accuracy": 55, "recoil": 64, "reload": 49, "hipshot": 67, "magazine": 4, "ammo": [
+      { "name": ".270 Soft Point", "classes": [4,5,6,7,8], "penetration": 17, "expansion": 24, "range": 150, "price": 440 },
+      { "name": ".270 Polymer Tip", "classes": [4,5,6,7,8], "penetration": 35, "expansion": 5, "range": 150, "price": 700 }
     ] },
   { "weapon": ".300 Canning Magnum", "category": "Rifle", "dlc": "Yukon DLC", 
-    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
-      { "name": ".300 Soft Point", "classes": [7,8,9], "penetration": 8, "expansion": 6, "range": null, "price": null },
-      { "name": ".300 Polymer Tip", "classes": [7,8,9], "penetration": 9, "expansion": 4, "range": null, "price": null }
+    "value": 75000, "weight": 4, "score": 6092, "accuracy": 80, "recoil": 90, "reload": 49, "hipshot": 35, "magazine": 4, "ammo": [
+      { "name": ".300 Soft Point", "classes": [7,8,9], "penetration": 21, "expansion": 60, "range": 150, "price": 720 },
+      { "name": ".300 Polymer Tip", "classes": [7,8,9], "penetration": 42, "expansion": 14, "range": 150, "price": 950 }
     ] },
   { "weapon": ".44 Panther Magnum", "category": "Handgun", "dlc": "Handgun Pack", 
     "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [

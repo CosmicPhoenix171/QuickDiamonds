@@ -27,6 +27,10 @@
   .card h2 { margin:0; font-size:1.05rem; display:flex; align-items:center; gap:8px; font-weight:600 }
   .cat { font-size:.65rem; padding:2px 6px; border-radius:4px; background:#243444; letter-spacing:.5px; text-transform:uppercase; color:#b2cee9 }
   .dlc { font-size:.55rem; padding:2px 6px; border-radius:4px; background:#3a2d44; color:#d6b2ff; letter-spacing:.5px }
+  .stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(58px,1fr)); gap:6px; margin-top:2px }
+  .stat { background:#1d2732; border:1px solid #273543; padding:4px 6px 5px; border-radius:8px; display:flex; flex-direction:column; gap:2px; min-height:38px }
+  .stat-l { font-size:.5rem; letter-spacing:.7px; font-weight:600; text-transform:uppercase; color:#7f94ab }
+  .stat-v { font-size:.7rem; font-weight:600; }
   table { border-collapse:collapse; width:100%; font-size:.72rem }
   th, td { text-align:left; padding:4px 6px; border-bottom:1px solid #22313f }
   th { font-weight:600; font-size:.65rem; letter-spacing:.5px; text-transform:uppercase; color:#9cb4c9 }
@@ -132,8 +136,20 @@ function ammoTableRows(ammoList){
 }
 
 function weaponCard(w){
+  const stats = [
+    ['Value', w.value],
+    ['Weight', w.weight],
+    ['Score', w.score],
+    ['Acc', w.accuracy],
+    ['Recoil', w.recoil],
+    ['Reload', w.reload],
+    ['Hip', w.hipshot],
+    ['Mag', w.magazine]
+  ];
+  const statsHtml = `<div class="stats">${stats.map(([l,v])=>`<div class="stat"><span class="stat-l">${l}</span><span class="stat-v">${v ?? '—'}</span></div>`).join('')}</div>`;
   return `<div class="card" data-weapon="${w.weapon}">
     <h2>${w.weapon} <span class="cat">${w.category}</span> <span class="dlc">${w.dlc}</span></h2>
+    ${statsHtml}
     <div class="notes">${w.notes||''}</div>
     <table aria-label="Ammo for ${w.weapon}">
       <thead><tr><th>Ammo</th><th>Classes</th><th>Pen</th><th>Exp</th><th>Range</th><th>Price</th><th>Notes</th></tr></thead>
