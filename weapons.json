@@ -1,0 +1,63 @@
+[
+  {
+    "weapon": "Virant .22LR",
+    "category": "Rifle",
+    "dlc": "Base",
+    "ammo": [
+      { "name": ".22LR Hollow Point", "classes": [1], "penetration": 4, "expansion": 6, "notes": "Birds / small game" },
+      { "name": ".22LR Polymer Tip", "classes": [1], "penetration": 6, "expansion": 4, "notes": "Slightly better penetration" }
+    ],
+    "notes": "Quiet small‑game rifle."
+  },
+  {
+    "weapon": "Caversham Steward 12G",
+    "category": "Shotgun",
+    "dlc": "Base",
+    "ammo": [
+      { "name": "12G Birdshot", "classes": [1,2], "penetration": 3, "expansion": 9, "notes": "Best for birds" },
+      { "name": "12G Buckshot", "classes": [2,3], "penetration": 5, "expansion": 7, "notes": "Small / mid game" },
+      { "name": "12G Slug", "classes": [2,3,4], "penetration": 8, "expansion": 5, "notes": "Short range medium game" }
+    ],
+    "notes": "Versatile starter shotgun."
+  },
+  {
+    "weapon": "Ranger .243",
+    "category": "Rifle",
+    "dlc": "Base",
+    "ammo": [
+      { "name": ".243 Soft Point", "classes": [2,3], "penetration": 5, "expansion": 7, "notes": "Better expansion" },
+      { "name": ".243 Polymer Tip", "classes": [2,3,4], "penetration": 7, "expansion": 5, "notes": "Better penetration" }
+    ],
+    "notes": "Entry rifle for small / medium game."
+  },
+  {
+    "weapon": "Hudzik .50 Caplock",
+    "category": "Muzzleloader",
+    "dlc": "Black Powder",
+    "ammo": [
+      { "name": ".50 Round Ball", "classes": [2,3,4], "penetration": 6, "expansion": 5 },
+      { "name": ".50 Conical Bullet", "classes": [4,5,6], "penetration": 9, "expansion": 4 }
+    ],
+    "notes": "Slow reload, high impact." 
+  },
+  {
+    "weapon": "7mm Regent Magnum",
+    "category": "Rifle",
+    "dlc": "Base",
+    "ammo": [
+      { "name": "7mm Soft Point", "classes": [4,5,6], "penetration": 7, "expansion": 7 },
+      { "name": "7mm Polymer Tip", "classes": [4,5,6,7], "penetration": 9, "expansion": 5 }
+    ],
+    "notes": "Strong mid / large game option."
+  },
+  {
+    "weapon": "King 470DB",
+    "category": "Rifle",
+    "dlc": "Africa / Vurhonga",
+    "ammo": [
+      { "name": ".470 NE Soft Point", "classes": [7,8,9], "penetration": 8, "expansion": 8 },
+      { "name": ".470 NE Solid", "classes": [7,8,9], "penetration": 10, "expansion": 3, "notes": "Max penetration for thick skin" }
+    ],
+    "notes": "Heavy stopping power for dangerous game."
+  }
+]
