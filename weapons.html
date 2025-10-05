@@ -55,11 +55,12 @@
 </header>
 <main>
   <div class="controls">
-    <input id="search" type="search" placeholder="Search weapon or ammo..." />
-    <select id="categoryFilter"><option value="">All Categories</option></select>
-    <select id="classFilter"><option value="">Any Class Coverage</option></select>
-    <select id="dlcFilter"><option value="">All DLC</option></select>
-    <button id="resetBtn">Reset</button>
+  <input id="search" type="search" placeholder="Search weapon or ammo..." />
+  <select id="animalFilter" multiple size="4"><option value="">Any Animal</option></select>
+  <select id="categoryFilter"><option value="">All Categories</option></select>
+  <select id="classFilter"><option value="">Any Class Coverage</option></select>
+  <select id="dlcFilter"><option value="">All DLC</option></select>
+  <button id="resetBtn">Reset</button>
   </div>
   <div id="cards" class="grid" aria-live="polite"></div>
   <div id="empty" class="empty" style="display:none">No weapons match your filters.</div>
@@ -80,8 +81,9 @@ async function loadWeapons(){
     catch { data = txt.split(/\r?\n/).filter(Boolean).map(l=>{ try{return JSON.parse(l)}catch{return null}}).filter(Boolean); }
     if(!Array.isArray(data)) throw new Error('Unexpected weapons.json format');
     WEAPONS = data;
-    buildFilters();
-    applyFilters();
+  buildFilters();
+  buildAnimalFilter();
+  applyFilters();
   } catch(err){
     document.getElementById('cards').innerHTML = `<div style="padding:16px;color:#ff8686">Failed to load weapons.json: ${err.message}</div>`;
   }
@@ -99,6 +101,19 @@ function buildFilters(){
   dlcs.forEach(d=> dlcSel.insertAdjacentHTML('beforeend', `<option value="${d}">${d}</option>`));
   [...allClasses].sort((a,b)=>a-b).forEach(c=> classSel.insertAdjacentHTML('beforeend', `<option value="${c}">Needs Class ${c}</option>`));
   restoreState();
+}
+
+function buildAnimalFilter(){
+  const animalSel = document.getElementById('animalFilter');
+  animalSel.innerHTML = '<option value="">Any Animal</option>';
+  // Collect all animals from usableOn arrays in weapons/ammo
+  const animals = new Set();
+  WEAPONS.forEach(w => {
+    (w.ammo||[]).forEach(a => {
+      (a.usableOn||[]).forEach(an => animals.add(an));
+    });
+  });
+  [...animals].sort().forEach(an => animalSel.insertAdjacentHTML('beforeend', `<option value="${an}">${an}</option>`));
 }
 
 function ammoTableRows(ammoList){
@@ -127,6 +142,8 @@ function weaponCard(w){
 
 function applyFilters(){
   const q = document.getElementById('search').value.toLowerCase().trim();
+  const animalSel = document.getElementById('animalFilter');
+  const selectedAnimals = Array.from(animalSel.selectedOptions).map(opt => opt.value).filter(v => v);
   const cat = document.getElementById('categoryFilter').value;
   const cl = document.getElementById('classFilter').value;
   const dlc = document.getElementById('dlcFilter').value;
@@ -134,6 +151,9 @@ function applyFilters(){
   if(cat) list = list.filter(w=> w.category===cat);
   if(dlc) list = list.filter(w=> w.dlc===dlc);
   if(cl) list = list.filter(w=> (w.ammo||[]).some(a=> (a.classes||[]).includes(Number(cl))));
+  if(selectedAnimals.length) {
+    list = list.filter(w => (w.ammo||[]).some(a => (a.usableOn||[]).some(an => selectedAnimals.includes(an))));
+  }
   if(q) list = list.filter(w=>{
     const hay = [w.weapon, w.category, w.dlc, w.notes, ...(w.ammo||[]).map(a=> a.name)].join(' ').toLowerCase();
     return hay.includes(q);
@@ -148,6 +168,7 @@ function applyFilters(){
 function saveState(){
   localStorage.setItem(LS_KEY, JSON.stringify({
     q: document.getElementById('search').value,
+    animals: Array.from(document.getElementById('animalFilter').selectedOptions).map(opt => opt.value),
     cat: document.getElementById('categoryFilter').value,
     cls: document.getElementById('classFilter').value,
     dlc: document.getElementById('dlcFilter').value
@@ -156,13 +177,19 @@ function saveState(){
 function restoreState(){
   try { var st = JSON.parse(localStorage.getItem(LS_KEY)||'{}'); } catch { st = {}; }
   if(st.q) document.getElementById('search').value = st.q;
+  if(st.animals && Array.isArray(st.animals)) {
+    const animalSel = document.getElementById('animalFilter');
+    Array.from(animalSel.options).forEach(opt => {
+      opt.selected = st.animals.includes(opt.value);
+    });
+  }
   if(st.cat) document.getElementById('categoryFilter').value = st.cat;
   if(st.cls) document.getElementById('classFilter').value = st.cls;
   if(st.dlc) document.getElementById('dlcFilter').value = st.dlc;
 }
 
 document.getElementById('search').addEventListener('input', applyFilters);
-['categoryFilter','classFilter','dlcFilter'].forEach(id=> document.getElementById(id).addEventListener('change', applyFilters));
+['animalFilter','categoryFilter','classFilter','dlcFilter'].forEach(id=> document.getElementById(id).addEventListener('change', applyFilters));
 
 document.getElementById('resetBtn').addEventListener('click', ()=>{
   document.getElementById('search').value='';
