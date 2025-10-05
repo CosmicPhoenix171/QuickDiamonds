@@ -44,10 +44,11 @@
       { "name": "10mm JHP", "classes": [2,3,4], "penetration": 5, "expansion": 7, "range": null, "price": null },
       { "name": "10mm Hard Cast", "classes": [3,4,5], "penetration": 7, "expansion": 5, "range": null, "price": null }
     ] },
-  { "weapon": "Alexander Longbow", "category": "Bow", "dlc": "Base", 
-    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
-      { "name": "Longbow 350 gr Arrow", "classes": [1,2,3,4,5,6,7,8,9], "penetration": 6, "expansion": 7, "range": null, "price": null },
-      { "name": "Longbow 420 gr Arrow", "classes": [3,4,5,6,7,8,9], "penetration": 7, "expansion": 6, "range": null, "price": null }
+  { "weapon": "Alexander Longbow", "category": "Bow", "dlc": "Silver Ridge Peaks DLC", 
+    "value": 0, "weight": 2.5, "score": 0, "accuracy": 30, "recoil": 15, "reload": 100, "hipshot": 12, "magazine": 1, "ammo": [
+      { "name": "Longbow 350 gr Broadhead", "classes": [1,2,3], "penetration": 15, "expansion": 0, "range": 20, "price": 500 },
+      { "name": "Longbow 540 gr Broadhead", "classes": [4,5,6,7], "penetration": 75, "expansion": 0, "range": 20, "price": 750 },
+      { "name": "Longbow 700 gr Broadhead", "classes": [8,9], "penetration": 90, "expansion": 0, "range": 20, "price": 900 }
     ] },
   { "weapon": "Andersson .22LR", "category": "Handgun", "dlc": "Handgun Pack", 
     "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
