@@ -23,26 +23,9 @@
   button { background:#243444; color:var(--ink); border:1px solid #325069; padding:6px 14px; border-radius:6px; cursor:pointer; font-weight:600; letter-spacing:.5px }
   button:hover { background:#2e4860 }
   /* List layout replacing card grid */
-  .list { display:flex; flex-direction:column; gap:6px; }
-  .weapon-row { background:var(--panel); border:1px solid #25313d; border-radius:10px; padding:8px 12px; display:grid; gap:12px; grid-template-columns: clamp(180px,18%,240px) clamp(300px,32%,420px) 1fr; align-items:flex-start; position:relative; }
-  .weapon-row h2 { margin:0 0 4px 0; font-size:.85rem; display:flex; flex-wrap:wrap; align-items:center; gap:6px; font-weight:600 }
-  .w-meta { display:flex; flex-direction:column; gap:2px; min-width:0 }
-  .stats-inline { display:flex; flex-wrap:wrap; gap:4px; }
-  .stats-inline .stat { min-width:54px; flex:0 0 auto; }
-  .ammo-inline { display:flex; flex-wrap:wrap; gap:6px; align-items:flex-start; }
-  .ammo-pill2 { background:#1d2732; border:1px solid #273543; padding:4px 6px; border-radius:16px; font-size:.55rem; font-weight:600; display:inline-flex; gap:4px; align-items:center; line-height:1.1 }
-  .ammo-pill2 .ae { font-weight:500; opacity:.75 }
-  .ammo-pill2:hover { background:#223241; border-color:#335066 }
-  .ammo-more { font-size:.55rem; opacity:.6; padding:4px 6px }
-  @media (max-width:1100px){
-    .weapon-row { grid-template-columns: clamp(180px,30%,240px) 1fr; }
-    .weapon-row .ammo-inline { grid-column: 1 / -1; }
-  }
-  @media (max-width:720px){
-    .weapon-row { grid-template-columns: 1fr; }
-    .stats-inline { order:2 }
-    .ammo-inline { order:3 }
-  }
+  .list { display:flex; flex-direction:column; gap:8px; }
+  .weapon-row { background:var(--panel); border:1px solid #25313d; border-radius:10px; padding:10px 14px; display:flex; flex-direction:column; gap:8px; position:relative; }
+  .weapon-row h2 { margin:0; font-size:.95rem; display:flex; flex-wrap:wrap; align-items:center; gap:8px; font-weight:600 }
   .weapon-row + .weapon-row { margin-top:2px }
   .cat { font-size:.65rem; padding:2px 6px; border-radius:4px; background:#243444; letter-spacing:.5px; text-transform:uppercase; color:#b2cee9 }
   .dlc { font-size:.55rem; padding:2px 6px; border-radius:4px; background:#3a2d44; color:#d6b2ff; letter-spacing:.5px }
@@ -227,30 +210,11 @@ function weaponRow(w){
     ['Hip', w.hipshot],
     ['Mag', w.magazine]
   ];
-  const statsHtml = `<div class="stats-inline">${stats.map(([l,v])=>`<div class=\"stat\"><span class=\"stat-l\">${l}</span><span class=\"stat-v\">${v ?? '—'}</span></div>`).join('')}</div>`;
-  const ammoList = (w.ammo||[]);
-  let ammoHtml;
-  if(!ammoList.length){
-    ammoHtml = '<div class="ammo-inline" style="opacity:.6;font-size:.55rem">No ammo data</div>';
-  } else {
-    const maxShow = 10; // truncate very long lists
-    const pills = ammoList.slice(0,maxShow).map(a=>{
-      const pen=a.penetration??'—';
-      const exp=a.expansion??'—';
-      const range=a.range??a.maxRange??'—';
-      const price=(a.price!==undefined&&a.price!==null)?a.price:'—';
-      const classes=(a.classes||[]).join(',')||'–';
-      return `<span class=\"ammo-pill2\" title=\"Classes: ${classes}\nPen: ${pen}\nExp: ${exp}\nRange: ${range}\nPrice: ${price}\">${a.name}<span class=\"ae\">(${pen}/${exp})</span></span>`;
-    }).join('');
-    const more = ammoList.length>maxShow ? `<span class=\"ammo-more\">+${ammoList.length-maxShow} more</span>`:'';
-    ammoHtml = `<div class=\"ammo-inline\">${pills}${more}</div>`;
-  }
+  const statsHtml = `<div class="stats">${stats.map(([l,v])=>`<div class="stat"><span class="stat-l">${l}</span><span class="stat-v">${v ?? '—'}</span></div>`).join('')}</div>`;
   return `<div class="weapon-row" data-weapon="${w.weapon}">
-    <div class="w-meta">
-      <h2>${w.weapon} <span class="cat">${w.category}</span> <span class="dlc">${w.dlc}</span></h2>
-    </div>
+    <h2>${w.weapon} <span class="cat">${w.category}</span> <span class="dlc">${w.dlc}</span></h2>
     ${statsHtml}
-    ${ammoHtml}
+    ${ammoBlock(w.ammo||[])}
   </div>`;
 }
 
