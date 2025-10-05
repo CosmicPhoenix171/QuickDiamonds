@@ -24,8 +24,19 @@
   button:hover { background:#2e4860 }
   /* List layout replacing card grid */
   .list { display:flex; flex-direction:column; gap:8px; }
-  .weapon-row { background:var(--panel); border:1px solid #25313d; border-radius:10px; padding:10px 14px; display:flex; flex-direction:column; gap:8px; position:relative; }
-  .weapon-row h2 { margin:0; font-size:.95rem; display:flex; flex-wrap:wrap; align-items:center; gap:8px; font-weight:600 }
+  /* Updated: weapon row uses 2-column grid (stats left, ammo right) */
+  .weapon-row { background:var(--panel); border:1px solid #25313d; border-radius:10px; padding:10px 14px; position:relative; 
+    display:grid; grid-template-columns: minmax(260px,1fr) minmax(340px,1.25fr); gap:12px 16px; align-items:start; }
+  /* Title spans both columns */
+  .weapon-row h2 { margin:0; font-size:.95rem; display:flex; flex-wrap:wrap; align-items:center; gap:8px; font-weight:600; grid-column:1 / -1; }
+  /* Column placement */
+  .weapon-row .stats { grid-column:1; }
+  .weapon-row .ammo-block { grid-column:2; width:100%; }
+  /* Responsive collapse */
+  @media (max-width:920px){
+    .weapon-row { grid-template-columns:1fr; gap:10px; }
+    .weapon-row .stats, .weapon-row .ammo-block { grid-column:1; }
+  }
   .weapon-row + .weapon-row { margin-top:2px }
   .cat { font-size:.65rem; padding:2px 6px; border-radius:4px; background:#243444; letter-spacing:.5px; text-transform:uppercase; color:#b2cee9 }
   .dlc { font-size:.55rem; padding:2px 6px; border-radius:4px; background:#3a2d44; color:#d6b2ff; letter-spacing:.5px }
