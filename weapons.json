@@ -20,19 +20,19 @@
       { "name": ".300 Polymer Tip", "classes": [7,8,9], "penetration": 42, "expansion": 14, "range": 150, "price": 950 }
     ] },
   { "weapon": ".44 Panther Magnum", "category": "Handgun", "dlc": "Handgun Pack", 
-    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
-      { "name": ".44 Hollow Point", "classes": [3,4,5,6], "penetration": 5, "expansion": 8, "range": null, "price": null },
-      { "name": ".44 Hard Cast", "classes": [4,5,6,7], "penetration": 8, "expansion": 5, "range": null, "price": null }
+    "value": 24000, "weight": 1.5, "score": 1235, "accuracy": 33, "recoil": 82, "reload": 60, "hipshot": 95, "magazine": 6, "ammo": [
+      { "name": ".44 Jacketed Hollow-Point", "classes": [3,4,5,6,7,8], "penetration": 17, "expansion": 70, "range": 50, "price": 260 },
+      { "name": ".44 Flat Nose Hard-Cast", "classes": [3,4,5,6,7,8], "penetration": 70, "expansion": 16, "range": 50, "price": 530 }
     ] },
   { "weapon": ".45 Rolleston", "category": "Handgun", "dlc": "Handgun Pack", 
-    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
-      { "name": ".45 Hollow Point", "classes": [2,3,4], "penetration": 4, "expansion": 8, "range": null, "price": null },
-      { "name": ".45 Hard Cast", "classes": [3,4,5], "penetration": 7, "expansion": 4, "range": null, "price": null }
+    "value": 0, "weight": 1, "score": 0, "accuracy": 45, "recoil": 75, "reload": 18, "hipshot": 72, "magazine": 5, "ammo": [
+      { "name": ".45 Colt Flat Nose Hard-Cast", "classes": [2,3,4,5], "penetration": 17, "expansion": 70, "range": 50, "price": 530 },
+      { "name": ".45 Colt Full Metal Jacket", "classes": [2,3,4,5], "penetration": 55, "expansion": 6, "range": 50, "price": 600 }
     ] },
-  { "weapon": ".45-70 Jernberg Superior", "category": "Rifle", "dlc": "Weapon Pack", 
-    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
-      { "name": ".45-70 Expanding", "classes": [4,5,6,7], "penetration": 7, "expansion": 7, "range": null, "price": null },
-      { "name": ".45-70 Flat Nose", "classes": [5,6,7,8], "penetration": 9, "expansion": 5, "range": null, "price": null }
+  { "weapon": ".45-70 Jernberg Superior", "category": "Handgun", "dlc": "High Caliber Weapon Pack",
+    "value": 0, "weight": 1, "score": 0, "accuracy": 75, "recoil": 62, "reload": 58, "hipshot": 25, "magazine": 1, "ammo": [
+      { "name": ".45-70 Hollow-Point", "classes": [4,5,6,7,8,9], "penetration": 20, "expansion": 27, "range": 75, "price": 660 },
+      { "name": ".45-70 Soft-Point Flat Nose", "classes": [4,5,6,7,8,9], "penetration": 40, "expansion": 6, "range": 75, "price": 390 }
     ] },
   { "weapon": "7mm Regent Magnum", "category": "Rifle", "dlc": "Base", 
     "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
