@@ -35,9 +35,9 @@
       { "name": ".45-70 Soft-Point Flat Nose", "classes": [4,5,6,7,8,9], "penetration": 40, "expansion": 6, "range": 75, "price": 390 }
     ] },
   { "weapon": "7mm Regent Magnum", "category": "Rifle", "dlc": "Base", 
-    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
-      { "name": "7mm Soft Point", "classes": [4,5,6], "penetration": 7, "expansion": 7, "range": null, "price": null },
-      { "name": "7mm Polymer Tip", "classes": [4,5,6,7], "penetration": 9, "expansion": 5, "range": null, "price": null }
+    "value": 36000, "weight": 4.5, "score": 1920, "accuracy": 33, "recoil": 82, "reload": 81, "hipshot": 48, "magazine": 1, "ammo": [
+      { "name": "7mm Mag. Soft-Point", "classes": [4,5,6,7,8,9], "penetration": 20, "expansion": 53, "range": 150, "price": 610 },
+      { "name": "7mm Mag. Polymer-Tip", "classes": [4,5,6,7,8,9], "penetration": 40, "expansion": 12, "range": 150, "price": 880 }
     ] },
   { "weapon": "10mm Davani", "category": "Handgun", "dlc": "Handgun Pack", 
     "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
