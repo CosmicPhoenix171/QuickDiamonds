@@ -23,7 +23,7 @@
   button { background:#243444; color:var(--ink); border:1px solid #325069; padding:6px 14px; border-radius:6px; cursor:pointer; font-weight:600; letter-spacing:.5px }
   button:hover { background:#2e4860 }
   .grid { display:grid; gap:14px; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); }
-  .card { background:var(--panel); border:1px solid #25313d; border-radius:14px; padding:14px 16px; display:flex; flex-direction:column; gap:10px; position:relative; box-shadow:0 4px 10px -4px rgba(0,0,0,.5) }
+  .card { background:var(--panel); border:1px solid #25313d; border-radius:14px; padding:14px 16px; display:flex; flex-direction:column; gap:10px; position:relative; box-shadow:0 4px 10px -4px rgba(0,0,0,.5); overflow:hidden }
   .card h2 { margin:0; font-size:1.05rem; display:flex; align-items:center; gap:8px; font-weight:600 }
   .cat { font-size:.65rem; padding:2px 6px; border-radius:4px; background:#243444; letter-spacing:.5px; text-transform:uppercase; color:#b2cee9 }
   .dlc { font-size:.55rem; padding:2px 6px; border-radius:4px; background:#3a2d44; color:#d6b2ff; letter-spacing:.5px }
@@ -33,13 +33,16 @@
   .stat-v { font-size:.7rem; font-weight:600; }
   /* Ammo redesigned grid */
   .ammo-block { margin-top:4px; display:flex; flex-direction:column; gap:6px }
-  .ammo-head { display:grid; grid-template-columns:132px 72px 52px 52px 56px 60px; gap:6px;
+  .ammo-head, .ammo-row { width:100%; box-sizing:border-box }
+  /* Flexible column layout to avoid overflow */
+  .ammo-head { display:grid; grid-template-columns:minmax(90px,1fr) 68px 46px 46px 54px 56px; gap:6px;
     padding:4px 6px; font-size:.56rem; text-transform:uppercase; letter-spacing:.55px;
     background:#1b2631; border:1px solid #273543; border-radius:8px; color:#9cb4c9; font-weight:600 }
-  .ammo-row { display:grid; grid-template-columns:132px 72px 52px 52px 56px 60px; gap:6px;
+  .ammo-row { display:grid; grid-template-columns:minmax(90px,1fr) 68px 46px 46px 54px 56px; gap:6px;
     align-items:center; padding:5px 6px; background:#18222d; border:1px solid #22313f;
     border-radius:8px; font-size:.64rem; position:relative }
-  .ammo-head.notes, .ammo-row.notes { grid-template-columns:120px 66px 1fr 48px 48px 54px 56px; }
+  .ammo-head.notes { grid-template-columns:minmax(90px,1fr) 60px minmax(70px,1fr) 44px 44px 50px 54px; }
+  .ammo-row.notes { grid-template-columns:minmax(90px,1fr) 60px minmax(70px,1fr) 44px 44px 50px 54px; }
   .ammo-row:not(:last-child){ margin-bottom:3px }
   .ammo-row:hover { border-color:#2f4658; background:#1d2b36 }
   .ammo-name { font-weight:600; line-height:1.2 }
@@ -54,8 +57,10 @@
   .align-r { text-align:right; font-variant-numeric:tabular-nums }
   .notes-cell { font-size:.55rem; color:#7f94ab; line-height:1.25 }
   @media (max-width:720px){
-    .ammo-head, .ammo-row { grid-template-columns:110px 64px 48px 48px 50px 54px; }
-    .ammo-head.notes, .ammo-row.notes { grid-template-columns:100px 56px 1fr 42px 42px 48px 52px; }
+    .ammo-head { grid-template-columns:minmax(80px,1fr) 56px 40px 40px 48px 50px; }
+    .ammo-row { grid-template-columns:minmax(80px,1fr) 56px 40px 40px 48px 50px; }
+    .ammo-head.notes { grid-template-columns:minmax(80px,1fr) 52px minmax(60px,1fr) 40px 40px 46px 50px; }
+    .ammo-row.notes { grid-template-columns:minmax(80px,1fr) 52px minmax(60px,1fr) 40px 40px 46px 50px; }
   }
   /* End ammo redesign */
   .bad { color:var(--bad) } .good { color:var(--good) } .warn { color:var(--warn) }
