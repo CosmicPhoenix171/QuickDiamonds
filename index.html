@@ -157,7 +157,7 @@
         <input id="search" type="search" placeholder="Search animals, variants, notes…"/>
         <select id="classFilter"><option value="">All Classes</option></select>
         <select id="sexFilter">
-          <option value="">All Sexes</option>
+          <option value="">All TG</option>
           <option value="M">Male-only</option>
           <option value="F">Female-only</option>
           <option value="MF">Both</option>
@@ -373,13 +373,13 @@ function rarityFromPercent(pctStr) {
   return "common";
 }
 
-function sexAbbrev(sex){
-  const s = (sex||'').replace(/\s+/g,'').toUpperCase();
+function tgAbbrev(tg){
+  const s = (tg||'').replace(/\s+/g,'').toUpperCase();
   if(s.includes('M/F') || s.includes('⚥')) return 'M / F';
   if(s.includes('M') && s.includes('F')) return 'M / F';
-  if(/♂/.test(sex)) return 'M';
-  if(/♀/.test(sex)) return 'F';
-  return sex || '—';
+  if(/♂/.test(tg)) return 'M';
+  if(/♀/.test(tg)) return 'F';
+  return tg || '—';
 }
 
 function normalizeVariant(raw) {
@@ -441,7 +441,7 @@ function cardHTML(a){
     <div class="row"><span class="label">Max Diff.</span> <span class="chip">${a.maxDifficulty}</span></div>
     <div class="row"><span class="label">Basis</span> <span class="chip">${a.basis}</span></div>
     <div class="row"><span class="label">Max Weight</span> <span class="chip">${a.maxWeight || a.minWeight || '–'}</span>
-      <span class="label">Sex</span> <span class="chip">${sexAbbrev(a.sex)}</span></div>
+  <span class="label">TG</span> <span class="chip">${tgAbbrev(a.sex)}</span></div>
     <div class="row"><span class="label">Variants</span></div>
     <div class="variants">
       ${variants.map(v => variantChip(v)).join("")}
@@ -463,18 +463,18 @@ function applyFilters(){
   const map = els.map.value;
   const q = els.search.value.toLowerCase().trim();
   const cls = els.classFilter.value;
-  const sex = els.sexFilter.value;
+  const tg = els.sexFilter.value;
   const sortBy = els.sortBy.value;
 
   if(map) list = list.filter(s=> (s.maps||[]).includes(map));
   if(cls) list = list.filter(s=> String(s.class) === String(cls));
-  if(sex){
-    if(sex==='MF') list = list.filter(s=> /M/i.test(s.sex||'') && /F/i.test(s.sex||''));
-    else list = list.filter(s=> (s.sex||'').toUpperCase().includes(sex));
+  if(tg){
+    if(tg==='MF') list = list.filter(s=> /M/i.test(s.sex||'') && /F/i.test(s.sex||''));
+    else list = list.filter(s=> (s.sex||'').toUpperCase().includes(tg));
   }
   if(q){
     list = list.filter(a=>{
-      const hay = [a.animal, a.basis, a.maxDifficulty, a.minWeight, a.sex, ...(a.variants||[])].join(' ').toLowerCase();
+  const hay = [a.animal, a.basis, a.maxDifficulty, a.minWeight, a.sex, ...(a.variants||[])].join(' ').toLowerCase();
       return hay.includes(q);
     });
   }
@@ -545,7 +545,7 @@ els.reset.addEventListener('click', ()=>{
   if (state.map)  els.map.value = state.map;
   if (state.q)    els.search.value = state.q;
   if (state.cls)  els.classFilter.value = state.cls;
-  if (state.sex)  els.sexFilter.value = state.sex;
+  if (state.sex)  els.sexFilter.value = state.sex; // retain backward compatibility with saved state
   if (state.sort) els.sortBy.value = state.sort;
 
   applyFilters();
