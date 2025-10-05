@@ -1,260 +1,322 @@
 [
-  { "weapon": "Virant .22LR", "category": "Rifle", "dlc": "Base", "ammo": [
-      { "name": ".22LR Hollow Point", "classes": [1], "penetration": 4, "expansion": 6 },
-      { "name": ".22LR Polymer Tip", "classes": [1], "penetration": 6, "expansion": 4 }
+  { "weapon": ".223 Docent", "category": "Rifle", "dlc": "Base",
+    "value": 6000, "weight": 2, "score": 150, "accuracy": 100, "recoil": 28, "reload": 49, "hipshot": 86, "magazine": 6,"ammo": [
+      { "name": ".223 Soft Point", "classes": [2,3,4], "penetration": 10, "expansion": 12, "range": 150, "price": 220 },
+      { "name": ".223 Polymer Tip", "classes": [2,3,4], "penetration": 20, "expansion": 3, "range": 150, "price": 350 }
     ] },
-  { "weapon": "Caversham Steward 12G", "category": "Shotgun", "dlc": "Base", "ammo": [
+  { "weapon": ".243 R. Cuomo", "category": "Handgun", "dlc": "Handgun Pack", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
+      { "name": ".243 HC Soft Point", "classes": [2,3], "penetration": 5, "expansion": 7, "range": null, "price": null },
+      { "name": ".243 HC Polymer Tip", "classes": [2,3,4], "penetration": 7, "expansion": 5, "range": null, "price": null }
+    ] },
+  { "weapon": ".270 Huntsman", "category": "Rifle", "dlc": "Base",
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
+      { "name": ".270 Soft Point", "classes": [4,5,6,7,8], "penetration": 6, "expansion": 6, "range": null, "price": null },
+      { "name": ".270 Polymer Tip", "classes": [4,5,6,7,8], "penetration": 8, "expansion": 4, "range": null, "price": null }
+    ] },
+  { "weapon": ".300 Canning Magnum", "category": "Rifle", "dlc": "Yukon DLC", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
+      { "name": ".300 Soft Point", "classes": [7,8,9], "penetration": 8, "expansion": 6, "range": null, "price": null },
+      { "name": ".300 Polymer Tip", "classes": [7,8,9], "penetration": 9, "expansion": 4, "range": null, "price": null }
+    ] },
+  { "weapon": ".44 Panther Magnum", "category": "Handgun", "dlc": "Handgun Pack", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
+      { "name": ".44 Hollow Point", "classes": [3,4,5,6], "penetration": 5, "expansion": 8, "range": null, "price": null },
+      { "name": ".44 Hard Cast", "classes": [4,5,6,7], "penetration": 8, "expansion": 5, "range": null, "price": null }
+    ] },
+  { "weapon": ".45 Rolleston", "category": "Handgun", "dlc": "Handgun Pack", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
+      { "name": ".45 Hollow Point", "classes": [2,3,4], "penetration": 4, "expansion": 8, "range": null, "price": null },
+      { "name": ".45 Hard Cast", "classes": [3,4,5], "penetration": 7, "expansion": 4, "range": null, "price": null }
+    ] },
+  { "weapon": ".45-70 Jernberg Superior", "category": "Rifle", "dlc": "Weapon Pack", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
+      { "name": ".45-70 Expanding", "classes": [4,5,6,7], "penetration": 7, "expansion": 7, "range": null, "price": null },
+      { "name": ".45-70 Flat Nose", "classes": [5,6,7,8], "penetration": 9, "expansion": 5, "range": null, "price": null }
+    ] },
+  { "weapon": "7mm Regent Magnum", "category": "Rifle", "dlc": "Base", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
+      { "name": "7mm Soft Point", "classes": [4,5,6], "penetration": 7, "expansion": 7, "range": null, "price": null },
+      { "name": "7mm Polymer Tip", "classes": [4,5,6,7], "penetration": 9, "expansion": 5, "range": null, "price": null }
+    ] },
+  { "weapon": "10mm Davani", "category": "Handgun", "dlc": "Handgun Pack", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
+      { "name": "10mm JHP", "classes": [2,3,4], "penetration": 5, "expansion": 7, "range": null, "price": null },
+      { "name": "10mm Hard Cast", "classes": [3,4,5], "penetration": 7, "expansion": 5, "range": null, "price": null }
+    ] },
+  { "weapon": "Alexander Longbow", "category": "Bow", "dlc": "Base", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
+      { "name": "Longbow 350 gr Arrow", "classes": [1,2,3,4,5,6,7,8,9], "penetration": 6, "expansion": 7, "range": null, "price": null },
+      { "name": "Longbow 420 gr Arrow", "classes": [3,4,5,6,7,8,9], "penetration": 7, "expansion": 6, "range": null, "price": null }
+    ] },
+  { "weapon": "Andersson .22LR", "category": "Handgun", "dlc": "Handgun Pack", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
+      { "name": ".22LR Pistol Hollow Point", "classes": [1], "penetration": 3, "expansion": 6, "range": null, "price": null },
+      { "name": ".22LR Pistol Solid", "classes": [1], "penetration": 4, "expansion": 4, "range": null, "price": null }
+    ] },
+  { "weapon": "Arzyna .300 Mag Tactical", "category": "Rifle", "dlc": "Modern Rifle DLC", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
+      { "name": ".300 Tactical SP", "classes": [7,8,9], "penetration": 8, "expansion": 6, "range": null, "price": null },
+      { "name": ".300 Tactical PT", "classes": [7,8,9], "penetration": 9, "expansion": 4, "range": null, "price": null }
+    ] },
+  { "weapon": "Bearclaw Lite CB-60", "category": "Bow", "dlc": "Weapon Pack", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
+      { "name": "CB-60 420 gr Bolt", "classes": [1,2,3,4,5,6,7,8,9], "penetration": 7, "expansion": 6, "range": null, "price": null },
+      { "name": "CB-60 540 gr Bolt", "classes": [4,5,6,7,8,9], "penetration": 8, "expansion": 5, "range": null, "price": null }
+    ] },
+  { "weapon": "Cacciatore 12G", "category": "Shotgun", "dlc": "Base", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
+      { "name": "12G Birdshot", "classes": [1,2], "penetration": 3, "expansion": 9, "range": null, "price": null },
+      { "name": "12G Buckshot", "classes": [2,3], "penetration": 5, "expansion": 7, "range": null, "price": null },
+      { "name": "12G Slug", "classes": [2,3,4], "penetration": 8, "expansion": 5, "range": null, "price": null }
+    ] },
+  { "weapon": "Caversham Steward 12G", "category": "Shotgun", "dlc": "Base", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
+      { "name": "12G Birdshot", "classes": [1,2], "penetration": 3, "expansion": 9, "range": null, "price": null },
+      { "name": "12G Buckshot", "classes": [2,3], "penetration": 5, "expansion": 7, "range": null, "price": null },
+      { "name": "12G Slug", "classes": [2,3,4], "penetration": 8, "expansion": 5, "range": null, "price": null }
+    ] },
+  { "weapon": "Coachmate Lever .45-70", "category": "Rifle", "dlc": "Weapon Pack", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
+      { "name": ".45-70 Expanding", "classes": [4,5,6,7], "penetration": 7, "expansion": 7 },
+      { "name": ".45-70 Flat Nose", "classes": [5,6,7,8], "penetration": 9, "expansion": 5 }
+    ] },
+  { "weapon": "Couso Model 1897", "category": "Shotgun", "dlc": "Weapon Pack", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
       { "name": "12G Birdshot", "classes": [1,2], "penetration": 3, "expansion": 9 },
       { "name": "12G Buckshot", "classes": [2,3], "penetration": 5, "expansion": 7 },
       { "name": "12G Slug", "classes": [2,3,4], "penetration": 8, "expansion": 5 }
     ] },
-  { "weapon": "Ranger .243", "category": "Rifle", "dlc": "Base", "ammo": [
-      { "name": ".243 Soft Point", "classes": [2,3], "penetration": 5, "expansion": 7 },
-      { "name": ".243 Polymer Tip", "classes": [2,3,4], "penetration": 7, "expansion": 5 }
-    ] },
-  { "weapon": "Hudzik .50 Caplock", "category": "Muzzleloader", "dlc": "Black Powder", "ammo": [
-      { "name": ".50 Round Ball", "classes": [2,3,4], "penetration": 6, "expansion": 5 },
-      { "name": ".50 Conical Bullet", "classes": [4,5,6], "penetration": 9, "expansion": 4 }
-    ] },
-  { "weapon": "7mm Regent Magnum", "category": "Rifle", "dlc": "Base", "ammo": [
-      { "name": "7mm Soft Point", "classes": [4,5,6], "penetration": 7, "expansion": 7 },
-      { "name": "7mm Polymer Tip", "classes": [4,5,6,7], "penetration": 9, "expansion": 5 }
-    ] },
-  { "weapon": "King 470DB", "category": "Rifle", "dlc": "Africa / Vurhonga", "ammo": [
-      { "name": ".470 NE Soft Point", "classes": [7,8,9], "penetration": 8, "expansion": 8 },
-      { "name": ".470 NE Solid", "classes": [7,8,9], "penetration": 10, "expansion": 3 }
-    ] },
-  { "weapon": ".270 Huntsman", "category": "Rifle", "dlc": "Base", "ammo": [
-      { "name": ".270 Soft Point", "classes": [4,5,6,7,8], "penetration": 6, "expansion": 6 },
-      { "name": ".270 Polymer Tip", "classes": [4,5,6,7,8], "penetration": 8, "expansion": 4 }
-    ] },
-  { "weapon": "Rangemaster 338", "category": "Rifle", "dlc": "Medved DLC", "ammo": [
-      { "name": ".338 Soft Point", "classes": [7,8,9], "penetration": 8, "expansion": 6 },
-      { "name": ".338 Polymer Tip", "classes": [7,8,9], "penetration": 10, "expansion": 4 }
-    ] },
-  { "weapon": ".300 Canning Magnum", "category": "Rifle", "dlc": "Yukon DLC", "ammo": [
-      { "name": ".300 Soft Point", "classes": [7,8,9], "penetration": 8, "expansion": 6 },
-      { "name": ".300 Polymer Tip", "classes": [7,8,9], "penetration": 9, "expansion": 4 }
-    ] },
-  { "weapon": "ZARZA-10 .308", "category": "Rifle", "dlc": "Modern Rifle DLC", "ammo": [
-      { "name": ".308 Soft Point", "classes": [4,5,6,7,8], "penetration": 7, "expansion": 6 },
-      { "name": ".308 Polymer Tip", "classes": [4,5,6,7,8], "penetration": 8, "expansion": 4 }
-    ] },
-  { "weapon": "ZARZA-15 .223", "category": "Rifle", "dlc": "Modern Rifle DLC", "ammo": [
-      { "name": ".223 Soft Point", "classes": [2,3,4], "penetration": 5, "expansion": 6 },
-      { "name": ".223 Polymer Tip", "classes": [2,3,4], "penetration": 7, "expansion": 4 }
-    ] },
-  { "weapon": "Kullman .22H", "category": "Rifle", "dlc": "Varmint DLC", "ammo": [
-      { "name": ".22H Hollow Point", "classes": [1,2], "penetration": 5, "expansion": 7 },
-      { "name": ".22H Jacketed", "classes": [1,2], "penetration": 6, "expansion": 5 }
-    ] },
-  { "weapon": "Cacciatore 12G", "category": "Shotgun", "dlc": "Base", "ammo": [
-      { "name": "12G Birdshot", "classes": [1,2], "penetration": 3, "expansion": 9 },
-      { "name": "12G Buckshot", "classes": [2,3], "penetration": 5, "expansion": 7 },
-      { "name": "12G Slug", "classes": [2,3,4], "penetration": 8, "expansion": 5 }
-    ] },
-  { "weapon": "Couso Model 1897", "category": "Shotgun", "dlc": "Weapon Pack", "ammo": [
-      { "name": "12G Birdshot", "classes": [1,2], "penetration": 3, "expansion": 9 },
-      { "name": "12G Buckshot", "classes": [2,3], "penetration": 5, "expansion": 7 },
-      { "name": "12G Slug", "classes": [2,3,4], "penetration": 8, "expansion": 5 }
-    ] },
-  { "weapon": "Strecker SxS 20G", "category": "Shotgun", "dlc": "Base", "ammo": [
-      { "name": "20G Birdshot", "classes": [1,2], "penetration": 2, "expansion": 9 },
-      { "name": "20G Buckshot", "classes": [2,3], "penetration": 4, "expansion": 7 },
-      { "name": "20G Slug", "classes": [2,3], "penetration": 7, "expansion": 5 }
-    ] },
-  { "weapon": "Alexander Longbow", "category": "Bow", "dlc": "Base", "ammo": [
-      { "name": "Longbow 350 gr Arrow", "classes": [1,2,3,4,5,6,7,8,9], "penetration": 6, "expansion": 7 },
-      { "name": "Longbow 420 gr Arrow", "classes": [3,4,5,6,7,8,9], "penetration": 7, "expansion": 6 }
-    ] },
-  { "weapon": "Bearclaw Lite CB-60", "category": "Bow", "dlc": "Weapon Pack", "ammo": [
-      { "name": "CB-60 420 gr Bolt", "classes": [1,2,3,4,5,6,7,8,9], "penetration": 7, "expansion": 6 },
-      { "name": "CB-60 540 gr Bolt", "classes": [4,5,6,7,8,9], "penetration": 8, "expansion": 5 }
-    ] },
-  { "weapon": "Crosspoint CB-165", "category": "Crossbow", "dlc": "Weapon Pack", "ammo": [
+  { "weapon": "Crosspoint CB-165", "category": "Crossbow", "dlc": "Weapon Pack", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
       { "name": "165 lb Light Bolt", "classes": [1,2,3,4,5,6,7,8,9], "penetration": 8, "expansion": 6 },
       { "name": "165 lb Heavy Bolt", "classes": [4,5,6,7,8,9], "penetration": 9, "expansion": 5 }
     ] },
-  { "weapon": ".44 Panther Magnum", "category": "Handgun", "dlc": "Handgun Pack", "ammo": [
-      { "name": ".44 Hollow Point", "classes": [3,4,5,6], "penetration": 5, "expansion": 8 },
-      { "name": ".44 Hard Cast", "classes": [4,5,6,7], "penetration": 8, "expansion": 5 }
-    ] },
-  { "weapon": "Rhino 454", "category": "Handgun", "dlc": "Handgun Pack", "ammo": [
-      { "name": ".454 Hollow Point", "classes": [5,6,7], "penetration": 6, "expansion": 8 },
-      { "name": ".454 Hard Cast", "classes": [7,8,9], "penetration": 10, "expansion": 4 }
-    ] },
-  { "weapon": ".223 Docent", "category": "Rifle", "dlc": "Base", "ammo": [
-      { "name": ".223 Soft Point", "classes": [2,3,4], "penetration": 6, "expansion": 6 },
-      { "name": ".223 Polymer Tip", "classes": [2,3,4], "penetration": 7, "expansion": 5 }
-    ] },
-  { "weapon": ".243 R. Cuomo", "category": "Handgun", "dlc": "Handgun Pack", "ammo": [
-      { "name": ".243 HC Soft Point", "classes": [2,3], "penetration": 5, "expansion": 7 },
-      { "name": ".243 HC Polymer Tip", "classes": [2,3,4], "penetration": 7, "expansion": 5 }
-    ] },
-  { "weapon": ".45 Rolleston", "category": "Handgun", "dlc": "Handgun Pack", "ammo": [
-      { "name": ".45 Hollow Point", "classes": [2,3,4], "penetration": 4, "expansion": 8 },
-      { "name": ".45 Hard Cast", "classes": [3,4,5], "penetration": 7, "expansion": 4 }
-    ] },
-  { "weapon": ".45-70 Jernberg Superior", "category": "Rifle", "dlc": "Weapon Pack", "ammo": [
-      { "name": ".45-70 Expanding", "classes": [4,5,6,7], "penetration": 7, "expansion": 7 },
-      { "name": ".45-70 Flat Nose", "classes": [5,6,7,8], "penetration": 9, "expansion": 5 }
-    ] },
-  { "weapon": "10mm Davani", "category": "Handgun", "dlc": "Handgun Pack", "ammo": [
-      { "name": "10mm JHP", "classes": [2,3,4], "penetration": 5, "expansion": 7 },
-      { "name": "10mm Hard Cast", "classes": [3,4,5], "penetration": 7, "expansion": 5 }
-    ] },
-  { "weapon": "Andersson .22LR", "category": "Handgun", "dlc": "Handgun Pack", "ammo": [
-      { "name": ".22LR Pistol Hollow Point", "classes": [1], "penetration": 3, "expansion": 6 },
-      { "name": ".22LR Pistol Solid", "classes": [1], "penetration": 4, "expansion": 4 }
-    ] },
-  { "weapon": "Arzyna .300 Mag Tactical", "category": "Rifle", "dlc": "Modern Rifle DLC", "ammo": [
-      { "name": ".300 Tactical SP", "classes": [7,8,9], "penetration": 8, "expansion": 6 },
-      { "name": ".300 Tactical PT", "classes": [7,8,9], "penetration": 9, "expansion": 4 }
-    ] },
-  { "weapon": "Coachmate Lever .45-70", "category": "Rifle", "dlc": "Weapon Pack", "ammo": [
-      { "name": ".45-70 Expanding", "classes": [4,5,6,7], "penetration": 7, "expansion": 7 },
-      { "name": ".45-70 Flat Nose", "classes": [5,6,7,8], "penetration": 9, "expansion": 5 }
-    ] },
-  { "weapon": "Crosspoint CB-165", "duplicate": true, "note": "Already defined above" },
-  { "weapon": "Curman .50 Inline", "category": "Muzzleloader", "dlc": "Black Powder", "ammo": [
+  { "weapon": "Curman .50 Inline", "category": "Muzzleloader", "dlc": "Black Powder", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
       { "name": ".50 Inline Ball", "classes": [3,4,5], "penetration": 6, "expansion": 5 },
       { "name": ".50 Inline Conical", "classes": [5,6,7], "penetration": 9, "expansion": 4 }
     ] },
-  { "weapon": "Eckers .30-06", "category": "Rifle", "dlc": "Trophy DLC", "ammo": [
+  { "weapon": "Eckers .30-06", "category": "Rifle", "dlc": "Trophy DLC", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
       { "name": ".30-06 Soft Point", "classes": [4,5,6,7,8], "penetration": 7, "expansion": 6 },
       { "name": ".30-06 Polymer Tip", "classes": [4,5,6,7,8], "penetration": 8, "expansion": 4 }
     ] },
-  { "weapon": "F.L. Sporter .303", "category": "Rifle", "dlc": "Weapon Pack", "ammo": [
+  { "weapon": "F.L. Sporter .303", "category": "Rifle", "dlc": "Weapon Pack", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
       { "name": ".303 Soft Point", "classes": [4,5,6,7], "penetration": 7, "expansion": 6 },
       { "name": ".303 Spitzer", "classes": [4,5,6,7], "penetration": 8, "expansion": 5 }
     ] },
-  { "weapon": "Focoso 357", "category": "Handgun", "dlc": "Handgun Pack", "ammo": [
+  { "weapon": "Focoso 357", "category": "Handgun", "dlc": "Handgun Pack", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
       { "name": ".357 JHP", "classes": [2,3,4], "penetration": 5, "expansion": 7 },
       { "name": ".357 Hard Cast", "classes": [3,4,5], "penetration": 7, "expansion": 5 }
     ] },
-  { "weapon": "Fors Elite .300", "category": "Rifle", "dlc": "Modern Rifle DLC", "ammo": [
+  { "weapon": "Fors Elite .300", "category": "Rifle", "dlc": "Modern Rifle DLC", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
       { "name": ".300 Elite SP", "classes": [7,8,9], "penetration": 8, "expansion": 6 },
       { "name": ".300 Elite PT", "classes": [7,8,9], "penetration": 9, "expansion": 4 }
     ] },
-  { "weapon": "Gandhare Rifle", "category": "Rifle", "dlc": "Historic Pack", "ammo": [
+  { "weapon": "Gandhare Rifle", "category": "Rifle", "dlc": "Historic Pack", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
       { "name": "Gandhare Lead", "classes": [4,5,6], "penetration": 6, "expansion": 5 },
       { "name": "Gandhare Hardened", "classes": [5,6,7], "penetration": 8, "expansion": 4 }
     ] },
-  { "weapon": "Gopi 10G Grand", "category": "Shotgun", "dlc": "Shotgun Pack", "ammo": [
+  { "weapon": "Gopi 10G Grand", "category": "Shotgun", "dlc": "Shotgun Pack", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
       { "name": "10G Birdshot", "classes": [1,2], "penetration": 3, "expansion": 9 },
       { "name": "10G Buckshot", "classes": [3,4], "penetration": 5, "expansion": 7 },
       { "name": "10G Slug", "classes": [4,5,6], "penetration": 9, "expansion": 5 }
     ] },
-  { "weapon": "Grelck Drilling Rifle", "category": "Combination", "dlc": "Weapon Pack", "ammo": [
+  { "weapon": "Grelck Drilling Rifle", "category": "Combination", "dlc": "Weapon Pack", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
       { "name": "9.3x74R SP", "classes": [7,8], "penetration": 8, "expansion": 6 },
       { "name": "9.3x74R Solid", "classes": [7,8,9], "penetration": 9, "expansion": 4 },
       { "name": "12G Birdshot", "classes": [1,2], "penetration": 3, "expansion": 9 }
     ] },
-  { "weapon": "Hansson .30-06", "category": "Rifle", "dlc": "Trophy DLC", "ammo": [
+  { "weapon": "Hansson .30-06", "category": "Rifle", "dlc": "Trophy DLC", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
       { "name": ".30-06 Soft Point", "classes": [4,5,6,7,8], "penetration": 7, "expansion": 6 },
       { "name": ".30-06 Polymer Tip", "classes": [4,5,6,7,8], "penetration": 8, "expansion": 4 }
     ] },
-  { "weapon": "Hawk Edge CB-70", "category": "Bow", "dlc": "Bow Pack", "ammo": [
+  { "weapon": "Hawk Edge CB-70", "category": "Bow", "dlc": "Bow Pack", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
       { "name": "CB-70 420 gr Arrow", "classes": [1,2,3,4,5,6,7,8,9], "penetration": 6, "expansion": 7 },
       { "name": "CB-70 540 gr Arrow", "classes": [4,5,6,7,8,9], "penetration": 7, "expansion": 6 }
     ] },
-  { "weapon": "Houyi Recurve Bow", "category": "Bow", "dlc": "Bow Pack", "ammo": [
+  { "weapon": "Houyi Recurve Bow", "category": "Bow", "dlc": "Bow Pack", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
       { "name": "Recurve 420 gr Arrow", "classes": [1,2,3,4,5,6,7,8,9], "penetration": 6, "expansion": 7 },
       { "name": "Recurve Heavy Arrow", "classes": [4,5,6,7,8,9], "penetration": 7, "expansion": 5 }
     ] },
-  { "weapon": "Johansson .450", "category": "Rifle", "dlc": "Africa DLC", "ammo": [
+  { "weapon": "Hudzik .50 Caplock", "category": "Muzzleloader", "dlc": "Black Powder", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
+      { "name": ".50 Round Ball", "classes": [2,3,4], "penetration": 6, "expansion": 5 },
+      { "name": ".50 Conical Bullet", "classes": [4,5,6], "penetration": 9, "expansion": 4 }
+    ] },
+  { "weapon": "Johansson .450", "category": "Rifle", "dlc": "Africa DLC", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
       { "name": ".450 Soft Point", "classes": [7,8,9], "penetration": 8, "expansion": 7 },
       { "name": ".450 Solid", "classes": [8,9], "penetration": 10, "expansion": 4 }
     ] },
-  { "weapon": "Koter CB-65 Bow", "category": "Bow", "dlc": "Bow Pack", "ammo": [
+  { "weapon": "King 470DB", "category": "Rifle", "dlc": "Africa / Vurhonga", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
+      { "name": ".470 NE Soft Point", "classes": [7,8,9], "penetration": 8, "expansion": 8 },
+      { "name": ".470 NE Solid", "classes": [7,8,9], "penetration": 10, "expansion": 3 }
+    ] },
+  { "weapon": "Koter CB-65 Bow", "category": "Bow", "dlc": "Bow Pack", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
       { "name": "CB-65 420 gr Arrow", "classes": [1,2,3,4,5,6,7,8,9], "penetration": 6, "expansion": 7 },
       { "name": "CB-65 500 gr Arrow", "classes": [4,5,6,7,8,9], "penetration": 7, "expansion": 5 }
     ] },
-  { "weapon": "Laperriere Outrider .30-30", "category": "Rifle", "dlc": "Weapon Pack", "ammo": [
+  { "weapon": "Kullman .22H", "category": "Rifle", "dlc": "Varmint DLC", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
+      { "name": ".22H Hollow Point", "classes": [1,2], "penetration": 5, "expansion": 7 },
+      { "name": ".22H Jacketed", "classes": [1,2], "penetration": 6, "expansion": 5 }
+    ] },
+  { "weapon": "Laperriere Outrider .30-30", "category": "Rifle", "dlc": "Weapon Pack", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
       { "name": ".30-30 Flat Nose", "classes": [3,4,5,6], "penetration": 6, "expansion": 7 },
       { "name": ".30-30 Hard Cast", "classes": [4,5,6,7], "penetration": 8, "expansion": 5 }
     ] },
-  { "weapon": "M1 Iwaniec", "category": "Rifle", "dlc": "Weapon Pack", "ammo": [
+  { "weapon": "M1 Iwaniec", "category": "Rifle", "dlc": "Weapon Pack", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
       { "name": ".30-06 Soft Point", "classes": [4,5,6,7,8], "penetration": 7, "expansion": 6 },
       { "name": ".30-06 Polymer Tip", "classes": [4,5,6,7,8], "penetration": 8, "expansion": 4 }
     ] },
-  { "weapon": "Malmer 7mm Magnum", "category": "Rifle", "dlc": "Modern Rifle DLC", "ammo": [
+  { "weapon": "Malmer 7mm Magnum", "category": "Rifle", "dlc": "Modern Rifle DLC", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
       { "name": "7mm Magnum SP", "classes": [4,5,6,7], "penetration": 8, "expansion": 6 },
       { "name": "7mm Magnum PT", "classes": [4,5,6,7,8], "penetration": 9, "expansion": 5 }
     ] },
-  { "weapon": "Mangiafico 410/45 Colt", "category": "Handgun", "dlc": "Handgun Pack", "ammo": [
+  { "weapon": "Mangiafico 410/45 Colt", "category": "Handgun", "dlc": "Handgun Pack", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
       { "name": ".410 Birdshot", "classes": [1], "penetration": 2, "expansion": 9 },
       { "name": ".45 Colt Expanding", "classes": [2,3,4], "penetration": 5, "expansion": 7 }
     ] },
-  { "weapon": "Miller Model 1891", "category": "Shotgun", "dlc": "Shotgun Pack", "ammo": [
+  { "weapon": "Miller Model 1891", "category": "Shotgun", "dlc": "Shotgun Pack", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
       { "name": "12G Birdshot", "classes": [1,2], "penetration": 3, "expansion": 9 },
       { "name": "12G Slug", "classes": [2,3,4], "penetration": 8, "expansion": 5 }
     ] },
-  { "weapon": "Moradi Model 1894", "category": "Rifle", "dlc": "Weapon Pack", "ammo": [
+  { "weapon": "Moradi Model 1894", "category": "Rifle", "dlc": "Weapon Pack", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
       { "name": ".30-30 Flat Nose", "classes": [3,4,5,6], "penetration": 6, "expansion": 7 },
       { "name": ".30-30 Hard Cast", "classes": [4,5,6,7], "penetration": 8, "expansion": 5 }
     ] },
-  { "weapon": "Mårtensson 6.5mm", "category": "Rifle", "dlc": "Trophy DLC", "ammo": [
+  { "weapon": "Mårtensson 6.5mm", "category": "Rifle", "dlc": "Trophy DLC", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
       { "name": "6.5mm Soft Point", "classes": [3,4,5,6], "penetration": 6, "expansion": 6 },
       { "name": "6.5mm Spitzer", "classes": [4,5,6,7], "penetration": 7, "expansion": 5 }
     ] },
-  { "weapon": "Nordin 20SA", "category": "Shotgun", "dlc": "Shotgun Pack", "ammo": [
+  { "weapon": "Nordin 20SA", "category": "Shotgun", "dlc": "Shotgun Pack", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
       { "name": "20G Birdshot", "classes": [1,2], "penetration": 2, "expansion": 9 },
       { "name": "20G Buckshot", "classes": [2,3], "penetration": 4, "expansion": 7 },
       { "name": "20G Slug", "classes": [2,3], "penetration": 7, "expansion": 5 }
     ] },
-  { "weapon": "Olsson Model 23 .308", "category": "Rifle", "dlc": "Modern Rifle DLC", "ammo": [
+  { "weapon": "Olsson Model 23 .308", "category": "Rifle", "dlc": "Modern Rifle DLC", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
       { "name": ".308 Soft Point", "classes": [4,5,6,7,8], "penetration": 7, "expansion": 6 },
       { "name": ".308 Polymer Tip", "classes": [4,5,6,7,8], "penetration": 8, "expansion": 4 }
     ] },
-  { "weapon": "Perry .308", "category": "Rifle", "dlc": "Modern Rifle DLC", "ammo": [
+  { "weapon": "Perry .308", "category": "Rifle", "dlc": "Modern Rifle DLC", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
       { "name": ".308 Soft Point", "classes": [4,5,6,7,8], "penetration": 7, "expansion": 6 },
       { "name": ".308 Polymer Tip", "classes": [4,5,6,7,8], "penetration": 8, "expansion": 4 }
     ] },
-  { "weapon": "Quist Reaper 7.62x39", "category": "Rifle", "dlc": "Modern Rifle DLC", "ammo": [
+  { "weapon": "Quist Reaper 7.62x39", "category": "Rifle", "dlc": "Modern Rifle DLC", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
       { "name": "7.62x39 Soft Point", "classes": [3,4,5], "penetration": 6, "expansion": 6 },
       { "name": "7.62x39 FMJ", "classes": [4,5,6], "penetration": 7, "expansion": 4 }
     ] },
-  { "weapon": "Razorback Lite CB-60", "category": "Bow", "dlc": "Bow Pack", "ammo": [
+  { "weapon": "Ranger .243", "category": "Rifle", "dlc": "Base", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
+      { "name": ".243 Soft Point", "classes": [2,3], "penetration": 5, "expansion": 7 },
+      { "name": ".243 Polymer Tip", "classes": [2,3,4], "penetration": 7, "expansion": 5 }
+    ] },
+  { "weapon": "Rangemaster 338", "category": "Rifle", "dlc": "Medved DLC", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
+      { "name": ".338 Soft Point", "classes": [7,8,9], "penetration": 8, "expansion": 6 },
+      { "name": ".338 Polymer Tip", "classes": [7,8,9], "penetration": 10, "expansion": 4 }
+    ] },
+  { "weapon": "Razorback Lite CB-60", "category": "Bow", "dlc": "Bow Pack", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
       { "name": "CB-60 420 gr Arrow", "classes": [1,2,3,4,5,6,7,8,9], "penetration": 6, "expansion": 7 }
     ] },
-  { "weapon": "Solokhin MN1890", "category": "Rifle", "dlc": "Historic Pack", "ammo": [
+  { "weapon": "Rhino 454", "category": "Handgun", "dlc": "Handgun Pack", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
+      { "name": ".454 Hollow Point", "classes": [5,6,7], "penetration": 6, "expansion": 8 },
+      { "name": ".454 Hard Cast", "classes": [7,8,9], "penetration": 10, "expansion": 4 }
+    ] },
+  { "weapon": "Solokhin MN1890", "category": "Rifle", "dlc": "Historic Pack", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
       { "name": "7.62x54R Soft Point", "classes": [4,5,6], "penetration": 7, "expansion": 6 },
       { "name": "7.62x54R FMJ", "classes": [5,6,7], "penetration": 8, "expansion": 5 }
     ] },
-  { "weapon": "Stenberg Takedown Recurve Bow", "category": "Bow", "dlc": "Bow Pack", "ammo": [
+  { "weapon": "Stenberg Takedown Recurve Bow", "category": "Bow", "dlc": "Bow Pack", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
       { "name": "Takedown 420 gr Arrow", "classes": [1,2,3,4,5,6,7,8,9], "penetration": 6, "expansion": 7 }
     ] },
-  { "weapon": "Strandberg 10SA Executive", "category": "Shotgun", "dlc": "Shotgun Pack", "ammo": [
+  { "weapon": "Strandberg 10SA Executive", "category": "Shotgun", "dlc": "Shotgun Pack", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
       { "name": "10SA Birdshot", "classes": [1,2], "penetration": 3, "expansion": 9 },
       { "name": "10SA Buckshot", "classes": [3,4], "penetration": 5, "expansion": 7 },
       { "name": "10SA Slug", "classes": [4,5,6], "penetration": 9, "expansion": 5 }
     ] },
-  { "weapon": "Sundberg 454", "category": "Handgun", "dlc": "Handgun Pack", "ammo": [
+  { "weapon": "Strecker SxS 20G", "category": "Shotgun", "dlc": "Base", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
+      { "name": "20G Birdshot", "classes": [1,2], "penetration": 2, "expansion": 9 },
+      { "name": "20G Buckshot", "classes": [2,3], "penetration": 4, "expansion": 7 },
+      { "name": "20G Slug", "classes": [2,3], "penetration": 7, "expansion": 5 }
+    ] },
+  { "weapon": "Sundberg 454", "category": "Handgun", "dlc": "Handgun Pack", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
       { "name": ".454 Hollow Point", "classes": [5,6,7], "penetration": 6, "expansion": 8 },
       { "name": ".454 Hard Cast", "classes": [7,8,9], "penetration": 10, "expansion": 4 }
     ] },
-  { "weapon": "Tsurugi LRR .338", "category": "Rifle", "dlc": "Sniper Pack", "ammo": [
+  { "weapon": "Tsurugi LRR .338", "category": "Rifle", "dlc": "Sniper Pack", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
       { "name": ".338 LRR SP", "classes": [7,8,9], "penetration": 8, "expansion": 6 },
       { "name": ".338 LRR PT", "classes": [7,8,9], "penetration": 10, "expansion": 4 }
     ] },
-  { "weapon": "Vallgarda .375", "category": "Rifle", "dlc": "Africa DLC", "ammo": [
+  { "weapon": "Vallgarda .375", "category": "Rifle", "dlc": "Africa DLC", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
       { "name": ".375 Soft Point", "classes": [7,8,9], "penetration": 8, "expansion": 7 },
       { "name": ".375 Solid", "classes": [8,9], "penetration": 10, "expansion": 4 }
     ] },
-  { "weapon": "Vasquez Cyclone .45", "category": "Rifle", "dlc": "Weapon Pack", "ammo": [
+  { "weapon": "Vasquez Cyclone .45", "category": "Rifle", "dlc": "Weapon Pack", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
       { "name": ".45 Cyclone Expanding", "classes": [4,5,6], "penetration": 7, "expansion": 7 },
       { "name": ".45 Cyclone Solid", "classes": [6,7,8], "penetration": 9, "expansion": 4 }
     ] },
-  { "weapon": "Whitlock Model 86", "category": "Rifle", "dlc": "Weapon Pack", "ammo": [
+  { "weapon": "Virant .22LR", "category": "Rifle", "dlc": "Base", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
+      { "name": ".22LR Hollow Point", "classes": [1], "penetration": 4, "expansion": 6 },
+      { "name": ".22LR Polymer Tip", "classes": [1], "penetration": 6, "expansion": 4 }
+    ] },
+  { "weapon": "Whitlock Model 86", "category": "Rifle", "dlc": "Weapon Pack", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
       { "name": ".45-70 Expanding", "classes": [4,5,6,7], "penetration": 7, "expansion": 7 },
       { "name": ".45-70 Flat Nose", "classes": [5,6,7,8], "penetration": 9, "expansion": 5 }
     ] },
-  { "weapon": "Zagan Varminter .22-250", "category": "Rifle", "dlc": "Varmint DLC", "ammo": [
+  { "weapon": "Zagan Varminter .22-250", "category": "Rifle", "dlc": "Varmint DLC", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
       { "name": ".22-250 Soft Point", "classes": [2,3,4], "penetration": 6, "expansion": 6 },
       { "name": ".22-250 Polymer Tip", "classes": [2,3,4], "penetration": 7, "expansion": 5 }
     ] },
-  { "weapon": "ZARZA-15 .22LR", "category": "Rifle", "dlc": "Modern Rifle DLC", "ammo": [
+  { "weapon": "ZARZA-10 .308", "category": "Rifle", "dlc": "Modern Rifle DLC", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
+      { "name": ".308 Soft Point", "classes": [4,5,6,7,8], "penetration": 7, "expansion": 6 },
+      { "name": ".308 Polymer Tip", "classes": [4,5,6,7,8], "penetration": 8, "expansion": 4 }
+    ] },
+  { "weapon": "ZARZA-15 .223", "category": "Rifle", "dlc": "Modern Rifle DLC", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
+      { "name": ".223 Soft Point", "classes": [2,3,4], "penetration": 5, "expansion": 6 },
+      { "name": ".223 Polymer Tip", "classes": [2,3,4], "penetration": 7, "expansion": 4 }
+    ] },
+  { "weapon": "ZARZA-15 .22LR", "category": "Rifle", "dlc": "Modern Rifle DLC", 
+    "value": null, "weight": null, "score": null, "accuracy": null, "recoil": null, "reload": null, "hipshot": null, "magazine": null, "ammo": [
       { "name": ".22LR Semi Hollow Point", "classes": [1], "penetration": 4, "expansion": 6 },
       { "name": ".22LR Semi Polymer", "classes": [1], "penetration": 6, "expansion": 4 }
     ] }

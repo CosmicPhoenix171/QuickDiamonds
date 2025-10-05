@@ -124,6 +124,8 @@ function ammoTableRows(ammoList){
       <td><div class="classes">${classes}</div></td>
       <td class="metric">${a.penetration ?? '—'}</td>
       <td class="metric">${a.expansion ?? '—'}</td>
+      <td class="metric">${a.range ?? (a.maxRange ?? '—')}</td>
+      <td class="metric">${a.price !== undefined ? a.price : '—'}</td>
       <td>${a.notes? `<span class="notes">${a.notes}</span>`:''}</td>
     </tr>`;
   }).join('');
@@ -134,7 +136,7 @@ function weaponCard(w){
     <h2>${w.weapon} <span class="cat">${w.category}</span> <span class="dlc">${w.dlc}</span></h2>
     <div class="notes">${w.notes||''}</div>
     <table aria-label="Ammo for ${w.weapon}">
-      <thead><tr><th>Ammo</th><th>Classes</th><th>Pen</th><th>Exp</th><th>Notes</th></tr></thead>
+      <thead><tr><th>Ammo</th><th>Classes</th><th>Pen</th><th>Exp</th><th>Range</th><th>Price</th><th>Notes</th></tr></thead>
       <tbody>${ammoTableRows(w.ammo||[])}</tbody>
     </table>
   </div>`;
