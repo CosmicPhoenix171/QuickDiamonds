@@ -34,15 +34,15 @@
   /* Ammo redesigned grid */
   .ammo-block { margin-top:4px; display:flex; flex-direction:column; gap:6px }
   .ammo-head, .ammo-row { width:100%; box-sizing:border-box }
-  /* Flexible column layout to avoid overflow */
-  .ammo-head { display:grid; grid-template-columns:minmax(90px,1fr) 68px 46px 46px 54px 56px; gap:6px;
-    padding:4px 6px; font-size:.56rem; text-transform:uppercase; letter-spacing:.55px;
+  /* Compact widths so all columns fit inside 320px card */
+  .ammo-head { display:grid; grid-template-columns:minmax(60px,1fr) 50px 38px 38px 42px 42px; gap:4px;
+    padding:4px 6px; font-size:.55rem; text-transform:uppercase; letter-spacing:.5px;
     background:#1b2631; border:1px solid #273543; border-radius:8px; color:#9cb4c9; font-weight:600 }
-  .ammo-row { display:grid; grid-template-columns:minmax(90px,1fr) 68px 46px 46px 54px 56px; gap:6px;
-    align-items:center; padding:5px 6px; background:#18222d; border:1px solid #22313f;
-    border-radius:8px; font-size:.64rem; position:relative }
-  .ammo-head.notes { grid-template-columns:minmax(90px,1fr) 60px minmax(70px,1fr) 44px 44px 50px 54px; }
-  .ammo-row.notes { grid-template-columns:minmax(90px,1fr) 60px minmax(70px,1fr) 44px 44px 50px 54px; }
+  .ammo-row { display:grid; grid-template-columns:minmax(60px,1fr) 50px 38px 38px 42px 42px; gap:4px;
+    align-items:center; padding:4px 6px; background:#18222d; border:1px solid #22313f;
+    border-radius:8px; font-size:.6rem; position:relative }
+  .ammo-head.notes { grid-template-columns:minmax(60px,1fr) 50px minmax(55px,1fr) 38px 38px 42px 42px; }
+  .ammo-row.notes { grid-template-columns:minmax(60px,1fr) 50px minmax(55px,1fr) 38px 38px 42px 42px; }
   .ammo-row:not(:last-child){ margin-bottom:3px }
   .ammo-row:hover { border-color:#2f4658; background:#1d2b36 }
   .ammo-name { font-weight:600; line-height:1.2 }
@@ -57,10 +57,10 @@
   .align-r { text-align:right; font-variant-numeric:tabular-nums }
   .notes-cell { font-size:.55rem; color:#7f94ab; line-height:1.25 }
   @media (max-width:720px){
-    .ammo-head { grid-template-columns:minmax(80px,1fr) 56px 40px 40px 48px 50px; }
-    .ammo-row { grid-template-columns:minmax(80px,1fr) 56px 40px 40px 48px 50px; }
-    .ammo-head.notes { grid-template-columns:minmax(80px,1fr) 52px minmax(60px,1fr) 40px 40px 46px 50px; }
-    .ammo-row.notes { grid-template-columns:minmax(80px,1fr) 52px minmax(60px,1fr) 40px 40px 46px 50px; }
+    .ammo-head { grid-template-columns:minmax(55px,1fr) 46px 34px 34px 38px 38px; font-size:.5rem }
+    .ammo-row { grid-template-columns:minmax(55px,1fr) 46px 34px 34px 38px 38px; font-size:.55rem }
+    .ammo-head.notes { grid-template-columns:minmax(55px,1fr) 44px minmax(50px,1fr) 34px 34px 38px 38px; }
+    .ammo-row.notes { grid-template-columns:minmax(55px,1fr) 44px minmax(50px,1fr) 34px 34px 38px 38px; }
   }
   /* End ammo redesign */
   .bad { color:var(--bad) } .good { color:var(--good) } .warn { color:var(--warn) }
