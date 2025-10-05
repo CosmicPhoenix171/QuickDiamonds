@@ -33,12 +33,13 @@
   .stat-v { font-size:.7rem; font-weight:600; }
   /* Ammo redesigned grid */
   .ammo-block { margin-top:4px; display:flex; flex-direction:column; gap:6px }
-  .ammo-head { display:grid; grid-template-columns:140px 80px 1fr 54px 54px 60px 60px; gap:6px;
-    padding:4px 6px; font-size:.58rem; text-transform:uppercase; letter-spacing:.6px;
+  .ammo-head { display:grid; grid-template-columns:132px 72px 52px 52px 56px 60px; gap:6px;
+    padding:4px 6px; font-size:.56rem; text-transform:uppercase; letter-spacing:.55px;
     background:#1b2631; border:1px solid #273543; border-radius:8px; color:#9cb4c9; font-weight:600 }
-  .ammo-row { display:grid; grid-template-columns:140px 80px 1fr 54px 54px 60px 60px; gap:6px;
-    align-items:center; padding:6px 6px; background:#18222d; border:1px solid #22313f;
-    border-radius:8px; font-size:.66rem; position:relative }
+  .ammo-row { display:grid; grid-template-columns:132px 72px 52px 52px 56px 60px; gap:6px;
+    align-items:center; padding:5px 6px; background:#18222d; border:1px solid #22313f;
+    border-radius:8px; font-size:.64rem; position:relative }
+  .ammo-head.notes, .ammo-row.notes { grid-template-columns:120px 66px 1fr 48px 48px 54px 56px; }
   .ammo-row:not(:last-child){ margin-bottom:3px }
   .ammo-row:hover { border-color:#2f4658; background:#1d2b36 }
   .ammo-name { font-weight:600; line-height:1.2 }
@@ -53,7 +54,8 @@
   .align-r { text-align:right; font-variant-numeric:tabular-nums }
   .notes-cell { font-size:.55rem; color:#7f94ab; line-height:1.25 }
   @media (max-width:720px){
-    .ammo-head, .ammo-row { grid-template-columns:120px 70px 1fr 48px 48px 54px 54px; }
+    .ammo-head, .ammo-row { grid-template-columns:110px 64px 48px 48px 50px 54px; }
+    .ammo-head.notes, .ammo-row.notes { grid-template-columns:100px 56px 1fr 42px 42px 48px 52px; }
   }
   /* End ammo redesign */
   .bad { color:var(--bad) } .good { color:var(--good) } .warn { color:var(--warn) }
@@ -159,8 +161,28 @@ function ammoRow(a){
 
 function ammoBlock(ammoList){
   if(!ammoList || !ammoList.length) return '<div class="notes" style="opacity:.6">No ammo data.</div>';
+  const hasNotes = ammoList.some(a=>a.notes);
+  if(!hasNotes){
+    // Compact variant without notes column
+    return `<div class="ammo-block">
+      <div class="ammo-head">
+        <div>Ammo</div>
+        <div>Classes</div>
+        <div>Pen</div>
+        <div>Exp</div>
+        <div>Range</div>
+        <div>Price</div>
+      </div>
+      ${ammoList.map(a=>{
+        const classes = (a.classes||[]).map(c=>`<span class=\"ammo-pill\" title=\"Class ${c}\">${c}</span>`).join('') || '<span class=\"ammo-dash\">—</span>';
+        const pen=a.penetration??null, exp=a.expansion??null, penPct=Math.min(100,(pen||0)), expPct=Math.min(100,(exp||0));
+        const range=a.range??a.maxRange??null; const price=(a.price!==undefined&&a.price!==null)?a.price:null;
+        return `<div class=\"ammo-row\">\n          <div class=\"ammo-name\">${a.name}</div>\n          <div class=\"ammo-classes\">${classes}</div>\n          <div class=\"metric-box\" title=\"Penetration ${pen??'n/a'}\"><div class=\"metric-val\">${pen??'—'}<\/div><div class=\"bar-wrap\"><div class=\"bar\" style=\"width:${penPct}%;\"><\/div><\/div><\/div>\n          <div class=\"metric-box\" title=\"Expansion ${exp??'n/a'}\"><div class=\"metric-val\">${exp??'—'}<\/div><div class=\"bar-wrap\"><div class=\"bar exp\" style=\"width:${expPct}%;\"><\/div><\/div><\/div>\n          <div class=\"align-r\">${range??'—'}<\/div>\n          <div class=\"align-r\">${price??'—'}<\/div>\n        <\/div>`;
+      }).join('')}
+    </div>`;
+  }
   return `<div class="ammo-block">
-    <div class="ammo-head">
+    <div class="ammo-head notes">
       <div>Ammo</div>
       <div>Classes</div>
       <div>Notes</div>
@@ -169,7 +191,7 @@ function ammoBlock(ammoList){
       <div>Range</div>
       <div>Price</div>
     </div>
-    ${ammoList.map(ammoRow).join('')}
+    ${ammoList.map(ammoRow).map(r=>r.replace('ammo-row"','ammo-row notes"')).join('')}
   </div>`;
 }
 
