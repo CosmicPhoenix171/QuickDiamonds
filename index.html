@@ -201,14 +201,12 @@
 /* =========================
    MAPS
    ========================= */
-const MAPS_BASE = [
-  { id:"layton", name:"Layton Lake District", region:"Pacific Northwest, USA" },
-  { id:"hirsch", name:"Hirschfelden Hunting Reserve", region:"Germany" }
-];
 const MAPS_DLC = [
   { id:"askiy",       name:"Askiy Ridge Hunting Preserve",   region:"Canada" },
   { id:"cuatro",      name:"Cuatro Colinas Game Reserve",    region:"Spain" },
   { id:"emerald",     name:"Emerald Coast",                  region:"Australia" },
+  { id:"hirsch",      name:"Hirschfelden Hunting Reserve",   region:"Germany" },
+  { id:"layton",      name:"Layton Lake District",           region:"Pacific Northwest, USA" },
   { id:"medved",      name:"Medved-Taiga National Park",     region:"Siberia, Russia" },
   { id:"mississippi", name:"Mississippi Acres Preserve",     region:"USA" },
   { id:"newengland",  name:"New England Mountains",          region:"USA" },
@@ -222,7 +220,7 @@ const MAPS_DLC = [
   { id:"vurhonga",    name:"Vurhonga Savanna Reserve",       region:"Africa" },
   { id:"yukon",       name:"Yukon Valley",                   region:"Alaska" }
 ];
-const MAPS_BY_ID = [...MAPS_BASE, ...MAPS_DLC].reduce((a,m)=> (a[m.id]=m, a), {});
+const MAPS_BY_ID = MAPS_DLC.reduce((a,m)=> (a[m.id]=m, a), {});
 
 /* =========================
    ELEMENTS & STATE
@@ -239,7 +237,7 @@ const els = {
   reset: document.getElementById('resetBtn')
 };
 
-[...MAPS_BASE, ...MAPS_DLC].forEach(m=>{
+MAPS_DLC.forEach(m=>{
   const o=document.createElement('option'); o.value=m.id; o.textContent=`${m.name}`; els.map.appendChild(o);
 });
 
