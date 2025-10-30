@@ -12,10 +12,15 @@
   }
   body { 
     margin:0; 
-    /* Layered background: dark gradient overlay + background image */
-    background: 
+    /* Layered background with path fallbacks: tries 'assests' then 'assets' */
+    background-image: 
       linear-gradient(180deg, rgba(14,19,25,.86), rgba(22,31,40,.9)),
-      url('assets/images/background.jpg') center / cover fixed no-repeat;
+      url('assests/images/background.jpg'),
+      url('assets/images/background.jpg');
+    background-position: center, center, center;
+    background-size: auto, cover, cover;
+    background-repeat: no-repeat, no-repeat, no-repeat;
+    background-attachment: scroll, fixed, fixed;
     background-color:#0e1319; /* fallback */
     color:var(--ink); 
     min-height:100vh; 
