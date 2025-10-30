@@ -12,15 +12,16 @@
   }
   body { 
     margin:0; 
-    /* Layered background with path fallbacks: tries 'assests' then 'assets' */
+    /* Layered background with path fallbacks. Order: gradient, actual file, assets fallback, assests fallback */
     background-image: 
       linear-gradient(180deg, rgba(14,19,25,.86), rgba(22,31,40,.9)),
-      url('assests/images/background.jpg'),
-      url('assets/images/background.jpg');
-    background-position: center, center, center;
-    background-size: auto, cover, cover;
-    background-repeat: no-repeat, no-repeat, no-repeat;
-    background-attachment: scroll, fixed, fixed;
+      url('assets/images/Siuslaw-NF_Drift-Creek_Sam-Beebe-1200x800-qual30.jpg'),
+      url('assets/images/background.jpg'),
+      url('assests/images/background.jpg');
+    background-position: center, center, center, center;
+    background-size: auto, cover, cover, cover;
+    background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+    background-attachment: scroll, fixed, fixed, fixed;
     background-color:#0e1319; /* fallback */
     color:var(--ink); 
     min-height:100vh; 
