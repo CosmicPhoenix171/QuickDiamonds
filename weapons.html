@@ -10,7 +10,16 @@
     --good:#3bcf6e; --warn:#ffb347; --bad:#ff5964; --muted:#7f94ab;
     font-family: system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
   }
-  body { margin:0; background:linear-gradient(180deg,#0e1319,#161f28); color:var(--ink); min-height:100vh; }
+  body { 
+    margin:0; 
+    /* Layered background: dark gradient overlay + background image */
+    background: 
+      linear-gradient(180deg, rgba(14,19,25,.86), rgba(22,31,40,.9)),
+      url('assets/images/background.jpg') center / cover fixed no-repeat;
+    background-color:#0e1319; /* fallback */
+    color:var(--ink); 
+    min-height:100vh; 
+  }
   header { padding:16px 24px; background:#121a22; border-bottom:1px solid #1f2b35; display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap }
   h1 { margin:0; font-size:clamp(1.2rem,2vw,1.8rem); letter-spacing:.5px }
   .sub { font-size:.8rem; color:var(--muted); margin-top:4px }
